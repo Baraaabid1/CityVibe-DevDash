@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SupprimerReclamationController">
+   <children>
+      <TextField fx:id="idR" layoutX="39.0" layoutY="57.0" />
+      <Text layoutX="47.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id Reclamation" wrappingWidth="132.48876953125" />
+      <Text layoutX="47.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La reclamation" wrappingWidth="124.59912109375" />
+      <Text fx:id="affiche" layoutX="61.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="448.6708984375" />
+      <Button layoutX="319.0" layoutY="262.0" mnemonicParsing="false" onAction="#SupprimerReclamation" style="-fx-background-color: #F99D26;" text="Supprimer" />
+      <Button layoutX="453.0" layoutY="262.0" mnemonicParsing="false" onAction="#ListeReclamation" text="Liste" />
+      <Button layoutX="300.0" layoutY="57.0" mnemonicParsing="false" onAction="#AfficherReclamation" style="-fx-background-color: #F99D26;" text="Afficher Reclamation" />
+   </children>
+</AnchorPane>
