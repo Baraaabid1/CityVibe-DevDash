@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AjouterUserController">
+   <children>
+      <TextField fx:id="nomU" layoutX="70.0" layoutY="66.0" promptText="Nom" />
+      <TextField fx:id="prenomU" layoutX="70.0" layoutY="130.0" promptText="prenom" />
+      <TextField fx:id="emailU" layoutX="70.0" layoutY="325.0" promptText="email" />
+      <DatePicker fx:id="dateNaissanceU" layoutX="70.0" layoutY="262.0" promptText="date de naissance" />
+      <TextField fx:id="numTelU" layoutX="343.0" layoutY="66.0" promptText="tel" />
+      <PasswordField fx:id="passwordU" layoutX="70.0" layoutY="205.0" promptText="password" />
+      <Button layoutX="439.0" layoutY="346.0" mnemonicParsing="false" onAction="#AjouterUser" style="-fx-background-color: #F99D26;" text="Ajouter" textFill="WHITE" />
+      <ChoiceBox fx:id="prefrenceBox" layoutX="343.0" layoutY="124.0" prefHeight="31.0" prefWidth="187.0" />
+      <ChoiceBox fx:id="roleBox" layoutX="347.0" layoutY="262.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="locationBox" layoutX="343.0" layoutY="187.0" prefHeight="31.0" prefWidth="187.0" />
+   </children>
+</AnchorPane>
