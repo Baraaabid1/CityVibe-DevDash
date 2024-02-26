@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PubVisiteurcontroller">
+   <children>
+      <Label layoutX="129.0" layoutY="59.0" text="Nom :" textFill="#f99d26">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="127.0" layoutY="241.0" text="Description :" textFill="#f99d26">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="129.0" layoutY="418.0" text="Image :" textFill="#f99d26">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="nomV" layoutX="285.0" layoutY="60.0" prefHeight="18.0" prefWidth="914.0" style="-fx-background-color: white; -fx-background-radius: 30;" />
+      <Label fx:id="descV" layoutX="297.0" layoutY="218.0" prefHeight="90.0" prefWidth="914.0" style="-fx-background-color: white; -fx-background-radius: 30;" />
+      <ImageView fx:id="imagV" fitHeight="228.0" fitWidth="914.0" layoutX="297.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

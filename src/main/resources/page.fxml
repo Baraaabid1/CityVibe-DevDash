@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.pagecontroller">
+   <children>
+      <ImageView fx:id="img" fitHeight="53.0" fitWidth="119.0" layoutX="628.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="logo" fitHeight="38.0" fitWidth="60.0" layoutX="665.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="nom" layoutX="580.0" layoutY="115.0" prefHeight="18.0" prefWidth="256.0" style="-fx-background-color: transparent;">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Pane layoutX="294.0" layoutY="175.0" prefHeight="122.0" prefWidth="828.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <Text layoutX="32.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Déscription">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Label fx:id="descrip" layoutX="24.0" layoutY="54.0" prefHeight="54.0" prefWidth="779.0" style="-fx-background-color: transparent; -fx-background-radius: 30;" />
+         </children>
+      </Pane>
+      <Pane layoutX="294.0" layoutY="339.0" prefHeight="200.0" prefWidth="368.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <Text layoutX="40.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Localisation :">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Label fx:id="loc" layoutX="23.0" layoutY="100.0" prefHeight="54.0" prefWidth="323.0" style="-fx-background-color: transparent; -fx-background-radius: 30;" />
+         </children>
+      </Pane>
+      <Pane layoutX="695.0" layoutY="339.0" prefHeight="200.0" prefWidth="428.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <Text layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Catègorie :">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="16.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact :">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text layoutX="16.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ouverture :">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Label fx:id="ouvr" layoutX="143.0" layoutY="158.0" prefHeight="18.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-background-radius: 30;" />
+            <Label fx:id="cat" layoutX="143.0" layoutY="27.0" prefHeight="18.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-background-radius: 30;" />
+            <Label fx:id="contact" layoutX="143.0" layoutY="91.0" prefHeight="18.0" prefWidth="236.0" style="-fx-background-color: transparent; -fx-background-radius: 30;" />
+            <Line endX="291.2000732421875" layoutX="117.0" layoutY="67.0" startX="-100.0" stroke="#ccc9c9" />
+            <Line endX="291.2000732421875" layoutX="117.0" layoutY="127.0" startX="-100.0" stroke="#ccc9c9" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

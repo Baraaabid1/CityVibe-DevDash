@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ConsulterLieuxcontroller">
+   <children>
+      <Pane layoutX="56.0" layoutY="62.0" prefHeight="258.0" prefWidth="1008.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <ImageView fx:id="imageC" fitHeight="150.0" fitWidth="200.0" layoutX="30.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="NomC" layoutX="272.0" layoutY="35.0" prefHeight="31.0" prefWidth="687.0" style="-fx-background-color: transparent;" />
+            <Label fx:id="DesC" layoutX="272.0" layoutY="101.0" prefHeight="73.0" prefWidth="687.0" style="-fx-background-color: blactransaprentk;" />
+            <Button layoutX="868.0" layoutY="208.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Supprimer" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="755.0" layoutY="208.0" mnemonicParsing="false" onAction="#consulter" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Consulter" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
