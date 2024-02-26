@@ -155,8 +155,7 @@ public class AjoutReclamationController {
             String apropoValue = apropo.getValue();
 
             Reclamation reclamation = new Reclamation();
-            reclamation.setIdR(idR); // Set the idR
-            // Assuming idu and temp are properties of the Reclamation class, set them accordingly
+            reclamation.setIdR(idR);
             reclamation.setIdu(1);
             reclamation.setTemp(currentTimestamp);
             reclamation.setTitre(titreValue);
@@ -167,7 +166,6 @@ public class AjoutReclamationController {
             rs.modifier(reclamation);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the SQL exception
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheReclamationU.fxml"));
         Parent root = loader.load();
