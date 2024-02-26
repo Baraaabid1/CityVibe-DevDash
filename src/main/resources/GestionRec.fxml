@@ -309,7 +309,7 @@
         <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
          <children>
             <Pane layoutX="75.0" prefHeight="79.0" prefWidth="741.0" style="-fx-background-color: white; -fx-background-radius: 15;" />
-             <ListView fx:id="List" layoutX="75.0" layoutY="98.0" prefHeight="473.0" prefWidth="742.0" style="-fx-background-color: transparent;" />
+             <ListView fx:id="List" editable="true" layoutX="75.0" layoutY="98.0" prefHeight="473.0" prefWidth="742.0" style="-fx-background-color: transparent; -fx-background-radius: 15; -fx-border-width: 0;" />
          </children>
         </AnchorPane>    </center>
 </BorderPane>

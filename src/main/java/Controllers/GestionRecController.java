@@ -33,9 +33,10 @@ public class GestionRecController {
     private ReclamationService rs = new ReclamationService();
 
     public void initialize() {
+
         try {
-           // List.setStyle("-fx-background-color: transparent;");
             ObservableList<Reclamation> reclamations = FXCollections.observableArrayList(rs.afficher());
+            List.setStyle("-fx-control-inner-background: rgba(244,244,244,255);-fx-border-color: transparent;-fx-selection-bar: transparent;");
 
             List.setCellFactory(new Callback<>() {
                 @Override

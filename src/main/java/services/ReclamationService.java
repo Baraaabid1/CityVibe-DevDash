@@ -1,6 +1,7 @@
 package services;
 
 import models.Reclamation;
+import models.ReponseR;
 import utils.MyDataBase;
 
 import java.sql.*;
@@ -122,6 +123,15 @@ public class ReclamationService implements IService<Reclamation> {
         ps.close();
         return reclamations;
     }
+   /* public void addResponseToReclamation(int reclamationId, ReponseR response) {
+        Reclamation reclamation = reclamationDAO.getReclamationById(reclamationId);
+
+        if (reclamation != null) {
+            reclamation.addResponse(response);
+            reclamationDAO.updateReclamation(reclamation);
+        } else {
+        }
+    }*/
 
 
 }

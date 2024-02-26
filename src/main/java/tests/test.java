@@ -44,9 +44,6 @@ public class test {
                 System.out.println("Réclamation non trouvée !");
             }
 
-            // Supprimer une réclamation (supposons que nous avons déjà une réclamation avec l'ID 1)
-            rs.supprimer(1);
-            System.out.println("Réclamation supprimée avec succès !");
         } catch (SQLException e) {
             e.printStackTrace();
         }

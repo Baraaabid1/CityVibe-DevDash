@@ -1,11 +1,38 @@
 package models;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Reclamation {
 private int idR , idu ;
 private String titre, contenu, type , apropo ;
 private Timestamp temp;
+private List<ReponseR> responses;
+
+    public void AjoutReponse(ReponseR rep) {
+        if (responses == null) {
+            responses = new ArrayList<>();
+        }
+        responses.add(rep);
+    }
+
+    public List<ReponseR> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(List<ReponseR> responses) {
+        this.responses = responses;
+    }
+
+    public Reclamation(String titre, String contenu, String type, String apropo, Timestamp temp, List<ReponseR> responses) {
+        this.titre = titre;
+        this.contenu = contenu;
+        this.type = type;
+        this.apropo = apropo;
+        this.temp = temp;
+        this.responses = responses;
+    }
 
     public Reclamation() {
     }

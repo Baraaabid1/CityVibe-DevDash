@@ -64,4 +64,15 @@ public class ReponseR {
     public void setDate_repR(Timestamp date_repR) {
         this.date_repR = date_repR;
     }
+
+    @Override
+    public String toString() {
+        return "ReponseR{" +
+                "idRR=" + idRR +
+                ", idR=" + idR +
+                ", idU=" + idU +
+                ", textR='" + textR + '\'' +
+                ", date_repR=" + date_repR +
+                '}';
+    }
 }
