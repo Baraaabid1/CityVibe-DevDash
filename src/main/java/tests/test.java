@@ -58,6 +58,12 @@ public class test {
             System.out.println(e.getMessage());
         }
 
+        try {
+            System.out.println(rs.MesReclamations(1));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
 
 
 

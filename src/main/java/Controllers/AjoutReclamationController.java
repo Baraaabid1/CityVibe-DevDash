@@ -6,11 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Reclamation;
 import services.ReclamationService;
@@ -47,15 +45,19 @@ public class AjoutReclamationController {
     @FXML
     private TextField event;
 
-    private Stage stage ;
-    private Scene scene ;
-    private Parent root ;
+
+    @FXML
+    private Button modif_button;
+
+    @FXML
+    private Text idRModif;
 
     ReclamationService rs = new ReclamationService();
     LocalDateTime currentDateTime = LocalDateTime.now();
     Timestamp currentTimestamp = Timestamp.valueOf(currentDateTime);
 
     public void initialize() {
+        modif_button.setVisible(false);
         ObservableList<String> typeReclamation = FXCollections.observableArrayList(
                 "Réclamation Urgente",
                 "Bugs ou plantages",
@@ -95,35 +97,84 @@ public class AjoutReclamationController {
     }
     @FXML
     void ajouterReclamation(ActionEvent event) {
+        String titreValue = titre.getText();
+        String textValue = text.getText();
+        String typeRecValue = type_rec.getValue();
+        String apropoValue = apropo.getValue();
 
+        int idu = 1;
+
+        // Create a Reclamation object
+        Reclamation reclamation = new Reclamation();
+        reclamation.setIdu(idu);
+        reclamation.setTemp(currentTimestamp);
+        reclamation.setTitre(titreValue);
+        reclamation.setContenu(textValue);
+        reclamation.setType(typeRecValue);
+        reclamation.setApropo(apropoValue);
+
+        try {
+            rs.ajouter(reclamation);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-   /* private VBox createReclamationCard(Reclamation reclamation) {
-        VBox card = new VBox();
-        card.setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-padding: 10px;");
-        card.setSpacing(5);
 
-        Label typeLabel = new Label("Type: " + reclamation.getType());
-        Label dateLabel = new Label("Date: " + reclamation.getDate());
-        Label titleLabel = new Label("Titre: " + reclamation.getTitre());
-        Label contenuLabel = new Label("Contenu: " + reclamation.getContenu());
-
-        card.getChildren().addAll(typeLabel, dateLabel, titleLabel, contenuLabel);
-
-        return card;
-    }*/
 
 
     @FXML
     void AfficherListe(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeReclamations.fxml"));
-        root = loader.load();
-        ListeReclamationsController Lc = loader.getController();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheReclamationU.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
 
     }
+
+    public void modifierRec(int idR) {
+        modif_button.setVisible(true);
+        try {
+            Reclamation reclamation = rs.afficherR(idR);
+            titre.setText(reclamation.getTitre());
+            text.setText(reclamation.getContenu());
+            type_rec.setValue(reclamation.getType());
+            apropo.setValue(reclamation.getApropo());
+            idRModif.setText(String.valueOf(idR));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void Modifier(ActionEvent event) throws IOException {
+        try {
+            int idR = Integer.parseInt(idRModif.getText());
+            String titreValue = titre.getText();
+            String textValue = text.getText();
+            String typeRecValue = type_rec.getValue();
+            String apropoValue = apropo.getValue();
+
+            Reclamation reclamation = new Reclamation();
+            reclamation.setIdR(idR); // Set the idR
+            // Assuming idu and temp are properties of the Reclamation class, set them accordingly
+            reclamation.setIdu(1);
+            reclamation.setTemp(currentTimestamp);
+            reclamation.setTitre(titreValue);
+            reclamation.setContenu(textValue);
+            reclamation.setType(typeRecValue);
+            reclamation.setApropo(apropoValue);
+
+            rs.modifier(reclamation);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the SQL exception
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficheReclamationU.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+    }
+
 
     @FXML
     void Button_Acceuil(ActionEvent event) {

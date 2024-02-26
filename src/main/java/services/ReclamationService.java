@@ -99,5 +99,29 @@ public class ReclamationService implements IService<Reclamation> {
 
         return null;
     }
+    public List<Reclamation> MesReclamations(int idu) throws SQLException {
+        String req = "SELECT * FROM reclamation WHERE idu = ?";
+        List<Reclamation> reclamations = new ArrayList<>();
+
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setInt(1, idu);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            Reclamation reclamation = new Reclamation();
+            reclamation.setIdR(rs.getInt("idR"));
+            reclamation.setIdu(rs.getInt("idu"));
+            reclamation.setTemp(rs.getTimestamp("temp"));
+            reclamation.setTitre(rs.getString("titreR"));
+            reclamation.setContenu(rs.getString("contenu"));
+            reclamation.setType(rs.getString("typeR"));
+            reclamation.setApropo(rs.getString("apropo"));
+
+            reclamations.add(reclamation);
+        }
+        rs.close();
+        ps.close();
+        return reclamations;
+    }
+
 
 }
