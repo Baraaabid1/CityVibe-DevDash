@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="287.0" prefWidth="333.0" style="-fx-background-color: f1f1f1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Comment">
+   <children>
+      <TextArea fx:id="Comment" layoutX="22.0" layoutY="34.0" prefHeight="131.0" prefWidth="297.0" promptText="Commentaire" style="-fx-background-color: white; -fx-background-radius: 30;" />
+      <Button fx:id="commentAj" layoutX="101.0" layoutY="227.0" mnemonicParsing="false" onAction="#CommentAjouter" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Ajouter" textFill="#ebebeb">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
