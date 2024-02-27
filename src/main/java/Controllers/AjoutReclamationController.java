@@ -1,5 +1,6 @@
 package Controllers;
 
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.Reclamation;
 import services.ReclamationService;
 
@@ -50,14 +52,42 @@ public class AjoutReclamationController {
     private Button modif_button;
 
     @FXML
+    private Button buttonAjout;
+
+    @FXML
     private Text idRModif;
+
+    @FXML
+    private Text TypeAlert;
+
+    @FXML
+    private Text maxTitreAlert;
+
+    @FXML
+    private Text ContAlert;
+
+    @FXML
+    private Text apropoAlert1;
+
+    @FXML
+    private Text noTitreAlert1;
+
+    @FXML
+    private Text noRecAlert;
+
 
     ReclamationService rs = new ReclamationService();
     LocalDateTime currentDateTime = LocalDateTime.now();
     Timestamp currentTimestamp = Timestamp.valueOf(currentDateTime);
 
     public void initialize() {
-        modif_button.setVisible(false);
+        idRModif.setVisible(false);
+        TypeAlert.setVisible(false);
+        maxTitreAlert.setVisible(false);
+        ContAlert.setVisible(false);
+        apropoAlert1.setVisible(false);
+        noTitreAlert1.setVisible(false);
+        noRecAlert.setVisible(false);
         ObservableList<String> typeReclamation = FXCollections.observableArrayList(
                 "Réclamation Urgente",
                 "Bugs ou plantages",
@@ -97,14 +127,91 @@ public class AjoutReclamationController {
     }
     @FXML
     void ajouterReclamation(ActionEvent event) {
-        String titreValue = titre.getText();
-        String textValue = text.getText();
-        String typeRecValue = type_rec.getValue();
-        String apropoValue = apropo.getValue();
+            String titreValue = titre.getText();
+            String textValue = text.getText();
+            String typeRecValue = type_rec.getValue();
+             String apropoValue = apropo.getValue();
 
-        int idu = 1;
+        if (typeRecValue == null|| typeRecValue.isEmpty()) {
+            TypeAlert.setVisible(true);
+            maxTitreAlert.setVisible(false);
+            ContAlert.setVisible(false);
+            apropoAlert1.setVisible(false);
+            noTitreAlert1.setVisible(false);
+            noRecAlert.setVisible(false);
+            shakeButton();
 
-        // Create a Reclamation object
+            return;
+        }
+        if (apropoValue == null || apropoValue.isEmpty()) {
+            apropoAlert1.setVisible(true);
+            TypeAlert.setVisible(false);
+            maxTitreAlert.setVisible(false);
+            ContAlert.setVisible(false);
+            noTitreAlert1.setVisible(false);
+            noRecAlert.setVisible(false);
+            shakeButton();
+
+            return;
+        }
+        if (titreValue == null|| titreValue.isEmpty() ) {
+            noTitreAlert1.setVisible(true);
+            TypeAlert.setVisible(false);
+            maxTitreAlert.setVisible(false);
+            ContAlert.setVisible(false);
+            apropoAlert1.setVisible(false);
+            noRecAlert.setVisible(false);
+            shakeButton();
+            return;
+        }
+
+
+            if ( titreValue.length() > 100) {
+                maxTitreAlert.setVisible(true);
+                TypeAlert.setVisible(false);
+                ContAlert.setVisible(false);
+                apropoAlert1.setVisible(false);
+                noTitreAlert1.setVisible(false);
+                noRecAlert.setVisible(false);
+                shakeButton();
+                return;
+            }
+
+        if (textValue == null|| textValue.isEmpty() ) {
+            noRecAlert.setVisible(true);
+            TypeAlert.setVisible(false);
+            maxTitreAlert.setVisible(false);
+            ContAlert.setVisible(false);
+            apropoAlert1.setVisible(false);
+            noTitreAlert1.setVisible(false);
+            shakeButton();
+            return;
+        }
+
+            if ( textValue.length() > 1000) {
+                ContAlert.setVisible(true);
+                TypeAlert.setVisible(false);
+                maxTitreAlert.setVisible(false);
+                apropoAlert1.setVisible(false);
+                noTitreAlert1.setVisible(false);
+                noRecAlert.setVisible(false);
+                shakeButton();
+
+                return;
+            }
+            int idu = 1;
+
+
+        String selectedApropo;
+
+        if ("Autre".equals(apropoValue)) {
+            selectedApropo = apropo.getValue();
+        } else if ("Lieux".equals(apropoValue)) {
+            selectedApropo = page.getText();
+        } else {
+            selectedApropo = apropoValue;
+        }
+
         Reclamation reclamation = new Reclamation();
         reclamation.setIdu(idu);
         reclamation.setTemp(currentTimestamp);
@@ -113,13 +220,23 @@ public class AjoutReclamationController {
         reclamation.setType(typeRecValue);
         reclamation.setApropo(apropoValue);
 
-        try {
-            rs.ajouter(reclamation);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
+            try {
+                rs.ajouter(reclamation);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    private void shakeButton() {
+        TranslateTransition shakeTransition = new TranslateTransition(Duration.seconds(0.05), buttonAjout);
+        shakeTransition.setFromX(0);
+        shakeTransition.setToX(10);
+        shakeTransition.setCycleCount(6);
+        shakeTransition.setAutoReverse(true);
+
+        shakeTransition.play();
+    }
 
 
     @FXML

@@ -94,6 +94,7 @@ public class AfficheReclamationU {
                                         alert.showAndWait();
                                     }
                                     System.out.println("Delete button clicked for reclamation ID: " + reclamation.getIdR());
+                                    //reclamations.remove(reclamation);
                                 });
 
                                 responseButton.setOnAction(event -> {
