@@ -1,5 +1,6 @@
 package services;
 
+import models.Reclamation;
 import models.ReponseR;
 import utils.MyDataBase;
 
@@ -67,4 +68,36 @@ public class ReponseRService implements IService<ReponseR>{
         }
         return reponseRs;
     }
+
+    public List<ReponseR> afficherReponsesForReclamation(int idR) throws SQLException {
+        List<ReponseR> reponseRs = new ArrayList<>();
+        String query = "SELECT r.titreR, r.typeR, rp.idRR, rp.idR, rp.idU, rp.textR, rp.date_repR " +
+                "FROM reclamation r " +
+                "JOIN reponser rp ON r.idR = rp.idR " +
+                "WHERE r.idR = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, idR);
+            try (ResultSet resultSet = ps.executeQuery()) {
+                while (resultSet.next()) {
+                    ReponseR reponseR = new ReponseR();
+                    reponseR.setIdRR(resultSet.getInt("idRR"));
+                    reponseR.setIdR(resultSet.getInt("idR"));
+                    reponseR.setIdU(resultSet.getInt("idU"));
+                    reponseR.setTextR(resultSet.getString("textR"));
+                    reponseR.setDate_repR(resultSet.getTimestamp("date_repR"));
+
+                    // Retrieving additional information from the reclamation table
+                    Reclamation reclamation = new Reclamation();
+                    reclamation.setTitre(resultSet.getString("titreR"));
+                    reclamation.setType(resultSet.getString("typeR"));
+                    reponseR.setReclamation(reclamation);
+
+                    reponseRs.add(reponseR);
+                }
+            }
+        }
+        return reponseRs;
+    }
+
 }

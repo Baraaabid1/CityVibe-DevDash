@@ -16,7 +16,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import models.Reclamation;
+import models.ReponseR;
 import services.ReclamationService;
+import services.ReponseRService;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -28,15 +30,19 @@ public class GestionRecController {
 
     @FXML
     private TextField seachbar;
+    @FXML
+    private ListView<ReponseR> listReponses;
 
 
     private ReclamationService rs = new ReclamationService();
+    private ReponseRService rrs = new ReponseRService();
+
 
     public void initialize() {
 
         try {
             ObservableList<Reclamation> reclamations = FXCollections.observableArrayList(rs.afficher());
-            List.setStyle("-fx-control-inner-background: rgba(244,244,244,255);-fx-border-color: transparent;-fx-selection-bar: transparent;");
+            List.setStyle("-fx-control-inner-background: rgba(244,244,244,255);-fx-border-width: 0;-fx-selection-bar: transparent;");
 
             List.setCellFactory(new Callback<>() {
                 @Override
@@ -51,42 +57,29 @@ public class GestionRecController {
                             } else {
                                 // Create labels for title, type, content, and time
                                 Label titleLabel = new Label(reclamation.getTitre());
-                                titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14pt;");
+                                titleLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14pt;-fx-text-fill: black;");
 
                                 Label typeTimeLabel = new Label(reclamation.getType() + " - " + reclamation.getTemp());
                                 typeTimeLabel.setStyle("-fx-font-size: 10pt; -fx-text-fill: grey;");
 
                                 Label contentLabel = new Label(reclamation.getContenu());
-                                contentLabel.setStyle("-fx-font-size: 12pt;");
+                                contentLabel.setStyle("-fx-font-size: 12pt;-fx-text-fill: black;");
 
                                 // Add buttons to a horizontal box
                                 HBox buttonsBox = new HBox();
-                                Button deleteButton = createStyledButton("Delete");
                                 Button responseButton = createStyledButton("Repondre");
 
                                 // Set alignment of the buttons box
-                                buttonsBox.setAlignment(Pos.CENTER);
+                                buttonsBox.setAlignment(Pos.CENTER_RIGHT);
 
-                                // Set button actions
-                                deleteButton.setOnAction(event -> {
-                                    try {
-                                        rs.supprimer(reclamation.getIdR());
-                                        getListView().getItems().remove(reclamation); // Remove from the observable list
-                                    } catch (SQLException e) {
-                                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                                        alert.setTitle("Error");
-                                        alert.setContentText(e.getMessage());
-                                        alert.showAndWait();
-                                    }
-                                    System.out.println("Delete button clicked for reclamation ID: " + reclamation.getIdR());
-                                });
+
 
                                 responseButton.setOnAction(event -> {
                                     // Handle response action
                                     System.out.println("Response button clicked for reclamation ID: " + reclamation.getIdR());
                                 });
 
-                                buttonsBox.getChildren().addAll(deleteButton, responseButton);
+                                buttonsBox.getChildren().addAll(responseButton);
                                 buttonsBox.setSpacing(10);
 
                                 // Create a vertical box to hold labels and buttons
@@ -98,6 +91,16 @@ public class GestionRecController {
                                 reclamationBox.setStyle("-fx-padding: 10px; -fx-spacing: 10px; -fx-background-color: rgba(255, 255, 255, 1); -fx-background-radius: 15px;");
 
                                 setGraphic(reclamationBox);
+                                 // Add mouse click event handler
+                                setOnMouseClicked(event -> {
+                                    if (event.getClickCount() == 1) { // Handle single-click event
+                                        try {
+                                            handleItemClick(reclamation.getIdR());
+                                        } catch (SQLException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                });
                             }
                         }
                     };
@@ -111,9 +114,36 @@ public class GestionRecController {
         }
     }
 
+        private void handleItemClick(int idR) throws SQLException {
+            ObservableList<ReponseR> reponses = FXCollections.observableArrayList(rrs.afficherReponsesForReclamation(idR));
+
+            // Clear existing items
+            listReponses.getItems().clear();
+
+            // Add responses to the ListView
+            listReponses.setItems(reponses);
+
+            // Optionally, set a custom cell factory for the ListView to customize the appearance of each item
+            listReponses.setCellFactory(param -> new ListCell<ReponseR>() {
+                @Override
+                protected void updateItem(ReponseR reponse, boolean empty) {
+                    super.updateItem(reponse, empty);
+                    if (empty || reponse == null) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        setText("ID: " + reponse.getIdRR() + ", Text: " + reponse.getTextR()); // Customize text as needed
+                    }
+                }
+            });
+
+    }
+
+
+
     private Button createStyledButton(String text) {
         Button button = new Button(text);
-        button.setStyle("-fx-min-width: 120px; -fx-min-height: 30px;");
+        button.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white;-fx-min-width: 200px;-fx-min-height: 30px;-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0); -fx-background-radius: 10;");
         return button;
     }
 
@@ -169,6 +199,10 @@ public class GestionRecController {
 
     @FXML
     void EcoModeButton(ActionEvent event) {
+
+    }
+    @FXML
+    void Repondre(ActionEvent event) {
 
     }
 }

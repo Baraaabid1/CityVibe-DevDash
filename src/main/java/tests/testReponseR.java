@@ -17,9 +17,9 @@ public class testReponseR {
         LocalDateTime currentDateTime = LocalDateTime.now();
         Timestamp currentTimestamp = Timestamp.valueOf(currentDateTime);
         ReponseR newReponseR = new ReponseR();
-        newReponseR.setIdR(19);
+        newReponseR.setIdR(22);
         newReponseR.setIdU(2);
-        newReponseR.setTextR("Sample response text");
+        newReponseR.setTextR("rec 22");
         newReponseR.setDate_repR(Timestamp.valueOf(LocalDateTime.now()));
         try {
             rrs.ajouter(newReponseR);
@@ -29,11 +29,11 @@ public class testReponseR {
         }
 
         // Modification (assuming there's at least one ReponseR to modify)
-        try {
+       /* try {
             List<ReponseR> reponseRs = rrs.afficher();
             if (!reponseRs.isEmpty()) {
                 ReponseR existingReponseR = reponseRs.get(0);
-                existingReponseR.setTextR("Modified response text");
+                existingReponseR.setTextR("modify rec22");
                 rrs.modifier(existingReponseR);
                 System.out.println("ReponseR modified successfully.");
             } else {
@@ -41,7 +41,7 @@ public class testReponseR {
             }
         } catch (SQLException e) {
             System.err.println("Error modifying ReponseR: " + e.getMessage());
-        }
+        }*/
 
         // Displaying all ReponseR records
         try {
@@ -54,6 +54,15 @@ public class testReponseR {
             System.err.println("Error displaying ReponseR records: " + e.getMessage());
         }
 
+        try {
+            List<ReponseR> allReponseRs = rrs.afficherReponsesForReclamation(22);
+            System.out.println("All ReponseR 22 records:");
+            for (ReponseR reponseR : allReponseRs) {
+                System.out.println(reponseR);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error displaying ReponseR records: " + e.getMessage());
+        }
 
     }
 }

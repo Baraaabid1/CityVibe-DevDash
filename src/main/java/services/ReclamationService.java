@@ -123,7 +123,7 @@ public class ReclamationService implements IService<Reclamation> {
         ps.close();
         return reclamations;
     }
-   /* public void addResponseToReclamation(int reclamationId, ReponseR response) {
+    /*public void addResponseToReclamation(int reclamationId, ReponseR response) {
         Reclamation reclamation = reclamationDAO.getReclamationById(reclamationId);
 
         if (reclamation != null) {

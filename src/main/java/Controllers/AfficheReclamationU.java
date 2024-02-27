@@ -64,7 +64,6 @@ public class AfficheReclamationU {
                                 Button deleteButton = createStyledButton("Delete");
                                 Button responseButton = createStyledButton("See Response");
 
-                                // Set alignment of the buttons box
                                 buttonsBox.setAlignment(Pos.CENTER);
 
                                 // Add action handlers to the buttons

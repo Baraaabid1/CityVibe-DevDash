@@ -310,6 +310,17 @@
          <children>
             <Pane layoutX="75.0" prefHeight="79.0" prefWidth="741.0" style="-fx-background-color: white; -fx-background-radius: 15;" />
              <ListView fx:id="List" editable="true" layoutX="75.0" layoutY="98.0" prefHeight="473.0" prefWidth="742.0" style="-fx-background-color: transparent; -fx-background-radius: 15; -fx-border-width: 0;" />
+            <ListView fx:id="listReponses" layoutX="849.0" layoutY="38.0" prefHeight="463.0" prefWidth="322.0" />
+            <TextField layoutX="851.0" layoutY="510.0" prefHeight="39.0" prefWidth="278.0" promptText="Ecrire Ici ..." />
+            <Button layoutX="1131.0" layoutY="510.0" mnemonicParsing="false" onAction="#Repondre" prefHeight="37.0" prefWidth="44.0">
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" >
+                      <image>
+                          <Image url="icons/send.png" />
+                      </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
         </AnchorPane>    </center>
 </BorderPane>

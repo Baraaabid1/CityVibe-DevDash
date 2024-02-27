@@ -6,6 +6,8 @@ public class ReponseR {
     private int idRR, idR,idU ;
     private String textR;
     private Timestamp date_repR;
+    private Reclamation reclamation;
+
 
     public ReponseR() {
     }
@@ -23,6 +25,14 @@ public class ReponseR {
         this.idU = idU;
         this.textR = textR;
         this.date_repR = date_repR;
+    }
+
+    public Reclamation getReclamation() {
+        return reclamation;
+    }
+
+    public void setReclamation(Reclamation reclamation) {
+        this.reclamation = reclamation;
     }
 
     public int getIdRR() {
