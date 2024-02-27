@@ -2,12 +2,21 @@ package Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import models.Utilisateur;
+import services.UtilisateurService;
 import utiles.MyDataBase;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -18,9 +27,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class ProfileController {
+    private Stage stage ;
+    private Parent root ;
     @FXML
     private Button modifImage;
     @FXML
@@ -39,19 +51,16 @@ public class ProfileController {
     @FXML
     private ImageView imgUser;
     private int idUser;
+    UtilisateurService us = new UtilisateurService();
 
     @FXML
     private Circle circle;
-
 
 
     private Connection connection;
     public ProfileController() {
         connection= MyDataBase.getInstance().getConn();
     }
-
-
-
 
     public void initialize(int idUser) {
         this.idUser = idUser;
@@ -102,39 +111,6 @@ public class ProfileController {
         }
     }
 
-//public void initialize(int idUser) {
-//    this.idUser = idUser;
-//    try {
-//        String query = "SELECT img FROM utilisateur WHERE idu = ?";
-//        try (PreparedStatement statement = connection.prepareStatement(query)) {
-//            statement.setInt(1, idUser);
-//            try (ResultSet resultSet = statement.executeQuery()) {
-//                if (resultSet.next()) {
-//                    // Récupérer les données binaires de l'image depuis la base de données
-//                    byte[] imageData = resultSet.getBytes("img");
-//
-//                    // Convertir les données binaires en un objet Image
-//                    Image image = new Image(new ByteArrayInputStream(imageData));
-//
-//                    // Appliquer le masque du cercle à l'ImageView
-//                    double centerX = imgUser.getFitWidth() / 2.0;
-//                    double centerY = imgUser.getFitHeight() / 2.0;
-//                    double radius = 60.0;
-//                    Circle circle = new Circle(centerX, centerY, radius);
-//                    imgUser.setClip(circle);
-//
-//                    // Afficher l'image dans l'ImageView
-//                    imgUser.setImage(image);
-//                } else {
-//                    System.err.println("Utilisateur introuvable pour l'ID: " + idUser);
-//                }
-//            }
-//        }
-//    } catch (SQLException e) {
-//        e.printStackTrace();
-//        // Gérer les erreurs de requête SQL
-//    }
-//}
 
     @FXML
     void modifImage(ActionEvent event) {
@@ -187,7 +163,39 @@ public class ProfileController {
         }
     }
 
+    @FXML
+    void modifProfil(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierUser.fxml"));
+        root = loader.load();
+        ModifierUserController Modifuser = loader.getController();
+        Modifuser.initialize(idUser);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
+    }
+
+    @FXML
+    void SupprimeCompte(ActionEvent event) throws IOException {
+        try {
+
+            us.supprimer(idUser);
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
+        root = loader.load();
+        LoginController Log = loader.getController();
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
 
     public void Button_Acceuil(ActionEvent actionEvent) {

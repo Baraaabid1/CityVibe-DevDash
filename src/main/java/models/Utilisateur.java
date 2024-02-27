@@ -1,7 +1,6 @@
 package models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Utilisateur {
     private int idu,num_tel;
@@ -39,7 +38,7 @@ public class Utilisateur {
     }
 
 
-    public Utilisateur(int num_tel, String nom, String prenom, String password, String email, String preference, String localisation, LocalDate dateNaissance, String role ) {
+    public Utilisateur(int num_tel, String nom, String prenom, String password, String email, String preference, String localisation, LocalDate dateNaissance ) {
         this.num_tel = num_tel;
         this.nom = nom;
         this.prenom = prenom;
@@ -48,7 +47,6 @@ public class Utilisateur {
         this.preference = preference;
         this.localisation = localisation;
         this.dateNaissance = dateNaissance;
-        this.role = role;
     }
     public Utilisateur(int num_tel, String nom, String prenom, String password, String email, String preference, String localisation, LocalDate dateNaissance, String role, byte img ) {
         this.num_tel = num_tel;
@@ -99,8 +97,8 @@ public class Utilisateur {
         return localisation;
     }
 
-    public LocalDateTime getDateNaissance() {
-        return dateNaissance.atStartOfDay();
+    public LocalDate getDateNaissance() {
+        return LocalDate.from(dateNaissance.atStartOfDay());
     }
 
     public void setIdu(int idu) {

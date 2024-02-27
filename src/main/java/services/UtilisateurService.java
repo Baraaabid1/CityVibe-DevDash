@@ -32,18 +32,24 @@ public class UtilisateurService implements IService <Utilisateur> {
         if (!isValidEmail(utilisateur.getEmail())) {
             showAlert("Invalid email address");
             throw new IllegalArgumentException("Invalid email address");
-
-        }
-
-        else if (!isValidPhoneNumber(utilisateur.getNum_tel())) {
+        } else if (!isValidPhoneNumber(utilisateur.getNum_tel())) {
             showAlert("Invalid phone number");
             throw new IllegalArgumentException("Invalid phone number");
-        }else {
+        } else if (utilisateur.getPassword().length() < 8) {
+            showAlert("Le mot de passe doit comporter au moins 8 caractères.");
+            throw new IllegalArgumentException("Le mot de passe doit comporter au moins 8 caractères.");
+        } else {
             String hashedPassword = hashPassword(utilisateur.getPassword());
             System.out.println(hashedPassword);
+            LocalDate currentDate = LocalDate.now();
+            LocalDate minAllowedDate = currentDate.minusYears(5);
+            if (utilisateur.getDateNaissance().isAfter(minAllowedDate)) {
+                showAlert("La date de naissance doit être inférieure de 5 ans à la date actuelle.");
+                throw new IllegalArgumentException("La date de naissance doit être inférieure de 5 ans à la date actuelle.");
+            }
 
-            String utilisateurreq = "INSERT INTO utilisateur (idu, nom, prenom, password, dateNaissance, email, num_tel, preference, localisation, role, img) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String utilisateurreq = "INSERT INTO utilisateur (idu, nom, prenom, password, dateNaissance, email, num_tel, preference, localisation, img) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = connection.prepareStatement(utilisateurreq)) {
                 pstmt.setInt(1, utilisateur.getIdu());
                 pstmt.setString(2, utilisateur.getNom());
@@ -51,15 +57,13 @@ public class UtilisateurService implements IService <Utilisateur> {
                 pstmt.setString(4, hashedPassword);
                 LocalDate dateOfBirth = LocalDate.from(utilisateur.getDateNaissance());
                 LocalDateTime dateTimeOfBirth = dateOfBirth.atStartOfDay(); // Start of the day (00:00)
-
                 pstmt.setTimestamp(5, Timestamp.valueOf(dateTimeOfBirth));
                 pstmt.setString(6, utilisateur.getEmail());
                 pstmt.setInt(7, utilisateur.getNum_tel());
                 pstmt.setString(8, utilisateur.getPreference());
                 pstmt.setString(9, utilisateur.getLocalisation());
-                pstmt.setString(10, utilisateur.getRole());
                 byte[] defaultImageBytes = selectAndConvertDefaultImage();
-                pstmt.setBytes(11, defaultImageBytes);
+                pstmt.setBytes(10, defaultImageBytes);
                 pstmt.executeUpdate();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -67,7 +71,7 @@ public class UtilisateurService implements IService <Utilisateur> {
         }
     }
     private String hashPassword(String password) {
-        try {
+        try{
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(password.getBytes());
             StringBuilder hexString = new StringBuilder();
@@ -82,14 +86,8 @@ public class UtilisateurService implements IService <Utilisateur> {
         }
     }
     private byte[] selectAndConvertDefaultImage() throws IOException {
-        // Chemin vers l'image par défaut
         String defaultImagePath = "C:\\Users\\benna\\Desktop\\istockphoto-1337144146-612x612.jpg";
-
-
-        // Charger l'image depuis le chemin spécifié
         File defaultImageFile = new File(defaultImagePath);
-
-        // Convertir le fichier en tableau de bytes
         return convertFileToBytes(defaultImageFile);
     }
 
@@ -151,9 +149,10 @@ public class UtilisateurService implements IService <Utilisateur> {
                 pstmt.setString(2, utilisateur.getPrenom());
                 pstmt.setString(3, utilisateur.getPassword());
                 LocalDate localDate = LocalDate.from(utilisateur.getDateNaissance());
-                java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-// Utilisation de la java.sql.Date pour définir le paramètre de la requête PreparedStatement
-                pstmt.setDate(4, sqlDate);
+                pstmt.setDate(4, java.sql.Date.valueOf(utilisateur.getDateNaissance()));
+
+//                java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+//                pstmt.setDate(4, sqlDate);
                 pstmt.setString(5, utilisateur.getEmail());
                 pstmt.setInt(6, utilisateur.getNum_tel());
                 pstmt.setString(7, utilisateur.getPreference());
@@ -166,24 +165,6 @@ public class UtilisateurService implements IService <Utilisateur> {
     }
     private boolean isValidDate(Object date) {
         return date instanceof LocalDate;
-    }
-    public void modifierESFEE(Utilisateur utilisateur) throws SQLException {
-        String utilisateurreq = "UPDATE utilisateur SET nom=?, prenom=?, password=?, email=?, num_tel=?, preference=?, localisation=?, role=? WHERE idu=?";
-        System.out.println(utilisateur);
-        try (PreparedStatement pstmt = connection.prepareStatement(utilisateurreq)) {
-            pstmt.setString(1, utilisateur.getNom());
-            pstmt.setString(2, utilisateur.getPrenom());
-            pstmt.setString(3, utilisateur.getPassword());
-            pstmt.setString(5, utilisateur.getEmail());
-            pstmt.setInt(6, utilisateur.getNum_tel());
-            pstmt.setString(7, utilisateur.getPreference());
-            pstmt.setString(8, utilisateur.getLocalisation());
-            pstmt.setString(9, utilisateur.getRole());
-            pstmt.setInt(10, utilisateur.getIdu());
-
-            pstmt.executeUpdate();
-        }
-
     }
 
     @Override
@@ -265,5 +246,19 @@ public class UtilisateurService implements IService <Utilisateur> {
             e.printStackTrace(); // Gérez l'erreur de manière appropriée
             return false; // En cas d'erreur, considérez l'authentification comme échouée
         }
+    }
+
+    public int getIdUtilisateurByEmail(String email) throws SQLException {
+        int idUser = -1;
+        String query = "SELECT idu FROM utilisateur WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    idUser = resultSet.getInt("idu");
+                }
+            }
+        }
+        return idUser;
     }
 }

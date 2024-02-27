@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -234,7 +234,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="@/img/icons8-logout-48.png" />
+                                        <Image url="@/img/help.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -286,7 +286,6 @@
                 <VBox prefHeight="191.0" prefWidth="341.0">
                     <children>
                         <Label prefHeight="63.0" prefWidth="341.0" />
-                        <TextField fx:id="seachbar" prefHeight="40.0" prefWidth="341.0" promptText="Chercher Ici" style="-fx-background-radius: 15;" />
                     </children>
                 </VBox>
                 <VBox prefHeight="191.0" prefWidth="341.0">
@@ -312,11 +311,22 @@
          <children>
             <AnchorPane layoutX="66.0" layoutY="6.0" prefHeight="200.0" prefWidth="492.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="66.0">
                <children>
-                  <Button fx:id="modifImage" layoutX="392.0" layoutY="135.0" mnemonicParsing="false" onAction="#modifImage" text="Modifier" />
-                  <ImageView fx:id="imgUser" disable="true" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" x="150.0" y="8.0">
+                  <Button fx:id="modifImage" layoutX="312.0" layoutY="163.0" mnemonicParsing="false" onAction="#modifImage" prefHeight="30.0" prefWidth="27.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@/img/modig_icon.png" />
+                         </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <ImageView fx:id="imgUser" disable="true" fitHeight="200.0" fitWidth="200.0" layoutX="-30.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" x="150.0" y="8.0">
                      <viewport>
                         <Rectangle2D />
                      </viewport>
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
                   </ImageView>
                </children>
             </AnchorPane>
@@ -352,6 +362,15 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
+                  <Button fx:id="modifProfil" layoutX="428.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modifProfil" prefHeight="40.0" prefWidth="40.0">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@/img/modig_icon.png" />
+                         </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children></AnchorPane>
             <AnchorPane layoutX="650.0" layoutY="6.0" prefHeight="568.0" prefWidth="500.0" style="-fx-background-color: white;">
                <children>
@@ -381,31 +400,17 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="23.0" layoutY="306.0" prefHeight="38.0" prefWidth="359.0" text="Réservations">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="pref11" layoutX="87.0" layoutY="356.0" prefHeight="36.0" prefWidth="349.0" text="Festival de cinéma">
+                  <Label fx:id="pref11" layoutX="87.0" layoutY="299.0" prefHeight="36.0" prefWidth="349.0" text="Education">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="pref21" layoutX="87.0" layoutY="410.0" prefHeight="36.0" prefWidth="349.0" text="Spectacle de dance">
+                  <Label fx:id="pref21" layoutX="87.0" layoutY="357.0" prefHeight="36.0" prefWidth="349.0" text="Aventure">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="pref31" layoutX="87.0" layoutY="462.0" prefHeight="36.0" prefWidth="349.0" text="Marathon">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="pref311" layoutX="87.0" layoutY="509.0" prefHeight="36.0" prefWidth="349.0" text="Camping">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
+                  <Button layoutX="81.0" layoutY="506.0" mnemonicParsing="false" onAction="#SupprimeCompte" prefHeight="34.0" prefWidth="361.0" style="-fx-background-radius: 15; -fx-background-color: #D9D9D9;" text="Supprimer mon compte" />
                </children></AnchorPane>
          </children></AnchorPane>
    </center>

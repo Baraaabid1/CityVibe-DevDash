@@ -12,6 +12,8 @@ import services.UtilisateurService;
 import utiles.MyDataBase;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class LoginController {
@@ -35,14 +37,14 @@ public class LoginController {
     @FXML
     void LoginU(ActionEvent event) throws IOException {
         String email = emailU.getText();
-        String motDePasse = mdpU.getText();
+        String motDePasse = hashPassword(mdpU.getText()); // Hashage du mot de passe entré par l'utilisateur
         int idUser = -1; // Initialiser l'ID de l'utilisateur à -1 par défaut
 
         try {
-            String query = "SELECT idu FROM utilisateur WHERE password = ? AND email = ?";
+            String query = "SELECT idu FROM utilisateur WHERE email = ? AND password = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setString(1, motDePasse);
-                statement.setString(2, email);
+                statement.setString(1, email);
+                statement.setString(2, motDePasse);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         idUser = resultSet.getInt("idu");
@@ -51,9 +53,8 @@ public class LoginController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérer les erreurs de connexion à la base de données
             showAlert("Une erreur s'est produite lors de la connexion à la base de données.");
-            return; // Quitter la méthode si une exception se produit
+            return;
         }
 
         // Vérification des informations d'identification dans la base de données
@@ -61,7 +62,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
             root = loader.load();
             ProfileController profil = loader.getController();
-            profil.initialize (idUser);
+            profil.initialize(idUser);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -73,6 +74,27 @@ public class LoginController {
             mdpU.clear();
         }
     }
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    void mdpOublie(ActionEvent event) {
+
+    }
+
+
 
 
     private void showAlert(String message) {

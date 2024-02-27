@@ -11,12 +11,17 @@ import javafx.stage.Stage;
 import models.Utilisateur;
 import services.UtilisateurService;
 
+import javax.print.DocFlavor;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.scene.control.SelectionMode;
+import utiles.MyDataBase;
 
 public class AjouterUserController {
     private Stage stage ;
-    private Scene scene ;
     private Parent root ;
 
     UtilisateurService ps = new UtilisateurService();
@@ -39,43 +44,62 @@ public class AjouterUserController {
     private PasswordField passwordU;
     @FXML
     private ChoiceBox<String> prefrenceBox;
-    @FXML
-    private ChoiceBox<String> roleBox;
+
     @FXML
     private ChoiceBox<String> locationBox;
     private String[] prefer= {"Art","Sport","Bien etre","Aventure"};
 
-    private String[] role= {"Simple Utilisateur","Admin de page"};
     private String[] location= {"Ariana Soghra"};
+    private Connection connection;
+    public AjouterUserController() {
+        connection= MyDataBase.getInstance().getConn();
+    }
 
     public void initialize(){
         prefrenceBox.getItems().addAll(prefer);
-        roleBox.getItems().addAll(role);
         locationBox.getItems().addAll(location);
     }
 
     @FXML
     void AjouterUser(ActionEvent event) throws IOException {
         try {
+            // Ajout de l'utilisateur
+            ps.ajouter(new Utilisateur(
+                    Integer.parseInt(numTelU.getText()),
+                    nomU.getText(),
+                    prenomU.getText(),
+                    passwordU.getText(),
+                    emailU.getText(),
+                    prefrenceBox.getValue(),
+                    locationBox.getValue(),
+                    dateNaissanceU.getValue())
+            );
 
-            ps.ajouter(new Utilisateur(Integer.parseInt(numTelU.getText()),nomU.getText(),prenomU.getText(),passwordU.getText(),emailU.getText(),prefrenceBox.getValue(),locationBox.getValue(),dateNaissanceU.getValue(), String.valueOf(roleBox.getValue())));
+            // Récupération de l'ID de l'utilisateur ajouté
+            int idUser = ps.getIdUtilisateurByEmail(emailU.getText());
 
+            // Affichage de la page de profil avec l'ID de l'utilisateur ajouté
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
+            Parent root = loader.load();
+            ProfileController Prof = loader.getController();
+            Prof.initialize(idUser);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Fermeture de la fenêtre actuelle
+            ((Node) event.getSource()).getScene().getWindow().hide();
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            e.printStackTrace();
+            showAlert("Une erreur s'est produite lors de l'ajout de l'utilisateur.");
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherUser.fxml"));
-        root = loader.load();
-        AfficherUserController Affuser = loader.getController();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-
-
     }
 
-}
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Ajout status");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+
+}}

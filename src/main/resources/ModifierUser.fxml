@@ -9,7 +9,6 @@
       <TextField fx:id="nomField" layoutX="85.0" layoutY="88.0" promptText="nom" />
       <Button fx:id="modifierUser" layoutX="521.0" layoutY="349.0" mnemonicParsing="false" onAction="#modifierUser" style="-fx-background-color: #F99D26;" text="Modifier" textFill="WHITE" />
       <TextField fx:id="idField" layoutX="14.0" layoutY="14.0" promptText="entrez id" />
-      <Button fx:id="lireUser" layoutX="220.0" layoutY="14.0" mnemonicParsing="false" onAction="#lireUser" style="-fx-background-color: #F99D26;" text="Afficher" textFill="WHITE" />
       <TextField fx:id="prenomField" layoutX="85.0" layoutY="148.0" promptText="prenom" />
       <TextField fx:id="passwordField" layoutX="93.0" layoutY="209.0" promptText="password" />
       <TextField fx:id="naissanceField" layoutX="93.0" layoutY="299.0" promptText="Date naissance" />

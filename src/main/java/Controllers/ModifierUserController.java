@@ -11,11 +11,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Utilisateur;
 import services.UtilisateurService;
+import utiles.MyDataBase;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import static java.time.LocalDate.parse;
 
 public class ModifierUserController {
     private Stage stage ;
@@ -56,14 +62,16 @@ public class ModifierUserController {
     @FXML
     private TextField roleField;
     public Utilisateur utilisateur;
+    private Connection connection;
 
     UtilisateurService us = new UtilisateurService();
-
-    @FXML
-    void lireUser(ActionEvent event) {
+    public ModifierUserController() {
+        connection= MyDataBase.getInstance().getConn();
+    }
+    public void initialize(int idUser){
         try {
-            int userId = Integer.parseInt(idField.getText());
-            utilisateur = us.getUtilisateurById(userId);
+
+            utilisateur = us.getUtilisateurById(idUser);
             if (utilisateur != null) {
                 nomField.setText(utilisateur.getNom());
                 prenomField.setText(utilisateur.getPrenom());
@@ -85,13 +93,13 @@ public class ModifierUserController {
             e.printStackTrace();
             showErrorAlert("Erreur lors de la récupération des informations de l'utilisateur.");
         }
-    }
 
+    }
     @FXML
     void modifierUser(ActionEvent event) throws IOException {
 
+        int id = 0;
         try {
-            int id = Integer.parseInt(idField.getText());
             int tel = Integer.parseInt(telField.getText());
             String nom = nomField.getText();
             String prenom = prenomField.getText();
@@ -101,17 +109,22 @@ public class ModifierUserController {
             String location = locationField.getText();
             String role = roleField.getText();
             String dateNaissanceStr = naissanceField.getText();
-            System.out.println("Date de naissance en texte : " + dateNaissanceStr);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dateNaissance = parse(dateNaissanceStr, formatter);
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            LocalDate dateNaissance = LocalDate.parse(dateNaissanceStr, formatter);
-
-
-            // Afficher la date de naissance convertie
-            System.out.println("Date de naissance convertie : " + dateNaissance);
-
-
-            // Modify user using UtilisateurService
+            id = 0;
+            String query = "SELECT idu FROM utilisateur WHERE email = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, email);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        id = resultSet.getInt("idu");
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            System.out.println(id);
 
             us.modifier(new Utilisateur(id, tel, nom, prenom, password, email, preference, location, dateNaissance, role));
         } catch (SQLException e) {
@@ -120,10 +133,11 @@ public class ModifierUserController {
         } catch (NumberFormatException e) {
             showErrorAlert("Veuillez entrer des valeurs numériques valides.");
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
         root = loader.load();
-        AfficherUserController Affuser = loader.getController();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        ProfileController Profuser = loader.getController();
+        Profuser.initialize(id);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
