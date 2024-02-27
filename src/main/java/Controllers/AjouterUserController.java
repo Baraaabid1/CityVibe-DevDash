@@ -1,5 +1,7 @@
 package Controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,18 +13,17 @@ import javafx.stage.Stage;
 import models.Utilisateur;
 import services.UtilisateurService;
 
-import javax.print.DocFlavor;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.scene.control.SelectionMode;
+import java.util.List;
+
 import utiles.MyDataBase;
 
 public class AjouterUserController {
-    private Stage stage ;
-    private Parent root ;
+    private Stage stage;
+    private Parent root;
 
     UtilisateurService ps = new UtilisateurService();
     @FXML
@@ -43,20 +44,16 @@ public class AjouterUserController {
     @FXML
     private PasswordField passwordU;
     @FXML
-    private ChoiceBox<String> prefrenceBox;
-
-    @FXML
     private ChoiceBox<String> locationBox;
-    private String[] prefer= {"Art","Sport","Bien etre","Aventure"};
-
-    private String[] location= {"Ariana Soghra"};
+    private String[] location = {"Ariana Soghra"};
     private Connection connection;
+    public ObservableList<String> preference = FXCollections.observableArrayList();
+
     public AjouterUserController() {
-        connection= MyDataBase.getInstance().getConn();
+        connection = MyDataBase.getInstance().getConn();
     }
 
-    public void initialize(){
-        prefrenceBox.getItems().addAll(prefer);
+    public void initialize() {
         locationBox.getItems().addAll(location);
     }
 
@@ -70,13 +67,26 @@ public class AjouterUserController {
                     prenomU.getText(),
                     passwordU.getText(),
                     emailU.getText(),
-                    prefrenceBox.getValue(),
                     locationBox.getValue(),
                     dateNaissanceU.getValue())
             );
 
+
             // Récupération de l'ID de l'utilisateur ajouté
             int idUser = ps.getIdUtilisateurByEmail(emailU.getText());
+            System.out.println(preference);
+
+            // Insertion des préférences dans la table preferences
+            if (preference != null) {
+                for (String preference : preference) {
+                    String insertQuery = "INSERT INTO preferences (idu, types) VALUES (?, ?)";
+                    try (PreparedStatement pstmt = connection.prepareStatement(insertQuery)) {
+                        pstmt.setInt(1, idUser);
+                        pstmt.setString(2, preference);
+                        pstmt.executeUpdate();
+                    }
+                }
+            }
 
             // Affichage de la page de profil avec l'ID de l'utilisateur ajouté
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
@@ -95,11 +105,43 @@ public class AjouterUserController {
         }
     }
 
+
+
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Ajout status");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
 
-}}
+    @FXML
+    void testPref(ActionEvent event) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Preferences.fxml"));
+                    Parent root = loader.load();
+
+                    PreferencesController prefController = loader.getController();
+                    ObservableList<String> preferences = prefController.getPreferences(); // Utilisez une variable locale différente
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.showAndWait(); // Affiche la fenêtre de préférences et attend sa fermeture
+
+                    // Après la fermeture de la fenêtre de préférences, vous pouvez affecter la liste de préférences à la liste de classe
+                    if (preferences != null) {
+                        preference = preferences; // Affectez la liste récupérée à la liste de classe
+                        System.out.println("Liste de préférences récupérée avec succès : " + preference);
+                    } else {
+                        System.out.println("La liste de préférences est null.");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Gérer les erreurs de chargement de la vue
+                }
+            }
+
+
+        }
+
+

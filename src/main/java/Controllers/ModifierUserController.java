@@ -25,7 +25,6 @@ import static java.time.LocalDate.parse;
 
 public class ModifierUserController {
     private Stage stage ;
-    private Scene scene ;
     private Parent root ;
 
 
@@ -54,9 +53,6 @@ public class ModifierUserController {
     private TextField telField;
 
     @FXML
-    private TextField preferenceField;
-
-    @FXML
     private TextField locationField;
 
     @FXML
@@ -79,7 +75,6 @@ public class ModifierUserController {
                 naissanceField.setText(String.valueOf(utilisateur.getDateNaissance()));
                 emailField.setText(utilisateur.getEmail());
                 telField.setText(String.valueOf(utilisateur.getNum_tel()));
-                preferenceField.setText(utilisateur.getPreference());
                 locationField.setText(utilisateur.getLocalisation());
                 roleField.setText(utilisateur.getRole());
             } else {
@@ -105,7 +100,6 @@ public class ModifierUserController {
             String prenom = prenomField.getText();
             String password = passwordField.getText();
             String email = emailField.getText();
-            String preference = preferenceField.getText();
             String location = locationField.getText();
             String role = roleField.getText();
             String dateNaissanceStr = naissanceField.getText();
@@ -126,7 +120,7 @@ public class ModifierUserController {
             }
             System.out.println(id);
 
-            us.modifier(new Utilisateur(id, tel, nom, prenom, password, email, preference, location, dateNaissance, role));
+            us.modifier(new Utilisateur(id, tel, nom, prenom, password, email, location, dateNaissance, role));
         } catch (SQLException e) {
             e.printStackTrace();
             showErrorAlert("Erreur lors de la mise à jour des informations de l'utilisateur.");

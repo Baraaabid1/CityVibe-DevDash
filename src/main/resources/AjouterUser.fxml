@@ -109,5 +109,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
+      <Button layoutX="1021.0" layoutY="687.0" mnemonicParsing="false" onAction="#testPref" text="Button" />
    </children>
 </AnchorPane>

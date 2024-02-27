@@ -4,57 +4,53 @@ import java.time.LocalDate;
 
 public class Utilisateur {
     private int idu,num_tel;
-    private String nom,prenom,password,role,email,preference,localisation;
+    private String nom,prenom,password,role,email,localisation;
     private LocalDate dateNaissance;
     private byte img;
     public Utilisateur(){
 
     }
 
-    public Utilisateur(int idu, int num_tel, String nom, String prenom, String password, String email, String preference, String localisation, LocalDate dateNaissance, String role, byte img) {
+    public Utilisateur(int idu, int num_tel, String nom, String prenom, String password, String email, String localisation, LocalDate dateNaissance, String role, byte img) {
         this.idu = idu;
         this.num_tel = num_tel;
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
         this.email = email;
-        this.preference = preference;
         this.localisation = localisation;
         this.dateNaissance = dateNaissance;
         this.role = role;
         this.img= img;
     }
-    public Utilisateur(int idu, int num_tel, String nom, String prenom, String password, String email, String preference, String localisation, LocalDate dateNaissance, String role) {
+    public Utilisateur(int idu, int num_tel, String nom, String prenom, String password, String email, String localisation, LocalDate dateNaissance, String role) {
         this.idu = idu;
         this.num_tel = num_tel;
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
         this.email = email;
-        this.preference = preference;
         this.localisation = localisation;
         this.dateNaissance = dateNaissance;
         this.role = role;
     }
 
 
-    public Utilisateur(int num_tel, String nom, String prenom, String password, String email, String preference, String localisation, LocalDate dateNaissance ) {
+    public Utilisateur(int num_tel, String nom, String prenom, String password, String email, String localisation, LocalDate dateNaissance ) {
         this.num_tel = num_tel;
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
         this.email = email;
-        this.preference = preference;
         this.localisation = localisation;
         this.dateNaissance = dateNaissance;
     }
-    public Utilisateur(int num_tel, String nom, String prenom, String password, String email, String preference, String localisation, LocalDate dateNaissance, String role, byte img ) {
+    public Utilisateur(int num_tel, String nom, String prenom, String password, String email, String localisation, LocalDate dateNaissance, String role, byte img ) {
         this.num_tel = num_tel;
         this.nom = nom;
         this.prenom = prenom;
         this.password = password;
         this.email = email;
-        this.preference = preference;
         this.localisation = localisation;
         this.dateNaissance = dateNaissance;
         this.role = role;
@@ -87,10 +83,6 @@ public class Utilisateur {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPreference() {
-        return preference;
     }
 
     public String getLocalisation() {
@@ -128,11 +120,6 @@ public class Utilisateur {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public void setPreference(String preference) {
-        this.preference = preference;
-    }
-
     public void setLocalisation(String localisation) {
         this.localisation = localisation;
     }
@@ -150,7 +137,6 @@ public class Utilisateur {
                 ", prenom='" + prenom + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", preference='" + preference + '\'' +
                 ", localisation='" + localisation + '\'' +
                 ", dateNaissance=" + dateNaissance +'\'' +
                 ", role='" + role +

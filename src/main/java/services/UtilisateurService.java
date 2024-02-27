@@ -48,8 +48,8 @@ public class UtilisateurService implements IService <Utilisateur> {
                 throw new IllegalArgumentException("La date de naissance doit être inférieure de 5 ans à la date actuelle.");
             }
 
-            String utilisateurreq = "INSERT INTO utilisateur (idu, nom, prenom, password, dateNaissance, email, num_tel, preference, localisation, img) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String utilisateurreq = "INSERT INTO utilisateur (idu, nom, prenom, password, dateNaissance, email, num_tel, localisation, img) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = connection.prepareStatement(utilisateurreq)) {
                 pstmt.setInt(1, utilisateur.getIdu());
                 pstmt.setString(2, utilisateur.getNom());
@@ -60,10 +60,10 @@ public class UtilisateurService implements IService <Utilisateur> {
                 pstmt.setTimestamp(5, Timestamp.valueOf(dateTimeOfBirth));
                 pstmt.setString(6, utilisateur.getEmail());
                 pstmt.setInt(7, utilisateur.getNum_tel());
-                pstmt.setString(8, utilisateur.getPreference());
-                pstmt.setString(9, utilisateur.getLocalisation());
+//                pstmt.setString(8, utilisateur.getPreference());
+                pstmt.setString(8, utilisateur.getLocalisation());
                 byte[] defaultImageBytes = selectAndConvertDefaultImage();
-                pstmt.setBytes(10, defaultImageBytes);
+                pstmt.setBytes(9, defaultImageBytes);
                 pstmt.executeUpdate();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -142,7 +142,7 @@ public class UtilisateurService implements IService <Utilisateur> {
                 showAlert("Invalid date of birth");
                 throw new IllegalArgumentException("Invalid date of birth");
         }else {
-            String utilisateurreq = "UPDATE utilisateur SET nom=?, prenom=?, password=?, dateNaissance=?, email=?, num_tel=?, preference=?, localisation=?, role=? WHERE idu=?";
+            String utilisateurreq = "UPDATE utilisateur SET nom=?, prenom=?, password=?, dateNaissance=?, email=?, num_tel=?, localisation=?, role=? WHERE idu=?";
             System.out.println(utilisateur);
             try (PreparedStatement pstmt = connection.prepareStatement(utilisateurreq)) {
                 pstmt.setString(1, utilisateur.getNom());
@@ -155,10 +155,9 @@ public class UtilisateurService implements IService <Utilisateur> {
 //                pstmt.setDate(4, sqlDate);
                 pstmt.setString(5, utilisateur.getEmail());
                 pstmt.setInt(6, utilisateur.getNum_tel());
-                pstmt.setString(7, utilisateur.getPreference());
-                pstmt.setString(8, utilisateur.getLocalisation());
-                pstmt.setString(9, utilisateur.getRole());
-                pstmt.setInt(10, utilisateur.getIdu());
+                pstmt.setString(7, utilisateur.getLocalisation());
+                pstmt.setString(8, utilisateur.getRole());
+                pstmt.setInt(9, utilisateur.getIdu());
                 pstmt.executeUpdate();
             }
         }
@@ -175,17 +174,6 @@ public class UtilisateurService implements IService <Utilisateur> {
             pstmt.executeUpdate();
         }
 
-    }
-    public void modifierNomUtilisateur(int idUtilisateur, String nouveauNom, String nvPrenom,int nvTel,LocalDate nvNaiss) throws SQLException {
-        String requete = "UPDATE utilisateur SET nom = ?, prenom = ?, num_tel = ?, dateNaissance = ? WHERE idu = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(requete)) {
-            pstmt.setString(1, nouveauNom);
-            pstmt.setString(2, nvPrenom);
-            pstmt.setInt(3, nvTel);
-            pstmt.setDate(4, Date.valueOf(nvNaiss));
-            pstmt.setInt(5, idUtilisateur);
-            pstmt.executeUpdate();
-        }
     }
 
     @Override
@@ -204,7 +192,6 @@ public class UtilisateurService implements IService <Utilisateur> {
                 utilisateur.setRole(rs.getString("role"));
                 utilisateur.setEmail(rs.getString("email"));
                 utilisateur.setNum_tel(rs.getInt("num_tel"));
-                utilisateur.setPreference(rs.getString("preference"));
                 utilisateur.setLocalisation(rs.getString("localisation"));
                 utilisateurs.add(utilisateur);
             }
@@ -227,7 +214,6 @@ public class UtilisateurService implements IService <Utilisateur> {
                     utilisateur.setRole(rs.getString("role"));
                     utilisateur.setEmail(rs.getString("email"));
                     utilisateur.setNum_tel(rs.getInt("num_tel"));
-                    utilisateur.setPreference(rs.getString("preference"));
                     utilisateur.setLocalisation(rs.getString("localisation"));
                 }
             }
