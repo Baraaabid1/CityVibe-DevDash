@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import models.page;
 import services.pageService;
 
@@ -97,5 +99,26 @@ public class GeneralDesignConsulterController {
     }
 
     public void EcoModeButton(ActionEvent actionEvent) {
+    }
+
+    public void lieux(ActionEvent actionEvent) {
+
+
+
+
+    }
+
+    public void publication(ActionEvent actionEvent) {
+        // Add the action you want to perform when the publication button is clicked
+        // For example, opening a new page named PageTest
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LieuxConsult.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

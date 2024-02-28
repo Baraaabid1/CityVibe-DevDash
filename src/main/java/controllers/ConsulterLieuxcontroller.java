@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.publication;
 import services.publicationService;
@@ -38,21 +39,6 @@ public class ConsulterLieuxcontroller {
 
     private ConsulterLieuxcontroller aff;
 
-    @FXML
-    void consulter(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubVisiteur.fxml"));
-        root = loader.load();
-        PubVisiteurcontroller pubVisiteurcontroller = loader.getController();
-
-        // Pass necessary data to the controller
-        // For example, you can pass the publication object or any other data you need
-        pubVisiteurcontroller.setData(pu);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
 
 
@@ -136,4 +122,19 @@ public class ConsulterLieuxcontroller {
         this.aff = aff;
     }
 
+    @FXML
+    void consulter(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Pub.fxml"));
+        Parent root = loader.load();
+        Pubcontroller Pubcontroller = loader.getController();
+        Pubcontroller.setData(pu);
+
+        // Create a new stage for the pop-up
+        Stage popUpStage = new Stage();
+        popUpStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+        popUpStage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(root);
+        popUpStage.setScene(scene);
+        popUpStage.showAndWait(); // Show the pop-up and wait for it to be closed
+    }
 }

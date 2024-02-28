@@ -35,19 +35,20 @@ import java.util.List;
             String sql = "update publication set   description = ? , image  = ? , nom  = ? where idP = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, (publication.getidP()));
-            preparedStatement.setString(2,(publication.getDescription()));
-            preparedStatement.setString(3,(publication.getImage()));
-            preparedStatement.setString(4,(publication.getNom()));
+            preparedStatement.setString(1,(publication.getDescription()));
+            preparedStatement.setString(2,(publication.getImage()));
+            preparedStatement.setString(3,(publication.getNom()));
+            preparedStatement.setInt(4, (publication.getidP()));
+
             preparedStatement.executeUpdate();
         }
 
 
         @Override
         public void supprimer(int idP) throws SQLException {
-            String req = "DELETE FROM `publication` WHERE idP=?";
+            String req = "DELETE FROM `publication` WHERE IdP=?";
             PreparedStatement preparedStatement = connection.prepareStatement(req);
-            preparedStatement.setInt(1,idP);
+            preparedStatement.setInt(1, idP);
             preparedStatement.executeUpdate();
         }
         @Override
@@ -99,6 +100,7 @@ import java.util.List;
             }
             return p;
         }
+
 
 
     }

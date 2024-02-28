@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import models.publication;
 import services.publicationService;
 
@@ -98,5 +100,23 @@ public class GeneralDesignConsultController {
     }
 
     public void Button_Acceuil(ActionEvent actionEvent) {
+    }
+
+    public void lieux(ActionEvent actionEvent) {
+        // Add the action you want to perform when the publication button is clicked
+        // For example, opening a new page named PageTest
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PageConsult.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void publication(ActionEvent actionEvent) {
+
     }
 }

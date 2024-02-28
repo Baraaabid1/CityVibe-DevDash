@@ -34,7 +34,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1nufIo7iAKeHrc3ie6JTTwBCBDeRTum1W" />
+                                        <Image url="icons/home.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -56,7 +56,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="32.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1QQxHRZSJ_yiEXar5jrxfyPz9wf0bAz1E" />
+                                        <Image url="icons/event.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -78,7 +78,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1hnvDMrxE9tMNQk-jWeSNorzw_LFeUNbr" />
+                                        <Image url="icons/location.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -100,7 +100,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1BgUnihIndH_AWJsKXLcAFIE1RLLOdzAr" />
+                                        <Image url="icons/transport.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -122,7 +122,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1nqsL1u8-5F30LGkfKdL0vIc1p1-t5XrF" />
+                                        <Image url="icons/reservation.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -145,7 +145,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1nKYoZbxfsjKbxXhCnW5tc9oq7jqzwBSc" />
+                                        <Image url="icons/profile.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -167,7 +167,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1c7e0l6n3t-i7oQJ4BoGg3D9KGwXu2YHz" />
+                                        <Image url="icons/reclamation.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -189,7 +189,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1m_-7bL7NrQdMgGmgalvmCtNYX64rJN5e" />
+                                        <Image url="icons/parametres.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -211,7 +211,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1b6Lz4Vad9AAYP7NuJISi5dau6I8cqtFp" />
+                                        <Image url="icons/logout.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -233,7 +233,7 @@
                             <children>
                                 <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
                                     <image>
-                                        <Image url="https://drive.google.com/uc?id=1RhiLZ0s5hjh29VD5CzT9sW4Ox3ORxgYf" />
+                                        <Image url="icons/help.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
@@ -258,7 +258,7 @@
                                     <children>
                                         <ImageView fitHeight="152.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="https://drive.google.com/uc?id=1cgS4X1MXXmzoWpVkL5q0F7ccP2aITzYO" />
+                                                <Image url="icons/5.png" />
                                             </image>
                                         </ImageView>
                                     </children>

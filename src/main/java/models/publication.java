@@ -3,7 +3,9 @@ package models;
 //import jdk.vm.ci.meta.Local;
 
 public class publication {
+    //id publication
     private int idP;
+
     private String description;
     private String image;
     private String nom;
@@ -11,6 +13,25 @@ public class publication {
 
     public publication() {
     }
+
+
+
+    // le constructeur el dydy ( ajout)
+//    public publication(int idPP, String description , String image , String nom) {
+//        this.idPP = idPP;
+//        this.description = description;
+//        this.image = image;
+//        this.nom = nom;
+//    }
+//modif /supp
+//    public publication(int idP , int idPP, String description , String image , String nom) {
+//        this.idP = idP;
+//        this.idPP = idPP;
+//        this.description = description;
+//        this.image = image;
+//        this.nom = nom;
+//    }
+
 
     public publication(int idP, String description , String image , String nom) {
         this.idP = idP;

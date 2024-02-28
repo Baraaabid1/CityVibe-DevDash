@@ -2,14 +2,20 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import models.publication;
 import services.pageService;
 import services.publicationService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class PubVisiteurcontroller {
@@ -23,6 +29,7 @@ public class PubVisiteurcontroller {
     @FXML
     private Label nomV;
 
+    private Scene previousScene; // Store reference to the previous scene
 
     private publication pu;
 //    private int id = 44;
@@ -52,9 +59,7 @@ public class PubVisiteurcontroller {
             // Handle the exception as needed
         }
     }
-
     // Method to set data to the UI elements
-    @FXML
     public void setData(publication publication) {
         // Setting description text
         descV.setText(publication.getDescription());

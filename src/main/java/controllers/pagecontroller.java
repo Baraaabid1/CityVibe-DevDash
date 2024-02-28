@@ -37,14 +37,14 @@ public class pagecontroller {
 
     private page p;
 
-    private int id = 22;
+
 
 
      public void initialize() throws SQLException {
         if (p == null) {
             // If the p object is null, initialize it
             pageService ps = new pageService();
-            p = ps.afficherP(id);
+
         }
         // Update UI elements with publication data
         if (p != null) {
@@ -88,7 +88,8 @@ public class pagecontroller {
         // Setting localisation text
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String formattedTime = page.getOuverture().format(timeFormatter);
-        ouvr.setText(formattedTime);        // Setting image
+        ouvr.setText(formattedTime);
+        // Setting image
         Image image = new Image("file:" + page.getImage());
         img.setImage(image);
         // Setting logo

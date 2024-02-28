@@ -6,32 +6,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Pubcontroller">
+<AnchorPane prefHeight="548.0" prefWidth="613.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Pubcontroller">
    <children>
-      <Label fx:id="nomm" layoutX="225.0" layoutY="176.0" prefHeight="18.0" prefWidth="758.0" style="-fx-background-color: white; -fx-background-radius: 30;" />
-      <ImageView fx:id="imgg" fitHeight="92.0" fitWidth="188.0" layoutX="477.0" layoutY="523.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="decc" layoutX="225.0" layoutY="312.0" prefHeight="106.0" prefWidth="758.0" style="-fx-background-color: white; -fx-background-radius: 30;" />
-      <Button fx:id="modif" layoutX="372.0" layoutY="675.0" mnemonicParsing="false" onAction="#modif" prefHeight="43.0" prefWidth="119.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Modifier" textFill="WHITE">
+      <Label fx:id="nomm" layoutX="209.0" layoutY="101.0" prefHeight="18.0" prefWidth="278.0" style="-fx-background-color: transparent; -fx-background-radius: 30;" />
+      <ImageView fx:id="imgg" fitHeight="92.0" fitWidth="277.0" layoutX="209.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="decc" layoutX="209.0" layoutY="161.0" prefHeight="106.0" prefWidth="277.0" style="-fx-background-color: transparent; -fx-background-radius: 30;" />
+      <Button fx:id="modif" layoutX="228.0" layoutY="486.0" mnemonicParsing="false" onAction="#modif" prefHeight="43.0" prefWidth="119.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Modifier" textFill="WHITE">
          <font>
             <Font size="20.0" />
-         </font></Button>
-      <Button fx:id="supp" layoutX="665.0" layoutY="675.0" mnemonicParsing="false" onAction="#supp" prefHeight="43.0" prefWidth="119.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Supprimer" textFill="WHITE">
+         </font>
+      </Button>
+      <Button fx:id="supp" layoutX="383.0" layoutY="486.0" mnemonicParsing="false" onAction="#supp" prefHeight="43.0" prefWidth="119.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Supprimer" textFill="WHITE">
          <font>
             <Font size="20.0" />
-         </font></Button>
-      <Label layoutX="235.0" layoutY="113.0" text="Nom :" textFill="#f99d26">
+         </font>
+      </Button>
+      <Label layoutX="38.0" layoutY="91.0" text="Nom :">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="235.0" layoutY="254.0" text="Déscription :" textFill="#f99d26">
+      <Label layoutX="38.0" layoutY="173.0" text="Déscription :">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="235.0" layoutY="459.0" text="Image :" textFill="#f99d26">
+      <Label layoutX="38.0" layoutY="345.0" text="Image :">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="32.0" text="Modifier une publication :" textFill="#f99d26">
+         <font>
+            <Font name="System Bold" size="30.0" />
          </font>
       </Label>
    </children>

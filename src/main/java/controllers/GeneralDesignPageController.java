@@ -3,8 +3,11 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import models.page;
 import services.pageService;
 
@@ -37,10 +40,11 @@ public class GeneralDesignPageController {
                 // Iterate through the list of pages
                 for (page page : pageList) {
                     // Load page.fxml for each page and set its data
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/page.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/pag.fxml"));
                     Parent interfaceRoot = loader.load();
-                    pagecontroller itemController = loader.getController();
+                    Pagcontroller itemController = loader.getController();
                     itemController.setData(page);
+                    itemController.setE(page);
 
                     // Add the loaded element to GridPane
                     gridPane.add(interfaceRoot, col, row);
@@ -99,4 +103,37 @@ public class GeneralDesignPageController {
 
     public void EcoModeButton(ActionEvent actionEvent) {
     }
+
+    public void publication(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file for the new page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubVisiteurTest.fxml"));
+            Parent root = loader.load();
+
+            // Get the current scene
+            Scene currentScene = ((Node) actionEvent.getSource()).getScene();
+
+            // Replace the content of the current scene with the content of the new page
+            currentScene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void lieux(ActionEvent actionEvent) {
+    }
+
+//    public void lieux(ActionEvent actionEvent) {
+//        // Add the action you want to perform when the publication button is clicked
+//        // For example, opening a new page named PageTest
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubVisiter.fxml"));
+//            Parent root = loader.load();
+//            Stage stage = new Stage();
+//            stage.setScene(new Scene(root));
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

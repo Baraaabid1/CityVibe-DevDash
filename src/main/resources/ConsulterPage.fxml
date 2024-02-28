@@ -9,26 +9,20 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ConsulterPagecontroller">
     <children>
-        <Pane layoutX="56.0" layoutY="62.0" prefHeight="270.0" prefWidth="1008.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+        <Pane layoutX="120.0" layoutY="66.0" prefHeight="196.0" prefWidth="545.0" style="-fx-background-color: white; -fx-background-radius: 30;">
             <children>
-                <Button layoutX="828.0" layoutY="213.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Supprimer" textFill="WHITE">
+                <Button layoutX="285.0" layoutY="120.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Supprimer" textFill="WHITE">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button layoutX="711.0" layoutY="213.0" mnemonicParsing="false" onAction="#consulter" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Consulter" textFill="WHITE">
+                <Button layoutX="177.0" layoutY="120.0" mnemonicParsing="false" onAction="#consulter" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Consulter" textFill="WHITE">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Button>
-            <ImageView fx:id="imageP" fitHeight="218.0" fitWidth="200.0" layoutX="22.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="logoP" fitHeight="62.0" fitWidth="78.0" layoutX="250.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="nomP" layoutX="346.0" layoutY="55.0" prefHeight="31.0" prefWidth="273.0" />
-            <Label fx:id="catP" layoutX="637.0" layoutY="55.0" prefHeight="31.0" prefWidth="273.0" />
-            <Label fx:id="descP" layoutX="346.0" layoutY="97.0" prefHeight="31.0" prefWidth="273.0" />
-            <Label fx:id="contP" layoutX="645.0" layoutY="97.0" prefHeight="31.0" prefWidth="273.0" />
-            <Label fx:id="ouvP" layoutX="654.0" layoutY="143.0" prefHeight="31.0" prefWidth="273.0" />
-            <Label fx:id="locP" layoutX="346.0" layoutY="143.0" prefHeight="31.0" prefWidth="273.0" />
+            <ImageView fx:id="imageP" fitHeight="134.0" fitWidth="148.0" layoutX="22.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="nomP" layoutX="187.0" layoutY="45.0" prefHeight="31.0" prefWidth="177.0" />
             </children>
         </Pane>
     </children>

@@ -36,7 +36,7 @@ public class GererLieuxController {
                 // Iterate through the list of pages
                 for (page page : pageList) {
                     // Load page.fxml for each page and set its data
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/page.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/PageTest.fxml"));
                     Parent interfaceRoot = loader.load();
                     pagecontroller itemController = loader.getController();
                     itemController.setData(page);

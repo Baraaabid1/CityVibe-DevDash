@@ -10,13 +10,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.categorieP;
 import models.publication;
+import services.pageService;
 import services.publicationService;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Modifiercontroller {
 
@@ -38,15 +42,20 @@ public class Modifiercontroller {
     private String imagePath = "";
 
 
-    private publication currentPublication; // Variable to store the current publication
+    public GeneralDesignTestController getPub() {
+        return pub;
+    }
 
-    private Pubcontroller pubcontroller; // Reference to the Pubcontroller for refreshing
+    public void setPub(GeneralDesignTestController pub) {
+        this.pub = pub;
+    }
+    private GeneralDesignTestController pub; // Reference to the Pubcontroller for refreshing
+
     private publication pu;
-    private Pubcontroller pubc;
 
     public void setData(publication publication) {
         // Set data to the UI elements based on the provided publication
-        currentPublication = publication;
+        pu = publication;
         desscc.setText(publication.getDescription());
         nommm.setText(publication.getNom());
 
@@ -72,40 +81,55 @@ public class Modifiercontroller {
                 showErrorAlert("Error loading image: " + e.getMessage());
             }
         }
+        imagePath= file.getAbsolutePath();
     }
-    @FXML
-    public void mod(ActionEvent event) {
-        if (pu != null) {
-            try {
-                if (!imagePath.isEmpty()) {
-                    pu.setDescription(desscc.getText());
-                    pu.setImage(imagePath);
-                    pu.setNom(nommm.getText());
-                } else {
-                    pu.setDescription(desscc.getText());
-                    pu.setImage(pu.getImage());
-                    pu.setNom(nommm.getText());
+    public void setRefresh( GeneralDesignTestController pub) {
+     this.pub = pub;
+    }
 
+
+        @FXML
+        void mod(ActionEvent event) {
+            try {
+                if (!imagePath.isEmpty() ) {
+                    pu.setImage(imagePath);
                 }
 
-                publicationService pS = new publicationService();
-                pS.modifier(pu);
+                pu.setNom(nommm.getText());
+                pu.setDescription(desscc.getText());
+
+
+                publicationService ES = new publicationService();
+                ES.modifier(pu);
 
                 Stage stage = (Stage) mod.getScene().getWindow();
                 stage.close();
+                //pub.refreshView();
 
-                pubcontroller.refreshView();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (SQLException | DateTimeParseException ex) {
+                ex.printStackTrace();
             }
         }
+//        }
+private void populatedFields() {
+    nommm.setText(pu.getNom());
+    desscc.setText(pu.getDescription());
+
+    File file = new File(pu.getImage());
+    if (file.exists()) {
+        Image image = new Image(file.toURI().toString());
+        imagess.setImage(image);
+
+
+        }
+
     }
 
-    public void initData(publication pu ,Pubcontroller pubc) {
+
+    public void initData(publication pu ,GeneralDesignTestController pub) {
         this.pu = pu;
-        this.pubc = pubc;
-        populateFields();
+        this.pub = pub;
+        populatedFields();
     }
 
     private void populateFields() {
@@ -118,39 +142,6 @@ public class Modifiercontroller {
         }
     }
 
-/*
-    @FXML
-    void mod(ActionEvent event) {
-        if (currentPublication != null) {
-            // Check if imagePath is not empty and not null
-            if (imagePath != null && !imagePath.isEmpty()) {
-                // Assuming imagePath is already a correct path, no need to modify it
-                currentPublication.setImage(imagePath);
-            }
-            currentPublication.setNom(nommm.getText());
-            currentPublication.setDescription(desscc.getText());
-
-            publicationService pSR = new publicationService();
-            try {
-                pSR.modifier(currentPublication);
-                // Show success message
-                showAlert(Alert.AlertType.INFORMATION, "Modification Successful", "Publication modified successfully.");
-
-                // Refresh the page
-                if (pubcontroller != null) {
-                    pubcontroller.initialize(); // Call initialize method of Pubcontroller
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // Show error message
-                showAlert(Alert.AlertType.ERROR, "Error", "Failed to modify publication: " + e.getMessage());
-            }
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Error", "No publication selected for modification.");
-        }
-    }
-
-*/
     private void showErrorAlert(String message) {
         showAlert(Alert.AlertType.ERROR, "Error", message);
     }
@@ -162,9 +153,6 @@ public class Modifiercontroller {
         alert.showAndWait();
     }
 
-    public void setRefresh(Pubcontroller pubcontroller) {
-        this.pubcontroller = pubcontroller; // Set reference to Pubcontroller
-    }
 
 
 }
