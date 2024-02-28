@@ -32,13 +32,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="166.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/home.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:/Users/zayneb/IdeaProjects/demo/PI/src/main/resources/icons/home.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -54,13 +49,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="167.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="32.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/event.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\event.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -76,13 +66,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="163.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/location.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\location.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -98,13 +83,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="163.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/transport.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\transport.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -120,13 +100,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="161.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/reservation.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\reservation.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -143,13 +118,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="162.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/profile.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\profile.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -165,13 +135,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="163.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/reclamation.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\reclamation.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -187,13 +152,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="165.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/parametres.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\parametres.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -209,13 +169,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="161.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/logout.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\logout.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -231,13 +186,8 @@
                     <graphic>
                         <HBox prefHeight="27.0" prefWidth="160.0">
                             <children>
-                                <ImageView fitHeight="23.0" fitWidth="26.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
-                                    <image>
-                                        <Image url="icons/help.png" />
-                                    </image>
-                                    <viewport>
-                                        <Rectangle2D />
-                                    </viewport>
+                                <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="SOMETIMES">
+                                    <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\help.png" />
                                 </ImageView>
                             </children>
                         </HBox>
@@ -257,9 +207,7 @@
                                 <VBox prefHeight="184.0" prefWidth="152.0">
                                     <children>
                                         <ImageView fitHeight="152.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="icons/5.png" />
-                                            </image>
+                                            <Image url="file:///C:\Users\zayneb\IdeaProjects\demo\PI\src\main\resources\icons\5.png" />
                                         </ImageView>
                                     </children>
                                 </VBox>

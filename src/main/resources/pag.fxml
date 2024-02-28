@@ -11,13 +11,13 @@
    <children>
       <Pane layoutX="114.0" layoutY="41.0" prefHeight="158.0" prefWidth="628.0" style="-fx-background-color: white; -fx-background-radius: 30;">
          <children>
-            <Button fx:id="consulter" layoutX="364.0" layoutY="71.0" mnemonicParsing="false" onAction="#consulter" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Consulter" textFill="WHITE">
+            <Button fx:id="consulter" layoutX="402.0" layoutY="80.0" mnemonicParsing="false" onAction="#consulter" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Consulter" textFill="WHITE">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <ImageView fx:id="img" fitHeight="115.0" fitWidth="154.0" layoutX="44.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="nom" layoutX="214.0" layoutY="38.0" prefHeight="17.0" prefWidth="141.0">
+            <ImageView fx:id="img" fitHeight="115.0" fitWidth="168.0" layoutX="44.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="nom" layoutX="275.0" layoutY="22.0" prefHeight="17.0" prefWidth="141.0">
                <font>
                   <Font size="20.0" />
                </font></Label>

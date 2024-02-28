@@ -95,9 +95,8 @@ public class Pubcontroller {
                     successAlert.setTitle("Suppression avec succès");
                     successAlert.setContentText("Publication supprimée");
                     successAlert.showAndWait();
-
-
-
+//                    GeneralDesignTestController E = null;
+//                    E.loadContent();
 
 
                     if (pub != null) {

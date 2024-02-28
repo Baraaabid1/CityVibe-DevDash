@@ -34,7 +34,8 @@ public class ModifierLieuxcontroller {
 
     @FXML
     private ImageView image;
-
+    @FXML
+    private Button modifierA;
     @FXML
     private Button addPhoto;
 
@@ -56,7 +57,6 @@ public class ModifierLieuxcontroller {
     private TextField ouverture;
     private String imagePath = "";
     private String logoPath = "";
-    private page pa;
     private GeneralDesignAdminController pub;
 
     public GeneralDesignAdminController getPub() {
@@ -67,6 +67,7 @@ public class ModifierLieuxcontroller {
         this.pub = pub;
     }
 
+    private page pa;
 
     public page getPa() {
         return pa;
@@ -110,6 +111,30 @@ public class ModifierLieuxcontroller {
         logoPath= file.getAbsolutePath();
     }
 
+    public void setData(page page) {
+        // Setting nom text
+        nom.setText(page.getNom());
+        // Setting description text
+        description.setText(page.getDescription());
+        // Setting localisation text
+        locali.setText(page.getLocalisation());
+        // Setting categorie text
+        categorieChoiceBox.setValue(categorieP.valueOf(page.getCategorie().toString()));
+        // Setting contact text
+        contact.setText(Integer.toString(page.getContact()));
+        // Setting localisation text
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = page.getOuverture().format(timeFormatter);
+        ouverture.setText(formattedTime);
+        // Setting image
+        Image imagee = new Image("file:" + page.getImage());
+        image.setImage(imagee);
+        // Setting logo
+        Image logoImage = new Image("file:" + page.getLogo());
+        logo.setImage(logoImage);
+    }
+
+
     @FXML
     private void initialize() {
         categorieChoiceBox.setItems(FXCollections.observableArrayList(categorieP.values()));
@@ -134,18 +159,16 @@ public class ModifierLieuxcontroller {
                     pageService ES = new pageService();
                     ES.modifier(pa);
 
-                    Stage stage = (Stage) mod.getScene().getWindow();
+                    Stage stage = (Stage) modifierA.getScene().getWindow();
                     stage.close();
 
                     pub.refreshView();
 
                 } catch (SQLException | DateTimeParseException ex) {
                     ex.printStackTrace();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
                 }
 
-            }
+    }
 
 
     private boolean saisieValide() {
@@ -167,9 +190,10 @@ public class ModifierLieuxcontroller {
 
     }
 
-    public void initData(page pa, GeneralDesignAdminController pub) {
+    public void initData(page pa, PageAdmincontroller pageAdmincontroller) {
+        // Your initialization code here
+
         this.pa = pa;
-        this.pub=pub;
         populatedFields();
 
     }
@@ -187,12 +211,13 @@ public class ModifierLieuxcontroller {
                if (file.exists()) {
                    Image image1 = new Image(file.toURI().toString());
                    image.setImage(image1);
-            File file1 = new File(pa.getLogo());
-               if (file1.exists()) {
-                   Image logo1= new Image(file.toURI().toString());
-                   logo.setImage(logo1);
+                   File file1 = new File(pa.getLogo()); // Corrected from pa.getImage() to pa.getLogo()
+                   if (file1.exists()) {
+                       Image logo1= new Image(file1.toURI().toString());
+                       logo.setImage(logo1);
+                   }
 
                }
 
         }
-    }     }
+    }

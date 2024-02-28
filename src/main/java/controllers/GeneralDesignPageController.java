@@ -123,17 +123,4 @@ public class GeneralDesignPageController {
     public void lieux(ActionEvent actionEvent) {
     }
 
-//    public void lieux(ActionEvent actionEvent) {
-//        // Add the action you want to perform when the publication button is clicked
-//        // For example, opening a new page named PageTest
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubVisiter.fxml"));
-//            Parent root = loader.load();
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root));
-//            stage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

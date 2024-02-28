@@ -88,27 +88,29 @@ public class PageAdmincontroller {
 
     @FXML
     void modifierA(ActionEvent event) {
-//        Button btn = (Button) event.getSource();
-//        page pageToModify = (page) btn.getUserData();
-//
-//        if (pageToModify != null) {
-           try {
+        Button btn = (Button) event.getSource();
+        page pageToModify = (page) btn.getUserData();
+
+        if (pageToModify != null) {
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierLieux.fxml"));
                 Parent root = loader.load();
 
-                ModifierLieuxcontroller modifierController = loader.getController();
-                // Pass pubToModify and a reference to the Pubcontroller to initData
-                modifierController.initData(page, pub);
+                ModifierLieuxcontroller modifierLieuxController = loader.getController();
+                modifierLieuxController.initData(pageToModify, this); // Pass this controller
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
-                stage.show();
+                stage.showAndWait(); // Show and wait for it to close
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+        } else {
+            showErrorAlert("Error: Page object to modify is null.");
         }
+    }
+
 
     @FXML
     void SupprimerA(ActionEvent event) {
@@ -130,8 +132,6 @@ public class PageAdmincontroller {
 
             } catch (SQLException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
 
         }
