@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class ModifierEvenement {
 
@@ -77,27 +78,19 @@ public class ModifierEvenement {
 
     @FXML
     void modifier(ActionEvent event) {
-        if (e != null) {
+        if (e != null && saisieValide()) {
             try {
                 if (!path.isEmpty()) {
-                    e.setNom(nomE.getText());
-                    e.setDescription(descriptionE.getText());
-                    e.setPage(pageE.getText());
-                    e.setCategorie(categorieE.getValue());
-                    e.setNbrPlaces(Integer.parseInt(nbrpE.getText()));
-                    e.setDate(LocalDate.parse(dateE.getText()));
-                    e.setHeure(LocalTime.parse(heureE.getText()));
                     e.setPhoto(path);
-                } else {
-                    e.setNom(nomE.getText());
-                    e.setDescription(descriptionE.getText());
-                    e.setPage(pageE.getText());
-                    e.setCategorie(categorieE.getValue());
-                    e.setNbrPlaces(Integer.parseInt(nbrpE.getText()));
-                    e.setDate(LocalDate.parse(dateE.getText()));
-                    e.setHeure(LocalTime.parse(heureE.getText()));
-                    e.setPhoto(e.getPhoto());
                 }
+
+                e.setNom(nomE.getText());
+                e.setDescription(descriptionE.getText());
+                e.setPage(pageE.getText());
+                e.setCategorie(categorieE.getValue());
+                e.setNbrPlaces(Integer.parseInt(nbrpE.getText()));
+                e.setDate(LocalDate.parse(dateE.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                e.setHeure(LocalTime.parse(heureE.getText(), DateTimeFormatter.ofPattern("HH:mm:ss")));
 
                 EvenementService ES = new EvenementService();
                 ES.modifier(e);
@@ -107,8 +100,8 @@ public class ModifierEvenement {
 
                 afff.refreshView();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (SQLException | DateTimeParseException ex) {
+                ex.printStackTrace();
             }
         }
     }
@@ -124,8 +117,8 @@ public class ModifierEvenement {
         descriptionE.setText(e.getDescription());
         pageE.setText(e.getPage());
         nbrpE.setText(String.valueOf(e.getNbrPlaces()));
-        dateE.setText(e.getDate().toString());
-        heureE.setText(e.getHeure().toString());
+        dateE.setText(e.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        heureE.setText(e.getHeure().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
         categorieE.setItems(FXCollections.observableArrayList(CategorieE.values()));
         categorieE.setValue(e.getCategorie());
@@ -135,5 +128,72 @@ public class ModifierEvenement {
             Image image = new Image(file.toURI().toString());
             photoE.setImage(image);
         }
+    }
+
+    private boolean saisieValide() {
+        // Vérification des champs obligatoires
+        if (nomE.getText().isEmpty() || descriptionE.getText().isEmpty() || pageE.getText().isEmpty() || nbrpE.getText().isEmpty() || dateE.getText().isEmpty() || heureE.getText().isEmpty()) {
+            afficherAlerte("Veuillez remplir tous les champs.");
+            return false;
+        }
+
+        // Vérification du format de la date (jj/mm/yyyy)
+        String datePattern = "\\d{2}/\\d{2}/\\d{4}";
+        if (!dateE.getText().matches(datePattern)) {
+            afficherAlerte("Veuillez saisir une date au format jj/mm/yyyy.");
+            return false;
+        }
+
+        // Vérification du format de l'heure (hh:mm:ss)
+        String heurePattern = "\\d{2}:\\d{2}:\\d{2}";
+        if (!heureE.getText().matches(heurePattern)) {
+            afficherAlerte("Veuillez saisir une heure au format hh:mm:ss.");
+            return false;
+        }
+
+        // Vérification de la date
+        try {
+            LocalDate.parse(dateE.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            if (LocalDate.parse(dateE.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).isBefore(LocalDate.now())) {
+                afficherAlerte("La date de l'événement doit être ultérieure à la date d'aujourd'hui.");
+                return false;
+            }
+        } catch (DateTimeParseException e) {
+            afficherAlerte("Veuillez saisir une date valide au format jj/mm/yyyy.");
+            return false;
+        }
+
+        // Vérification de l'heure
+        try {
+            LocalTime.parse(heureE.getText(), DateTimeFormatter.ofPattern("HH:mm:ss"));
+            if (LocalTime.parse(heureE.getText(), DateTimeFormatter.ofPattern("HH:mm:ss")).isBefore(LocalTime.now())) {
+                afficherAlerte("L'heure de l'événement doit être ultérieure à l'heure actuelle.");
+                return false;
+            }
+        } catch (DateTimeParseException e) {
+            afficherAlerte("Veuillez saisir une heure valide au format hh:mm:ss.");
+            return false;
+        }
+
+        // Vérification du nombre de participants
+        try {
+            int nbrParticipants = Integer.parseInt(nbrpE.getText());
+            if (nbrParticipants <= 0) {
+                afficherAlerte("Veuillez saisir un nombre de participants valide (entier positif).");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            afficherAlerte("Veuillez saisir un nombre de participants valide (entier positif).");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void afficherAlerte(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

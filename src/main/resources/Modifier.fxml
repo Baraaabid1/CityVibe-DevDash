@@ -62,7 +62,7 @@
                </font></Button>
             <ImageView fx:id="logo" fitHeight="92.0" fitWidth="96.0" layoutX="136.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/5.png" />
+                  <Image url="@icons/5.png" />
                </image>
             </ImageView>
             <ChoiceBox fx:id="categorieE" layoutX="90.0" layoutY="133.0" prefHeight="25.0" prefWidth="242.0" style="-fx-background-color: white; -fx-background-radius: 20;" />

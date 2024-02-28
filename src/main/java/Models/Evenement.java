@@ -11,8 +11,37 @@ public class Evenement {
 
     private CategorieE categorie;
     private String photo;
-
+    private Page page1;
     public Evenement() {
+    }
+
+    public Evenement(int idE) {
+
+    }
+
+    public Evenement(int idE, int nbrPlaces, String nom, String page, String description, LocalDate date, LocalTime heure, CategorieE categorie, String photo, Models.Page page1) {
+        this.idE = idE;
+        this.nbrPlaces = nbrPlaces;
+        this.nom = nom;
+        this.page = page;
+        this.description = description;
+        this.date = date;
+        this.heure = heure;
+        this.categorie = categorie;
+        this.photo = photo;
+        this.page1 = page1;
+    }
+
+    public Evenement(int nbrPlaces, String nom, String page, String description, LocalDate date, LocalTime heure, CategorieE categorie, String photo, Page page1) {
+        this.nbrPlaces = nbrPlaces;
+        this.nom = nom;
+        this.page = page;
+        this.description = description;
+        this.date = date;
+        this.heure = heure;
+        this.categorie = categorie;
+        this.photo = photo;
+        this.page1 = page1;
     }
 
     public Evenement(int idE, int nbrPlaces, String nom, String page, String description, LocalDate date, LocalTime heure, CategorieE categorie, String photo) {
@@ -109,6 +138,14 @@ public class Evenement {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public Page getPage1() {
+        return page1;
+    }
+
+    public void setPage1(Page page1) {
+        this.page1 = page1;
     }
 
     @Override

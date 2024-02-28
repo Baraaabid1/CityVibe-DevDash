@@ -33,7 +33,7 @@
             <Font name="Arial" size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="photoE" fitHeight="214.0" fitWidth="340.0" layoutX="34.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="photoE" fitHeight="214.0" fitWidth="340.0" layoutX="14.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="nbpE" layoutX="544.0" layoutY="93.0" prefHeight="33.0" prefWidth="59.0">
          <font>
             <Font name="Arial" size="14.0" />
@@ -72,6 +72,11 @@
       <Label fx:id="heueE1" layoutX="547.0" layoutY="164.0" prefHeight="25.0" prefWidth="59.0" text="Heure:" textAlignment="CENTER" textFill="#f99d26">
          <font>
             <Font name="Arial Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="nomP" layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="145.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
          </font>
       </Label>
    </children>

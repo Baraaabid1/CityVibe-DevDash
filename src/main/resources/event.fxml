@@ -71,10 +71,15 @@
             <Font name="Arial Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="voirPlus" layoutX="755.0" layoutY="254.0" mnemonicParsing="false" onAction="#voirPlus" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Voir plus" textFill="WHITE">
+      <Button fx:id="voirPlus" layoutX="746.0" layoutY="258.0" mnemonicParsing="false" onAction="#voirPlus" style="-fx-background-color: white; -fx-background-radius: 30;" text="Voir plus" textFill="#f99d26">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="nomP" layoutX="14.0" layoutY="11.0" prefHeight="33.0" prefWidth="202.0" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

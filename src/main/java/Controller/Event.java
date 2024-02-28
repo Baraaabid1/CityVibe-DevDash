@@ -2,6 +2,8 @@ package Controller;
 
 import Models.CategorieE;
 import Models.Evenement;
+import Models.Page;
+import Models.Utilisateur;
 import Services.EvenementService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,18 +50,38 @@ public class Event {
 
     @FXML
     private Button mod;
+
+    @FXML
+    private Label nomP;
+
     @FXML
     private Button voirPlus;
 
     private Evenement e;
     private AffficherEvenement aff;
+    private EvenementService es;
+    private Page page;
+
+    public Event() {
+    }
+
+
     public void setE(Evenement e){
         this.e= e;
     }
 
-    // Handle click event
+
+    public void setEs(EvenementService es) {
+        this.es = es;
+    }
+
+    public Event(EvenementService es) {
+        this.es = es;
+    }
+// Handle click event
 
     public void initialize(){
+
 
 
 
@@ -69,30 +91,37 @@ public class Event {
 
 
     public void setData(Evenement e) {
+        try {
+            if (e != null) {
+                 // Afficher le nom et le prénom de l'utilisateur
+                    nomP.setText(e.getPage1().getNom());
 
-        nomE.setText(e.getNom());
-        categorieE.setText(e.getCategorie().toString());
-        nbpE.setText(Integer.toString(e.getNbrPlaces()));
-        descriptionE.setText(e.getDescription());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = dateFormat.format(e.getDate().toEpochDay());
-        dateE.setText(formattedDate);
+                    nomE.setText(e.getNom());
+                    categorieE.setText(e.getCategorie().toString());
+                    nbpE.setText(Integer.toString(e.getNbrPlaces()));
+                    descriptionE.setText(e.getDescription());
 
-        // Format the time
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String formattedTime = e.getHeure().format(timeFormatter);
-        heueE.setText(formattedTime);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String formattedDate = dateFormat.format(e.getDate().toEpochDay());
+                    dateE.setText(formattedDate);
 
+                    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    String formattedTime = e.getHeure().format(timeFormatter);
+                    heueE.setText(formattedTime);
 
-        Image image = new Image("file:" + e.getPhoto());
-        photoE.setImage(image);
+                    Image image = new Image("file:" + e.getPhoto());
+                    photoE.setImage(image);
+                } else {
+                    // Gérer le cas où l'événement est null
+                    // Peut-être afficher un message d'erreur ou nettoyer les champs de l'interface utilisateur
+                }
 
+        } finally {
 
-
-        // Set the loaded image to the ImageView
-
-
+        }
     }
+
+
     @FXML
     void Supprimer(ActionEvent event) {
 
@@ -136,8 +165,30 @@ public class Event {
     }
     @FXML
     void voirPlus(ActionEvent event) {
+        try {
+            // Récupérer l'ID de l'événement actuel
+            int idEvenement = e.getIdE();
 
+            // Charger la vue EvenementComment.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EvenementComment.fxml"));
+            Parent root = loader.load();
+
+            // Récupérer le contrôleur associé
+            EvenementComment controller = loader.getController();
+
+            // Appeler la méthode initData du contrôleur EvenementComment
+            controller.initData(e, controller);
+
+            // Afficher la nouvelle fenêtre modale
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de chargement de la vue
+        }
     }
+
 
 }
 

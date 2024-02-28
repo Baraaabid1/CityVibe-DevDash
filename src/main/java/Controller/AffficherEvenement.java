@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -20,6 +21,8 @@ public class AffficherEvenement {
     private JFXButton ajE;
     @FXML
     private GridPane GridPane;
+    @FXML
+    private Label nomP;
 
     @FXML
     public void initialize() {
@@ -71,6 +74,8 @@ public class AffficherEvenement {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Ajouter.fxml"));
             Parent root = loader.load();
+            AjouterEvenement ajouterEvenementController = loader.getController();
+            ajouterEvenementController.setAfficherEvenementController(this); // Passer cette instance à AjouterEvenement
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -78,8 +83,8 @@ public class AffficherEvenement {
             e.printStackTrace();
             // Handle update view loading error
         }
-
     }
+
     public void refreshView() {
         loadContent();
     }

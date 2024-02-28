@@ -24,7 +24,7 @@
             </JFXButton>
             <ImageView fitHeight="101.0" fitWidth="109.0" layoutX="47.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/5.png" />
+                  <Image url="@icons/5.png" />
                </image>
             </ImageView>
             <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="101.0" prefHeight="25.0" prefWidth="176.0" ripplerFill="WHITE" style="-fx-background-color: transparent; -fx-background-radius: 50;" text="Acceuil" textAlignment="CENTER" textFill="WHITE">
@@ -69,54 +69,54 @@
             </JFXButton>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/icons8-home-26.png" />
+                  <Image url="@icons/icons8-home-26.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons8-today-48.png" />
+                  <Image url="@icons/icons8-today-48.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/icons8-location-50.png" />
+                  <Image url="@icons/icons8-location-50.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/icons8-city-railway-station-26.png" />
+                  <Image url="@icons/icons8-city-railway-station-26.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/icons8-contract-48.png" />
+                  <Image url="@icons/icons8-contract-48.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="476.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/icons8-setting-48.png" />
+                  <Image url="@icons/icons8-setting-48.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/icons8-typing-48.png" />
+                  <Image url="@icons/icons8-typing-48.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/icons8-contact-48.png" />
+                  <Image url="@icons/icons8-contact-48.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="21.0" layoutX="34.0" layoutY="601.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/icons/icons/icons8-logout-48.png" />
+                  <Image url="@icons/icons8-logout-48.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
       <ScrollPane layoutX="215.0" layoutY="89.0" prefHeight="605.0" prefWidth="899.0">
          <content>
-            <GridPane fx:id="GridPane" prefHeight="144.0" prefWidth="849.0" style="-fx-background-color: white; -fx-background-radius: 30; -fx-border-color: f1f1f1;">
+            <GridPane fx:id="GridPane" prefHeight="190.0" prefWidth="889.0" style="-fx-background-color: white; -fx-background-radius: 30; -fx-border-color: f1f1f1;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -177,62 +177,57 @@
                   </JFXButton>
                   <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="34.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-theatre-mask-26.png" />
+                        <Image url="@icons/icons8-theatre-mask-26.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="34.0" layoutY="468.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-health-50.png" />
+                        <Image url="@icons/icons8-health-50.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="34.0" layoutY="403.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-environment-care-32.png" />
+                        <Image url="@icons/icons8-environment-care-32.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="34.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-party-48.png" />
+                        <Image url="@icons/icons8-party-48.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="34.0" layoutY="263.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-family-two-men-32.png" />
+                        <Image url="@icons/icons8-family-two-men-32.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="34.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-education-48.png" />
+                        <Image url="@icons/icons8-education-48.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="34.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-sport-48.png" />
+                        <Image url="@icons/icons8-sport-48.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="34.0" layoutY="529.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/icons8-people-working-together-50.png" />
+                        <Image url="@icons/icons8-people-working-together-50.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Label layoutX="228.0" layoutY="31.0" prefHeight="17.0" prefWidth="143.0" text="Evenement:">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
       <JFXButton buttonType="RAISED" layoutX="1208.0" layoutY="26.0" prefHeight="30.0" prefWidth="143.0" ripplerFill="WHITE" style="-fx-background-color: #00bf63; -fx-background-radius: 50;" text="Eco Mode" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
       <TextField layoutX="897.0" layoutY="28.0" prefHeight="30.0" prefWidth="292.0" promptText="Rechercher ici " style="-fx-background-color: white; -fx-background-radius: 30;" />
-      <Label layoutX="228.0" layoutY="31.0" prefHeight="17.0" prefWidth="143.0" text="Evenement:">
+      <Label layoutX="215.0" layoutY="18.0" prefHeight="17.0" prefWidth="143.0" text="Evenement:">
          <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="21.0" />
          </font>
       </Label>
       <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="1153.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">

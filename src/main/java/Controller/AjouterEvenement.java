@@ -2,6 +2,7 @@ package Controller;
 
 import Models.CategorieE;
 import Models.Evenement;
+import Models.Page;
 import Services.EvenementService;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
@@ -20,6 +21,9 @@ import jfxtras.scene.control.LocalTimeTextField;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class AjouterEvenement {
     EvenementService es = new EvenementService();
@@ -61,28 +65,90 @@ public class AjouterEvenement {
 
     @FXML
     void Ajouter(ActionEvent event) {
+        if (!saisieValide()) {
+            return;
+        }
+
         try {
+            Page page = new Page(1);
             String selectedCategorieString = categorieE.getValue(); // Obtenez la chaîne de la ComboBox
             CategorieE selectedCategorie = CategorieE.valueOf(selectedCategorieString); // Convertissez la chaîne en enum CategorieE
-            es.ajouter(new Evenement(Integer.parseInt(nbrpE.getText()), nomE.getText(), pageE.getText(), descriptionE.getText(), dateE.getValue(), heueE.getLocalTime(), selectedCategorie, imgPath));
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setContentText("Evenement Ajouter avec succée");
-            alert.showAndWait();
+            es.ajouter(new Evenement(Integer.parseInt(nbrpE.getText()), nomE.getText(), pageE.getText(), descriptionE.getText(), dateE.getValue(), heueE.getLocalTime(), selectedCategorie, imgPath,page));
+          
             Stage stage = (Stage) ajouter.getScene().getWindow();
             stage.close();
-            // Refresh the view in the Afficher controller
+            // Rafraîchir la vue dans le contrôleur Afficher
             if (af != null) {
                 af.refreshView();
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
     }
+
+
+    //Fonction de saisie
+    private boolean saisieValide() {
+        // Vérification des champs obligatoires
+        if (nomE.getText().isEmpty() || nbrpE.getText().isEmpty() || descriptionE.getText().isEmpty() || pageE.getText().isEmpty() || imgPath.isEmpty() || dateE.getValue() == null || heueE.getLocalTime() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Veuillez remplir tous les champs.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Vérification du format de la date (jj/mm/yyyy)
+        LocalDate date = dateE.getValue();
+        String datePattern = "\\d{2}/\\d{2}/\\d{4}";
+        if (!date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).matches(datePattern)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Veuillez saisir une date au format jj/mm/yyyy.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Vérification du format de l'heure (hh:mm:ss)
+        LocalTime heure = heueE.getLocalTime();
+        String heurePattern = "\\d{2}:\\d{2}:\\d{2}";
+        if (!heure.format(DateTimeFormatter.ofPattern("HH:mm:ss")).matches(heurePattern)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Veuillez saisir une heure au format hh:mm:ss.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Vérification de la date et de l'heure
+        if (date.isBefore(LocalDate.now()) || (date.isEqual(LocalDate.now()) && heure.isBefore(LocalTime.now()))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("La date et l'heure de l'événement doivent être ultérieures à la date et l'heure actuelles.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // Vérification du nombre de participants
+        try {
+            int nbrParticipants = Integer.parseInt(nbrpE.getText());
+            if (nbrParticipants <= 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Veuillez saisir un nombre de participants valide (entier positif).");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
     @FXML
     void Inserer(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -106,6 +172,9 @@ public class AjouterEvenement {
 
         }
         imgPath = file.getAbsolutePath();
+    }
+    public void setAfficherEvenementController(AffficherEvenement af) {
+        this.af = af;
     }
 
 

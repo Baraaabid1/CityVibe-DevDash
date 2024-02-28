@@ -1,40 +1,45 @@
 package Services;
 
 import Models.Commentaire;
+import Models.Evenement;
+import Models.Utilisateur;
 import Utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentaireService {
+public class CommentaireService implements IService<Commentaire> {
     Connection cnx;
 
     public CommentaireService() {
         cnx = MyDataBase.getInstance().getconn();
     }
 
-
+    @Override
     public void ajouter(Commentaire t) {
         try {
-            String req = "insert into commentaire(Contenu, idE, idU, DateCreation) values (?, ?, ?, ?)";
+            String req = "INSERT INTO commentaire(Contenu, idE, idU, DateCreation) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, t.getContenu());
-            ps.setInt(2, t.getIdE());
-            ps.setInt(3, t.getIdU());
-            ps.setDate(4, new java.sql.Date(System.currentTimeMillis()));            ps.executeUpdate();
+            ps.setInt(2, t.getEvenement().getIdE());
+            ps.setInt(3, t.getUser().getIdu());
+            ps.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            ps.executeUpdate();
             System.out.println("Commentaire ajouté avec succès");
         } catch (SQLException ex) {
             System.out.println("Erreur lors de l'ajout du commentaire : " + ex.getMessage());
         }
     }
 
+    @Override
     public void modifier(Commentaire t) {
         try {
-            String req = "update commentaire set contenu=?, DateCreation=? where idC=?";
+            String req = "UPDATE commentaire SET contenu=?, DateCreation=? WHERE idC=?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, t.getContenu());
-            ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));            ps.setInt(3, t.getIdC());
+            ps.setDate(2, new java.sql.Date(System.currentTimeMillis()));
+            ps.setInt(3, t.getIdC());
             ps.executeUpdate();
             System.out.println("Commentaire modifié avec succès");
         } catch (SQLException ex) {
@@ -42,9 +47,7 @@ public class CommentaireService {
         }
     }
 
-
-
-
+    @Override
     public void supprimer(int id) {
         try {
             String req = "DELETE FROM commentaire WHERE idC=?";
@@ -57,11 +60,15 @@ public class CommentaireService {
         }
     }
 
+    @Override
+    public List<Commentaire> afficher() {
+        return new ArrayList<>();
+    }
 
     public List<Commentaire> recuperer(int ide) {
         List<Commentaire> comments = new ArrayList<>();
         try {
-            String req = "select * from commentaire where idE=?";
+            String req = "SELECT * FROM commentaire c INNER JOIN utilisateur u ON c.idU = u.idU WHERE idE=?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, ide);
             ResultSet rs = ps.executeQuery();
@@ -70,9 +77,18 @@ public class CommentaireService {
                 Commentaire c = new Commentaire();
                 c.setIdC(rs.getInt("idC"));
                 c.setContenu(rs.getString("contenu"));
-                c.setIdE(rs.getInt("idE"));
-                c.setIdU(rs.getInt("idU"));
                 c.setDate(rs.getDate("DateCreation"));
+
+                Utilisateur user= new Utilisateur(5);
+                user.setIdu(rs.getInt("idU"));
+                user.setNom(rs.getString("nom"));
+                user.setPrenom(rs.getString("prenom"));
+                c.setUser(user);
+
+                Evenement evenement = new Evenement();
+                evenement.setIdE(rs.getInt("idE"));
+                c.setEvenement(evenement);
+
                 comments.add(c);
             }
         } catch (SQLException ex) {
@@ -80,11 +96,43 @@ public class CommentaireService {
         }
         return comments;
     }
+    public String getNomUtilisateurById(int idU) {
+        String nomUtilisateur = "";
+        try {
+            String req = "SELECT nom FROM utilisateur WHERE idU=?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, idU);
+            ResultSet rs = ps.executeQuery();
 
-    public Commentaire detail(int id) {
+            if (rs.next()) {
+                nomUtilisateur = rs.getString("nom");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la récupération du nom de l'utilisateur : " + ex.getMessage());
+        }
+        return nomUtilisateur;
+    }
+    public String getNomEvenementById(int idE) {
+        String nomEvenement = "";
+        try {
+            String req = "SELECT nom FROM evenement WHERE idE=?";
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, idE);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                nomEvenement = rs.getString("nom");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la récupération du nom de l'événement : " + ex.getMessage());
+        }
+        return nomEvenement;
+    }
+
+    /*public Commentaire detail(int id) {
         Commentaire c = new Commentaire();
         try {
-            String req = "select * from commentaire where idC=?";
+            String req = "SELECT * FROM commentaire WHERE idC=?";
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -100,55 +148,5 @@ public class CommentaireService {
             System.out.println("Erreur lors de la récupération du commentaire : " + ex.getMessage());
         }
         return c;
-    }
-    }
-
-/*public boolean userPost(int idC, int idU) {
-    List<Commentaire> posts = new ArrayList<>();
-    try {
-        String req = "select * from commentaire where idU=? and idC=?";
-
-        PreparedStatement ps = cnx.prepareStatement(req);
-        ps.setInt(1, idU);
-        ps.setInt(2, idC);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            Commentaire p = new Commentaire();
-            p.setIdC(rs.getInt("idC"));
-            posts.add(p);
-        }
-    } catch (SQLException ex) {
-        System.out.println("Erreur lors de la vérification du post de l'utilisateur : " + ex.getMessage());
-    }
-    return !posts.isEmpty();
-}
-
-    /*public User OneUser(int idu) {
-        User u = new User();
-        try {
-            String req = "select * from user where id= "+idu;
-            Statement st = cnx.createStatement();
-            ResultSet rs = st.executeQuery(req);
-            while (rs.next()) {
-                u.setCIN(rs.getInt("cin"));
-                u.setAdresse(rs.getString("adresse"));
-                u.setEmail(rs.getString("email"));
-                u.setId(idu);
-                u.setNumero(rs.getInt("numero"));
-                u.setRoles(rs.getString("roles"));
-                u.setUserName(rs.getString("user_name"));
-                System.out.println(u);
-
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return u ;
     }*/
-
-
-
-
-
+}

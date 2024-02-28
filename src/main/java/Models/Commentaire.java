@@ -4,35 +4,32 @@ package Models;
 import java.util.Date;
 
 public class Commentaire {
-    private int idC, idE, idU;
+    private int idC;
     private String contenu;
     private Date date;
+    private Utilisateur user;
+    private Evenement evenement;
 
     public Commentaire() {
-    }
-
-    public Commentaire(int idC, int idE, int idU, String contenu, Date date) {
-        this.idC = idC;
-        this.idE = idE;
-        this.idU = idU;
-        this.contenu = contenu;
-        this.date=date;
     }
 
     public Commentaire(String contenu) {
         this.contenu = contenu;
     }
 
-    public Commentaire(int idE, int idU, String contenu , Date date) {
-        this.idE = idE;
-        this.idU = idU;
-        this.contenu = contenu;
-        this.date=date;
-    }
-
-    public Commentaire(int idC, String contenu) {
+    public Commentaire(int idC, String contenu, Date date, Utilisateur user, Evenement evenement) {
         this.idC = idC;
         this.contenu = contenu;
+        this.date = date;
+        this.user = user;
+        this.evenement = evenement;
+    }
+
+    public Commentaire(String contenu, Date date, Utilisateur user, Evenement evenement) {
+        this.contenu = contenu;
+        this.date = date;
+        this.user = user;
+        this.evenement = evenement;
     }
 
     public int getIdC() {
@@ -41,22 +38,6 @@ public class Commentaire {
 
     public void setIdC(int idC) {
         this.idC = idC;
-    }
-
-    public int getIdE() {
-        return idE;
-    }
-
-    public void setIdE(int idE) {
-        this.idE = idE;
-    }
-
-    public int getIdU() {
-        return idU;
-    }
-
-    public void setIdU(int idU) {
-        this.idU = idU;
     }
 
     public String getContenu() {
@@ -75,14 +56,30 @@ public class Commentaire {
         this.date = date;
     }
 
+    public Utilisateur getUser() {
+        return user;
+    }
+
+    public void setUser(Utilisateur user) {
+        this.user = user;
+    }
+
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
+    }
+
     @Override
     public String toString() {
         return "Commentaire{" +
                 "idC=" + idC +
-                ", idE=" + idE +
-                ", idU=" + idU +
                 ", contenu='" + contenu + '\'' +
-                ", date='" + date + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                ", evenement=" + evenement +
                 '}';
     }
 }

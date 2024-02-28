@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="287.0" prefWidth="333.0" style="-fx-background-color: f1f1f1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Comment">
+<AnchorPane prefHeight="270.0" prefWidth="392.0" style="-fx-background-color: f1f1f1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Comment">
    <children>
-      <TextArea fx:id="Comment" layoutX="22.0" layoutY="34.0" prefHeight="131.0" prefWidth="297.0" promptText="Commentaire" style="-fx-background-color: white; -fx-background-radius: 30;" />
-      <Button fx:id="commentAj" layoutX="101.0" layoutY="227.0" mnemonicParsing="false" onAction="#CommentAjouter" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Ajouter" textFill="#ebebeb">
+      <TextArea fx:id="Comment" layoutX="8.0" layoutY="68.0" prefHeight="135.0" prefWidth="376.0" promptText="Commentaire" style="-fx-background-color: white; -fx-border-color: black; -fx-background-radius: 10; -fx-border-radius: 5;" />
+      <Button fx:id="commentAj" layoutX="133.0" layoutY="223.0" mnemonicParsing="false" onAction="#CommentAjouter" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Ajouter" textFill="#ebebeb">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="nomE" layoutX="14.0" layoutY="33.0" prefHeight="17.0" prefWidth="160.0" />
+      <Label layoutX="14.0" layoutY="23.0" prefHeight="17.0" prefWidth="250.0" text="Ajouter votre Commentaire: ">
+         <font>
+            <Font name="Arial Bold" size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

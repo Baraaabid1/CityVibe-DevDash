@@ -56,6 +56,9 @@ public class SuperAdminEvent {
         private ImageView photoE;
 
         @FXML
+        private Label nomP;
+
+        @FXML
         private Button supp;
 
 
@@ -77,7 +80,7 @@ public class SuperAdminEvent {
 
 
     public void setData(Evenement e) {
-
+        nomP.setText(e.getPage1().getNom());
         nomE.setText(e.getNom());
         categorieE.setText(e.getCategorie().toString());
         nbpE.setText(Integer.toString(e.getNbrPlaces()));
