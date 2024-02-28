@@ -339,13 +339,13 @@
                         <Font name="Arial Bold" size="18.0" />
                      </font></Text>
                   <ChoiceBox fx:id="type_rec" layoutX="258.0" layoutY="116.0" prefHeight="31.0" prefWidth="245.0" />
-                  <TextField fx:id="page" layoutX="405.0" layoutY="174.0" promptText="page" />
+                  <TextField fx:id="page" layoutX="405.0" layoutY="171.0" promptText="page" />
                   <ChoiceBox fx:id="apropo" layoutX="164.0" layoutY="175.0" prefHeight="15.0" prefWidth="204.0" />
                   <Text fill="#f99d26" layoutX="73.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre" wrappingWidth="82.6337890625">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font></Text>
-                  <TextField fx:id="event" layoutX="405.0" layoutY="175.0" promptText="event" />
+                  <TextField fx:id="evenement" layoutX="405.0" layoutY="173.0" promptText="event" />
                   <Text fx:id="idRModif" fill="WHITE" layoutX="64.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                   <Text fill="#aeaeae" layoutX="143.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nous sommes prêts à vous aider !">
                      <font>

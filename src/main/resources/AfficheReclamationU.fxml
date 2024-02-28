@@ -328,6 +328,22 @@
                   <ListView fx:id="listReclamation" layoutX="34.0" layoutY="24.0" prefHeight="478.0" prefWidth="610.0" />
                </children>
             </Pane>
+                <Pane fx:id="repPan" layoutX="826.0" layoutY="98.0" prefHeight="471.0" prefWidth="351.0" style="-fx-background-color: white; -fx-background-radius: 15;">
+                    <children>
+                        <AnchorPane layoutY="15.0" prefHeight="455.0" prefWidth="352.0">
+                            <children>
+                                <ListView fx:id="listReponses" focusTraversable="false" layoutX="8.0" layoutY="355.0" prefHeight="38.0" prefWidth="332.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="12.0" />
+                                <TextField fx:id="repText" layoutX="11.0" layoutY="412.0" onAction="#hit_send" prefHeight="39.0" prefWidth="298.0" promptText="Ecrire Ici ..." style="-fx-background-radius: 15;" />
+                                <ImageView fitHeight="30.0" fitWidth="23.0" layoutX="315.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="icons/send.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </Pane>
             </children>
+
         </AnchorPane>    </center>
 </BorderPane>

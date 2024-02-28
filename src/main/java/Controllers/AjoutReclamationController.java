@@ -45,7 +45,7 @@ public class AjoutReclamationController {
     private ChoiceBox<String> apropo;
 
     @FXML
-    private TextField event;
+    private TextField evenement;
 
 
     @FXML
@@ -104,22 +104,22 @@ public class AjoutReclamationController {
                 "Autre"
         );
         apropo.setItems(Reclamationapropo);
+        evenement.setVisible(false);
         page.setVisible(false);
-        event.setVisible(false);
         apropo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 switch (newValue) {
                     case "Page":
                         page.setVisible(true);
-                        event.setVisible(false);
+                        evenement.setVisible(false);
                         break;
                     case "Evenement":
                         page.setVisible(false);
-                        event.setVisible(true);
+                        evenement.setVisible(true);
                         break;
                     default:
                         page.setVisible(false);
-                        event.setVisible(false);
+                        evenement.setVisible(false);
                 }
             }
         });
@@ -127,10 +127,21 @@ public class AjoutReclamationController {
     }
     @FXML
     void ajouterReclamation(ActionEvent event) {
+
             String titreValue = titre.getText();
             String textValue = text.getText();
             String typeRecValue = type_rec.getValue();
              String apropoValue = apropo.getValue();
+
+        String selectedApropo;
+
+        if ("Autre".equals(apropoValue)) {
+            selectedApropo = apropo.getValue();
+        } else if ("Lieux".equals(apropoValue)) {
+            selectedApropo = page.getText();
+        } else {
+            selectedApropo = evenement.getText();
+        }
 
         if (typeRecValue == null|| typeRecValue.isEmpty()) {
             TypeAlert.setVisible(true);
@@ -143,7 +154,7 @@ public class AjoutReclamationController {
 
             return;
         }
-        if (apropoValue == null || apropoValue.isEmpty()) {
+        if (selectedApropo == null || selectedApropo.isEmpty()) {
             apropoAlert1.setVisible(true);
             TypeAlert.setVisible(false);
             maxTitreAlert.setVisible(false);
@@ -202,15 +213,7 @@ public class AjoutReclamationController {
             int idu = 1;
 
 
-        String selectedApropo;
 
-        if ("Autre".equals(apropoValue)) {
-            selectedApropo = apropo.getValue();
-        } else if ("Lieux".equals(apropoValue)) {
-            selectedApropo = page.getText();
-        } else {
-            selectedApropo = apropoValue;
-        }
 
         Reclamation reclamation = new Reclamation();
         reclamation.setIdu(idu);
@@ -218,12 +221,26 @@ public class AjoutReclamationController {
         reclamation.setTitre(titreValue);
         reclamation.setContenu(textValue);
         reclamation.setType(typeRecValue);
-        reclamation.setApropo(apropoValue);
+        reclamation.setApropo(selectedApropo);
 
 
             try {
                 rs.ajouter(reclamation);
-            } catch (SQLException e) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationAjoutee.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
+                titre.clear();
+                text.clear();
+                type_rec.getSelectionModel().clearSelection();
+                apropo.getSelectionModel().clearSelection();
+                page.clear();
+                evenement.clear();
+
+
+
+            } catch (SQLException | IOException e) {
                 e.printStackTrace();
             }
         }

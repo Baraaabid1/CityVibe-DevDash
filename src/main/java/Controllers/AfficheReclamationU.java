@@ -12,15 +12,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import models.Reclamation;
+import models.ReponseR;
 import services.ReclamationService;
+import services.ReponseRService;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class AfficheReclamationU {
@@ -31,11 +36,29 @@ public class AfficheReclamationU {
     private ListView<Reclamation> listReclamation;
 
     private ReclamationService rs = new ReclamationService();
+    private ReponseRService rrs = new ReponseRService();
+    LocalDateTime currentDateTime = LocalDateTime.now();
+    Timestamp currentTimestamp = Timestamp.valueOf(currentDateTime);
+    @FXML
+    private Pane repPan;
+
+    @FXML
+    private ListView<ReponseR> listReponses;
+
+    @FXML
+    private TextField repText;
+    int idU =1;
+    int currRec ;
 
     public void initialize() {
+        repPan.setVisible(false);
         int userId = 1;
         try {
             ObservableList<Reclamation> reclamations = FXCollections.observableArrayList(rs.MesReclamations(userId));
+            FXCollections.reverse(reclamations);
+            listReclamation.setStyle("-fx-control-inner-background: rgba(244,244,244,255);-fx-border-width: 0;-fx-selection-bar: transparent;");
+
+
 
             listReclamation.setCellFactory(new Callback<>() {
                 @Override
@@ -97,8 +120,11 @@ public class AfficheReclamationU {
                                 });
 
                                 responseButton.setOnAction(event -> {
-                                    // Handle response action
-                                    System.out.println("Response button clicked for reclamation ID: " + reclamation.getIdR());
+                                    try {
+                                        updateReponsesListView(reclamation.getIdR());
+                                    } catch (SQLException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                 });
 
                                 buttonsBox.getChildren().addAll(modifyButton, deleteButton, responseButton);
@@ -110,7 +136,7 @@ public class AfficheReclamationU {
                                 VBox.setVgrow(reclamationBox, Priority.ALWAYS);
 
                                 // Set padding and spacing for the reclamation box
-                                reclamationBox.setStyle("-fx-padding: 10px; -fx-spacing: 10px;");
+                                reclamationBox.setStyle("-fx-padding: 10px; -fx-spacing: 10px;-fx-background-color: rgba(255, 255, 255, 1); -fx-background-radius: 15px;");
 
                                 setGraphic(reclamationBox);
                             }
@@ -121,6 +147,7 @@ public class AfficheReclamationU {
 
             // Set the observable list to the ListView
             listReclamation.setItems(reclamations);
+
         } catch (SQLException e) {
             e.printStackTrace();
             // Handle database exception
@@ -198,5 +225,72 @@ public class AfficheReclamationU {
         stage.setScene(new Scene(root));
 
     }
+    @FXML
+    void hit_send(ActionEvent event) {
+        String reponse =repText.getText();
+        try {
+            rrs.ajouter(new ReponseR(currRec,idU,reponse,currentTimestamp));
+            updateReponsesListView(currRec);
+            repText.clear();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    private void updateReponsesListView(int idR) throws SQLException {
+        currRec =idR;
+        repPan.setVisible(true);
+
+        ObservableList<ReponseR> reponses = FXCollections.observableArrayList(rrs.afficherReponsesForReclamation(idR));
+        listReponses.setStyle("-fx-control-inner-background: white;-fx-border-width: 0;-fx-selection-bar: white;");
+
+        // Clear existing items
+        listReponses.getItems().clear();
+
+        // Add responses to the ListView
+        listReponses.setItems(reponses);
+
+        // Optionally, set a custom cell factory for the ListView to customize the appearance of each item
+        listReponses.setCellFactory(param -> new ListCell<ReponseR>() {
+            @Override
+            protected void updateItem(ReponseR reponse, boolean empty) {
+                super.updateItem(reponse, empty);
+                if (empty || reponse == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    // Create labels for Name and Text
+                    Label nameLabel = new Label();
+                    nameLabel.setStyle("-fx-font-size: 12pt; -fx-text-fill: black;-fx-font-weight: bold");
+
+                    if (reponse.getIdU() == 0) {
+                        nameLabel.setText("Admin");
+                    } else {
+                        nameLabel.setText("User 1");
+
+                    }
+
+                    Label textLabel = new Label(reponse.getTextR());
+                    textLabel.setStyle("-fx-font-size: 10pt; -fx-text-fill: black;");
+
+                    // Create a vertical box to hold labels
+                    VBox reponseBox = new VBox();
+                    reponseBox.getChildren().addAll(nameLabel, textLabel);
+                    VBox.setVgrow(reponseBox, Priority.ALWAYS);
+
+                    setGraphic(reponseBox);
+
+                }
+            }
+        });
+
+// Set a custom viewport to reverse the order visually
+        listReponses.setFixedCellSize(50); // Adjust cell height as needed
+        listReponses.setPrefHeight(reponses.size() * listReponses.getFixedCellSize());
+        listReponses.scrollTo(reponses.size() - 1);
+        listReponses.setMaxHeight(401);
+    }
+
 
 }

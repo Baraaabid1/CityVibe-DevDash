@@ -104,6 +104,7 @@ public class ReclamationService implements IService<Reclamation> {
         String req = "SELECT * FROM reclamation WHERE idu = ?";
         List<Reclamation> reclamations = new ArrayList<>();
 
+
         PreparedStatement ps = connection.prepareStatement(req);
         ps.setInt(1, idu);
         ResultSet rs = ps.executeQuery();
@@ -123,15 +124,73 @@ public class ReclamationService implements IService<Reclamation> {
         ps.close();
         return reclamations;
     }
-    /*public void addResponseToReclamation(int reclamationId, ReponseR response) {
-        Reclamation reclamation = reclamationDAO.getReclamationById(reclamationId);
+    public List<Reclamation> trierReclamationsParDateAscendante() throws SQLException {
+        String req = "SELECT * FROM reclamation ORDER BY temp ASC";
+        List<Reclamation> reclamations = new ArrayList<>();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(req);
 
-        if (reclamation != null) {
-            reclamation.addResponse(response);
-            reclamationDAO.updateReclamation(reclamation);
-        } else {
-        }
-    }*/
+            while (resultSet.next()) {
+                Reclamation reclamation = new Reclamation();
+                reclamation.setIdR(resultSet.getInt("idR"));
+                reclamation.setIdu(resultSet.getInt("idu"));
+                reclamation.setTemp(resultSet.getTimestamp("temp"));
+                reclamation.setTitre(resultSet.getString("titreR"));
+                reclamation.setContenu(resultSet.getString("contenu"));
+                reclamation.setType(resultSet.getString("typeR"));
+                reclamation.setApropo(resultSet.getString("apropo"));
 
+                reclamations.add(reclamation);
+            }
 
+        return reclamations;
+    }
+    public List<Reclamation> trierReclamationsParDateDescendante() throws SQLException {
+        String req = "SELECT * FROM reclamation ORDER BY temp DESC";
+        List<Reclamation> reclamations = new ArrayList<>();
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(req);
+
+            while (resultSet.next()) {
+                Reclamation reclamation = new Reclamation();
+                reclamation.setIdR(resultSet.getInt("idR"));
+                reclamation.setIdu(resultSet.getInt("idu"));
+                reclamation.setTemp(resultSet.getTimestamp("temp"));
+                reclamation.setTitre(resultSet.getString("titreR"));
+                reclamation.setContenu(resultSet.getString("contenu"));
+                reclamation.setType(resultSet.getString("typeR"));
+                reclamation.setApropo(resultSet.getString("apropo"));
+
+                reclamations.add(reclamation);
+            }
+
+        return reclamations;
+    }
+    public List<Reclamation> trierReclamationsParType(String typeReclamation) throws SQLException {
+        String req = "SELECT * FROM reclamation WHERE typeR = '" + typeReclamation + "'";
+        List<Reclamation> reclamations = new ArrayList<>();
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(req);
+
+            while (resultSet.next()) {
+                Reclamation reclamation = new Reclamation();
+                reclamation.setIdR(resultSet.getInt("idR"));
+                reclamation.setIdu(resultSet.getInt("idu"));
+                reclamation.setTemp(resultSet.getTimestamp("temp"));
+                reclamation.setTitre(resultSet.getString("titreR"));
+                reclamation.setContenu(resultSet.getString("contenu"));
+                reclamation.setType(resultSet.getString("typeR"));
+                reclamation.setApropo(resultSet.getString("apropo"));
+
+                reclamations.add(reclamation);
+            }
+
+        return reclamations;
+    }
 }
+
+
+
+

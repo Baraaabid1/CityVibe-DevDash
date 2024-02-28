@@ -56,7 +56,7 @@ public class test {
         }
 
         try {
-            System.out.println(rs.MesReclamations(1));
+            System.out.println(rs.trierReclamationsParType("Contenu inapproprié"));
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
