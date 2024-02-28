@@ -1,21 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModifierUserController">
+<AnchorPane prefHeight="507.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModifierUserController">
    <children>
-      <TextField fx:id="nomField" layoutX="85.0" layoutY="88.0" promptText="nom" />
-      <Button fx:id="modifierUser" layoutX="521.0" layoutY="349.0" mnemonicParsing="false" onAction="#modifierUser" style="-fx-background-color: #F99D26;" text="Modifier" textFill="WHITE" />
-      <TextField fx:id="idField" layoutX="14.0" layoutY="14.0" promptText="entrez id" />
-      <TextField fx:id="prenomField" layoutX="85.0" layoutY="148.0" promptText="prenom" />
-      <TextField fx:id="passwordField" layoutX="93.0" layoutY="209.0" promptText="password" />
-      <TextField fx:id="naissanceField" layoutX="93.0" layoutY="299.0" promptText="Date naissance" />
-      <TextField fx:id="emailField" layoutX="334.0" layoutY="79.0" promptText="email" />
-      <TextField fx:id="telField" layoutX="334.0" layoutY="132.0" promptText="Tel" />
-      <TextField fx:id="preferenceField" layoutX="334.0" layoutY="186.0" promptText="preferences" />
-      <TextField fx:id="locationField" layoutX="334.0" layoutY="240.0" promptText="location" />
-      <TextField fx:id="roleField" layoutX="334.0" layoutY="299.0" promptText="role" />
+      <TextField fx:id="nomField" layoutX="102.0" layoutY="84.0" prefHeight="44.0" prefWidth="260.0" promptText="nom" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <Button fx:id="modifierUser" layoutX="465.0" layoutY="391.0" mnemonicParsing="false" onAction="#modifierUser" prefHeight="44.0" prefWidth="260.0" style="-fx-background-color: #F99D26; -fx-background-radius: 15;" text="Confirmer" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Button>
+      <TextField fx:id="prenomField" layoutX="468.0" layoutY="84.0" prefHeight="44.0" prefWidth="260.0" promptText="prenom" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="naissanceField" layoutX="102.0" layoutY="292.0" prefHeight="44.0" prefWidth="260.0" promptText="Date naissance" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="emailField" layoutX="468.0" layoutY="189.0" prefHeight="44.0" prefWidth="260.0" promptText="email" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="telField" layoutX="102.0" layoutY="189.0" prefHeight="44.0" prefWidth="260.0" promptText="Tel" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="locationField" layoutX="468.0" layoutY="292.0" prefHeight="44.0" prefWidth="260.0" promptText="location" style="-fx-background-radius: 15;">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <Label layoutX="109.0" layoutY="51.0" prefHeight="32.0" prefWidth="253.0" text="Nom">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="102.0" layoutY="155.0" prefHeight="32.0" prefWidth="245.0" text="Numéro de telephone">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="102.0" layoutY="265.0" prefHeight="8.0" prefWidth="253.0" text="Date de Naissance">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="476.0" layoutY="57.0" prefHeight="21.0" prefWidth="245.0" text="Prenom">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="472.0" layoutY="164.0" prefHeight="21.0" prefWidth="245.0" text="Email">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="473.0" layoutY="266.0" prefHeight="0.0" prefWidth="253.0" text="Location">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="102.0" layoutY="391.0" mnemonicParsing="false" onAction="#cancel" prefHeight="44.0" prefWidth="260.0" style="-fx-background-color: #F99D26; -fx-background-radius: 15;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

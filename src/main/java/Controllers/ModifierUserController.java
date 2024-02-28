@@ -71,12 +71,10 @@ public class ModifierUserController {
             if (utilisateur != null) {
                 nomField.setText(utilisateur.getNom());
                 prenomField.setText(utilisateur.getPrenom());
-                passwordField.setText(utilisateur.getPassword());
                 naissanceField.setText(String.valueOf(utilisateur.getDateNaissance()));
                 emailField.setText(utilisateur.getEmail());
                 telField.setText(String.valueOf(utilisateur.getNum_tel()));
                 locationField.setText(utilisateur.getLocalisation());
-                roleField.setText(utilisateur.getRole());
             } else {
                 nomField.setText("");
                 showErrorAlert("Aucun utilisateur trouvé pour cet ID.");
@@ -91,17 +89,15 @@ public class ModifierUserController {
 
     }
     @FXML
-    void modifierUser(ActionEvent event) throws IOException {
+    void modifierUser(ActionEvent event) throws IOException, SQLException {
 
         int id = 0;
         try {
             int tel = Integer.parseInt(telField.getText());
             String nom = nomField.getText();
             String prenom = prenomField.getText();
-            String password = passwordField.getText();
             String email = emailField.getText();
             String location = locationField.getText();
-            String role = roleField.getText();
             String dateNaissanceStr = naissanceField.getText();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate dateNaissance = parse(dateNaissanceStr, formatter);
@@ -120,7 +116,7 @@ public class ModifierUserController {
             }
             System.out.println(id);
 
-            us.modifier(new Utilisateur(id, tel, nom, prenom, password, email, location, dateNaissance, role));
+            us.modifier(new Utilisateur(id, tel, nom, prenom, email, location, dateNaissance));
         } catch (SQLException e) {
             e.printStackTrace();
             showErrorAlert("Erreur lors de la mise à jour des informations de l'utilisateur.");
@@ -129,13 +125,16 @@ public class ModifierUserController {
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
         root = loader.load();
-        ProfileController Profuser = loader.getController();
-        Profuser.initialize(id);
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
+        ProfileController profileController = loader.getController();
+        if (profileController != null) {
+            // Actualiser les données du profil
+            profileController.initialize(id);
+            // Fermer la fenêtre de modification0
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } else {
+            System.err.println("Le contrôleur de profil est null.");
+        }
     }
 
 
@@ -146,4 +145,17 @@ public class ModifierUserController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @FXML
+    void cancel(ActionEvent event) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
+        root = loader.load();
+        ProfileController pro = loader.getController();
+        pro.initialize(utilisateur.getIdu());
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
 }

@@ -1,18 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PreferencesController">
    <children>
-      <Button layoutX="192.0" layoutY="62.0" mnemonicParsing="false" onAction="#ArtPref" prefHeight="83.0" prefWidth="83.0" text="Art" />
-      <Button layoutX="466.0" layoutY="62.0" mnemonicParsing="false" onAction="#sportPref" prefHeight="83.0" prefWidth="83.0" text="sport" />
-      <Button layoutX="65.0" layoutY="62.0" mnemonicParsing="false" onAction="#education" prefHeight="83.0" prefWidth="83.0" text="Education" />
-      <Button layoutX="322.0" layoutY="230.0" mnemonicParsing="false" onAction="#dance" prefHeight="83.0" prefWidth="83.0" text="Dance" />
-      <Button layoutX="322.0" layoutY="62.0" mnemonicParsing="false" onAction="#bienEtre" prefHeight="83.0" prefWidth="83.0" text="Bien_Etre" />
-      <Button layoutX="65.0" layoutY="231.0" mnemonicParsing="false" onAction="#sante" prefHeight="83.0" prefWidth="83.0" text="Santé" />
-      <Button layoutX="192.0" layoutY="232.0" mnemonicParsing="false" onAction="#musique" prefHeight="83.0" prefWidth="83.0" text="Musique" />
-      <Button layoutX="466.0" layoutY="228.0" mnemonicParsing="false" onAction="#lecture" prefHeight="83.0" prefWidth="83.0" text="Lecture" />
+      <Button layoutX="192.0" layoutY="62.0" mnemonicParsing="false" onAction="#ArtPref" prefHeight="83.0" prefWidth="83.0">
+         <graphic>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                       <Image url="@/img/art.png" />
+                    </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="466.0" layoutY="62.0" mnemonicParsing="false" onAction="#sportPref" prefHeight="83.0" prefWidth="83.0">
+         <graphic>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@/img/sport.png" />
+            </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="65.0" layoutY="62.0" mnemonicParsing="false" onAction="#education" prefHeight="83.0" prefWidth="83.0">
+         <graphic>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@/img/education.png" />
+            </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="322.0" layoutY="230.0" mnemonicParsing="false" onAction="#dance" prefHeight="83.0" prefWidth="83.0">
+         <graphic>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@/img/dance.png" />
+            </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="322.0" layoutY="62.0" mnemonicParsing="false" onAction="#bienEtre" prefHeight="83.0" prefWidth="83.0">
+         <graphic>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@/img/bien_etre.png" />
+            </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="65.0" layoutY="231.0" mnemonicParsing="false" onAction="#sante" prefHeight="83.0" prefWidth="83.0">
+         <graphic>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@/img/sante.png" />
+            </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="192.0" layoutY="232.0" mnemonicParsing="false" onAction="#musique" prefHeight="83.0" prefWidth="83.0">
+         <graphic>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@/img/music.png" />
+            </image>
+            </ImageView>
+         </graphic></Button>
+      <Button layoutX="466.0" layoutY="228.0" mnemonicParsing="false" onAction="#lecture" prefHeight="83.0" prefWidth="83.0">
+         <graphic>
+            <ImageView fitHeight="73.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@/img/lecture.png" />
+            </image>
+            </ImageView>
+         </graphic></Button>
+      <Label layoutX="59.0" layoutY="155.0" prefHeight="30.0" prefWidth="92.0" text="Education">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="183.0" layoutY="155.0" prefHeight="21.0" prefWidth="105.0" text="Art">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="322.0" layoutY="155.0" prefHeight="14.0" prefWidth="83.0" text="Bien-Etre">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="466.0" layoutY="155.0" prefHeight="20.0" prefWidth="83.0" text="Sport">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="65.0" layoutY="326.0" prefHeight="18.0" prefWidth="83.0" text="Santé">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="192.0" layoutY="326.0" prefHeight="17.0" prefWidth="83.0" text="Musique">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="322.0" layoutY="326.0" prefHeight="22.0" prefWidth="83.0" text="Dance">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="466.0" layoutY="326.0" prefHeight="20.0" prefWidth="83.0" text="Lecture">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

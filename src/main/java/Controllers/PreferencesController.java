@@ -10,51 +10,54 @@ public class PreferencesController {
 
     @FXML
     void ArtPref(ActionEvent event) {
-        preferences.add("art");
+        ajouterPreference("Art");
 
     }
 
     @FXML
     void sportPref(ActionEvent event) {
-        preferences.add("sport");
+        ajouterPreference("Sport");
 
     }
     @FXML
     void bienEtre(ActionEvent event) {
-        preferences.add("Bien_Etre");
+        ajouterPreference("Bien_Etre");
 
     }
 
     @FXML
     void dance(ActionEvent event) {
-        preferences.add("Dance");
+        ajouterPreference("Dance");
 
     }
 
     @FXML
     void education(ActionEvent event) {
-        preferences.add("Eduction");
+        ajouterPreference("Education");
 
     }
 
     @FXML
     void lecture(ActionEvent event) {
-        preferences.add("Lecture");
+        ajouterPreference("Lecture");
 
     }
 
     @FXML
     void musique(ActionEvent event) {
-        preferences.add("Musique");
-
+        ajouterPreference("Musique");
     }
 
     @FXML
     void sante(ActionEvent event) {
-        preferences.add("Santé");
+        ajouterPreference("Santé");
 
     }
-
+    private void ajouterPreference(String preference) {
+        if (!preferences.contains(preference)) {
+            preferences.add(preference);
+        }
+    }
     public ObservableList<String> getPreferences() {
         System.out.println(preferences);
         return preferences;

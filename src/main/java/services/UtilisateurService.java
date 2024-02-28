@@ -60,7 +60,6 @@ public class UtilisateurService implements IService <Utilisateur> {
                 pstmt.setTimestamp(5, Timestamp.valueOf(dateTimeOfBirth));
                 pstmt.setString(6, utilisateur.getEmail());
                 pstmt.setInt(7, utilisateur.getNum_tel());
-//                pstmt.setString(8, utilisateur.getPreference());
                 pstmt.setString(8, utilisateur.getLocalisation());
                 byte[] defaultImageBytes = selectAndConvertDefaultImage();
                 pstmt.setBytes(9, defaultImageBytes);
@@ -139,41 +138,48 @@ public class UtilisateurService implements IService <Utilisateur> {
             showAlert("Invalid phone number");
             throw new IllegalArgumentException("Invalid phone number");
         } else if (!isValidDate(utilisateur.getDateNaissance())) {
-                showAlert("Invalid date of birth");
-                throw new IllegalArgumentException("Invalid date of birth");
-        }else {
-            String utilisateurreq = "UPDATE utilisateur SET nom=?, prenom=?, password=?, dateNaissance=?, email=?, num_tel=?, localisation=?, role=? WHERE idu=?";
-            System.out.println(utilisateur);
+            showAlert("Invalid date of birth");
+            throw new IllegalArgumentException("Invalid date of birth");
+        } else {
+            String utilisateurreq = "UPDATE utilisateur SET nom=?, prenom=?, dateNaissance=?, email=?, num_tel=?, localisation=? WHERE idu=?";
             try (PreparedStatement pstmt = connection.prepareStatement(utilisateurreq)) {
                 pstmt.setString(1, utilisateur.getNom());
                 pstmt.setString(2, utilisateur.getPrenom());
-                pstmt.setString(3, utilisateur.getPassword());
                 LocalDate localDate = LocalDate.from(utilisateur.getDateNaissance());
-                pstmt.setDate(4, java.sql.Date.valueOf(utilisateur.getDateNaissance()));
-
-//                java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-//                pstmt.setDate(4, sqlDate);
-                pstmt.setString(5, utilisateur.getEmail());
-                pstmt.setInt(6, utilisateur.getNum_tel());
-                pstmt.setString(7, utilisateur.getLocalisation());
-                pstmt.setString(8, utilisateur.getRole());
-                pstmt.setInt(9, utilisateur.getIdu());
+                pstmt.setDate(3, java.sql.Date.valueOf(utilisateur.getDateNaissance()));
+                pstmt.setString(4, utilisateur.getEmail());
+                pstmt.setInt(5, utilisateur.getNum_tel());
+                pstmt.setString(6, utilisateur.getLocalisation());
+                pstmt.setInt(7, utilisateur.getIdu());
                 pstmt.executeUpdate();
             }
         }
     }
+
     private boolean isValidDate(Object date) {
         return date instanceof LocalDate;
     }
 
     @Override
     public void supprimer(int id) throws SQLException {
-        String utilisateurreq = "DELETE FROM utilisateur WHERE idu=?";
-        try (PreparedStatement pstmt = connection.prepareStatement(utilisateurreq)) {
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-        }
+        try {
+            // Supprimer les entrées associées dans la table preferences
+            String preferencesReq = "DELETE FROM preferences WHERE idu=?";
+            try (PreparedStatement prefStmt = connection.prepareStatement(preferencesReq)) {
+                prefStmt.setInt(1, id);
+                prefStmt.executeUpdate();
+            }
 
+            // Supprimer l'utilisateur de la table utilisateur
+            String utilisateurReq = "DELETE FROM utilisateur WHERE idu=?";
+            try (PreparedStatement userStmt = connection.prepareStatement(utilisateurReq)) {
+                userStmt.setInt(1, id);
+                userStmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les erreurs de suppression
+        }
     }
 
     @Override

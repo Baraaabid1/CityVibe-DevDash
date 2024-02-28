@@ -5,6 +5,7 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -385,32 +386,9 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="pref1" layoutX="87.0" layoutY="134.0" prefHeight="36.0" prefWidth="349.0" text="Art">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="pref2" layoutX="87.0" layoutY="188.0" prefHeight="36.0" prefWidth="349.0" text="sport">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="pref3" layoutX="87.0" layoutY="240.0" prefHeight="36.0" prefWidth="349.0" text="Bien_Etre">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="pref11" layoutX="87.0" layoutY="299.0" prefHeight="36.0" prefWidth="349.0" text="Education">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="pref21" layoutX="87.0" layoutY="357.0" prefHeight="36.0" prefWidth="349.0" text="Aventure">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
                   <Button layoutX="81.0" layoutY="506.0" mnemonicParsing="false" onAction="#SupprimeCompte" prefHeight="34.0" prefWidth="361.0" style="-fx-background-radius: 15; -fx-background-color: #D9D9D9;" text="Supprimer mon compte" />
+                  <ListView fx:id="prefList" layoutX="26.0" layoutY="150.0" maxHeight="-Infinity" prefHeight="311.0" prefWidth="450.0" style="-fx-background-color: white;" />
+                  <Button layoutX="81.0" layoutY="468.0" mnemonicParsing="false" onAction="#changerMDP" prefHeight="34.0" prefWidth="361.0" style="-fx-background-radius: 15;" text="Changer Mot de passe" />
                </children></AnchorPane>
          </children></AnchorPane>
    </center>

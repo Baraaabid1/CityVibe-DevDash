@@ -35,9 +35,10 @@ public class LoginController {
         connection= MyDataBase.getInstance().getConn();
     }
     @FXML
-    void LoginU(ActionEvent event) throws IOException {
+    void LoginU(ActionEvent event) throws IOException, SQLException {
         String email = emailU.getText();
-        String motDePasse = hashPassword(mdpU.getText()); // Hashage du mot de passe entré par l'utilisateur
+        String motDePasse = hashPassword(mdpU.getText());
+        System.out.println("logtest"+motDePasse);// Hashage du mot de passe entré par l'utilisateur
         int idUser = -1; // Initialiser l'ID de l'utilisateur à -1 par défaut
 
         try {

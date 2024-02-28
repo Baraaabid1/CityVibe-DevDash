@@ -34,6 +34,15 @@ public class Utilisateur {
         this.dateNaissance = dateNaissance;
         this.role = role;
     }
+    public Utilisateur(int idu, int num_tel, String nom, String prenom, String email, String localisation, LocalDate dateNaissance) {
+        this.idu = idu;
+        this.num_tel = num_tel;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.localisation = localisation;
+        this.dateNaissance = dateNaissance;
+    }
 
 
     public Utilisateur(int num_tel, String nom, String prenom, String password, String email, String localisation, LocalDate dateNaissance ) {
