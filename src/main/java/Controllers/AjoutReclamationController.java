@@ -1,5 +1,6 @@
 package Controllers;
 
+import API.WeatherAPI;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,11 +9,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Reclamation;
+import org.json.simple.JSONObject;
 import services.ReclamationService;
 
 import java.io.IOException;
@@ -27,6 +32,27 @@ public class AjoutReclamationController {
 
     @FXML
     private TextField seachbar;
+
+    @FXML
+    private ImageView icon;
+
+    @FXML
+    private Text cond;
+
+    @FXML
+    private Text temp;
+
+    @FXML
+    private Text wind;
+
+    @FXML
+    private Text hum;
+
+
+    @FXML
+    private ComboBox<String> weatherLoc;
+
+
 
     @FXML
     private TextField titre;
@@ -74,6 +100,10 @@ public class AjoutReclamationController {
 
     @FXML
     private Text noRecAlert;
+    public  int idu = 1;
+    public String Localisation = "Aryanah";
+
+
 
 
     ReclamationService rs = new ReclamationService();
@@ -81,6 +111,7 @@ public class AjoutReclamationController {
     Timestamp currentTimestamp = Timestamp.valueOf(currentDateTime);
 
     public void initialize() {
+        setWeather();
         idRModif.setVisible(false);
         TypeAlert.setVisible(false);
         maxTitreAlert.setVisible(false);
@@ -88,6 +119,14 @@ public class AjoutReclamationController {
         apropoAlert1.setVisible(false);
         noTitreAlert1.setVisible(false);
         noRecAlert.setVisible(false);
+        ObservableList<String> weatherLocation = FXCollections.observableArrayList(
+                "Nabeul",
+                "Aryanah",
+                "Djerba",
+                "Gabès",
+                "Mahdia"
+        );
+        weatherLoc.setItems(weatherLocation);
         ObservableList<String> typeReclamation = FXCollections.observableArrayList(
                 "Réclamation Urgente",
                 "Bugs ou plantages",
@@ -123,6 +162,15 @@ public class AjoutReclamationController {
                 }
             }
         });
+
+    }
+
+    @FXML
+    void changeWeatherLoc(ActionEvent event) {
+        Localisation=weatherLoc.getValue();
+        setWeather();
+
+
 
     }
     @FXML
@@ -210,7 +258,6 @@ public class AjoutReclamationController {
 
                 return;
             }
-            int idu = 1;
 
 
 
@@ -277,6 +324,38 @@ public class AjoutReclamationController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setWeather(){
+        JSONObject weatherData = WeatherAPI.getWeatherData(Localisation);
+        if (weatherData != null) {
+            temp.setText(String.valueOf(weatherData.get("temperature")) + " °C");
+            cond.setText(String.valueOf(weatherData.get("weather_condition")));
+            hum.setText(String.valueOf(weatherData.get("humidity"))+ "%");
+            wind.setText(String.valueOf(weatherData.get("windspeed")) + " km/h");
+
+            String condition = cond.getText();
+
+            if ("Clear".equals(condition)) {
+                icon.setImage(new Image("assets/clear.png"));
+            } else if ("Cloudy".equals(condition)) {
+                icon.setImage(new Image("assets/cloudy.png"));
+            } else if ("Rain".equals(condition)) {
+                icon.setImage(new Image("assets/rain.png"));
+            } else if ("Snow".equals(condition)) {
+                icon.setImage(new Image("assets/snow.png"));
+            } else {
+                System.out.println("Unknown weather condition: " + condition);
+            }
+
+        } else {
+            // Handle error or inform the user about the data retrieval issue
+            temp.setText("N/A");
+            cond.setText("N/A");
+            hum.setText("N/A");
+            wind.setText("N/A");
+        }
+
     }
 
     @FXML

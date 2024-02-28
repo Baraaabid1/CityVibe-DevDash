@@ -47,6 +47,8 @@ public class AfficheReclamationU {
 
     @FXML
     private TextField repText;
+
+
     int idU =1;
     int currRec ;
 

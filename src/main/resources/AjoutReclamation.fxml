@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -327,13 +328,16 @@
                      <font>
                         <Font name="Arial Bold" size="18.0" />
                      </font></Label>
-                      <Button fx:id="buttonAjout" layoutX="471.0" layoutY="459.0" mnemonicParsing="false" onAction="#ajouterReclamation" prefHeight="31.0" prefWidth="154.0" style="-fx-background-color: #F99D26; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0); -fx-background-radius: 10;" text="Reclamer">
+                      <Button fx:id="buttonAjout" layoutX="471.0" layoutY="459.0" mnemonicParsing="false" onAction="#ajouterReclamation" prefHeight="31.0" prefWidth="154.0" style="-fx-background-color: #F99D26; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0); -fx-background-radius: 10;" text="Reclamer" textFill="WHITE">
                      <effect>
                         <Blend />
                      </effect>
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                     <font>
+                        <Font name="Arial Nova Bold" size="15.0" />
+                     </font></Button>
                   <Text fill="#f99d26" fontSmoothingType="LCD" layoutX="68.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A propo" wrappingWidth="92.50146484375">
                      <font>
                         <Font name="Arial Bold" size="18.0" />
@@ -403,6 +407,57 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
+            <Pane layoutX="858.0" layoutY="203.0" prefHeight="353.0" prefWidth="273.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0); -fx-background-color: white; -fx-background-radius: 10;">
+               <children>
+                  <Text fill="#f99d26" layoutX="53.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Météo actuelle">
+                     <font>
+                        <Font name="Arial Nova Bold" size="24.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="icon" fitHeight="107.0" fitWidth="134.0" layoutX="70.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" />
+                  <Text fx:id="cond" fill="#00b5ff" layoutX="59.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ll" textAlignment="CENTER" wrappingWidth="155.0">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="temp" layoutX="93.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ll" textAlignment="CENTER" wrappingWidth="88.509765625">
+                     <font>
+                        <Font name="Arial Nova Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#aeaeae" layoutX="113.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vitesse du vent ">
+                     <font>
+                        <Font name="Arial Nova Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="wind" layoutX="132.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ll" textAlignment="CENTER" wrappingWidth="81.509765625">
+                     <font>
+                        <Font name="Arial Nova Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#aeaeae" layoutX="113.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Humidité ">
+                     <font>
+                        <Font name="Arial Nova Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="hum" layoutX="133.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ll" textAlignment="CENTER" wrappingWidth="77.509765625">
+                     <font>
+                        <Font name="Arial Nova Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <ImageView fx:id="windicon" fitHeight="48.0" fitWidth="40.0" layoutX="32.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="assets/windspeed.png" />
+                      </image>
+                  </ImageView>
+                  <ImageView fx:id="humicon" fitHeight="46.0" fitWidth="43.0" layoutX="32.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="assets/humidity.png" />
+                      </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <ComboBox fx:id="weatherLoc" layoutX="920.0" layoutY="159.0" onAction="#changeWeatherLoc" prefWidth="150.0" />
             </children>
         </AnchorPane>    </center>
 </BorderPane>
