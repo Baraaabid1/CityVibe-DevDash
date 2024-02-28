@@ -69,6 +69,7 @@ public class UtilisateurService implements IService <Utilisateur> {
             }
         }
     }
+    
     private String hashPassword(String password) {
         try{
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

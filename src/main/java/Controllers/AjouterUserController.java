@@ -22,8 +22,6 @@ import java.util.List;
 import utiles.MyDataBase;
 
 public class AjouterUserController {
-    private Stage stage;
-    private Parent root;
 
     UtilisateurService ps = new UtilisateurService();
     @FXML
@@ -126,18 +124,16 @@ public class AjouterUserController {
 
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
-                    stage.showAndWait(); // Affiche la fenêtre de préférences et attend sa fermeture
-
+                    stage.showAndWait();
                     // Après la fermeture de la fenêtre de préférences, vous pouvez affecter la liste de préférences à la liste de classe
                     if (preferences != null) {
-                        preference = preferences; // Affectez la liste récupérée à la liste de classe
+                        preference = preferences;
                         System.out.println("Liste de préférences récupérée avec succès : " + preference);
                     } else {
                         System.out.println("La liste de préférences est null.");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    // Gérer les erreurs de chargement de la vue
                 }
             }
 
