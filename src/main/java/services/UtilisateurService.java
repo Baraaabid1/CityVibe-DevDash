@@ -1,15 +1,19 @@
 package services;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 import models.Utilisateur;
 import utiles.MyDataBase;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.*;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -17,6 +21,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+import java.util.Optional;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 import static java.lang.constant.ConstantDescs.NULL;
@@ -28,19 +34,22 @@ public class UtilisateurService implements IService <Utilisateur> {
         connection= MyDataBase.getInstance().getConn();
     }
     @Override
-    public void ajouter(Utilisateur utilisateur) throws SQLException {
-        if (!isValidEmail(utilisateur.getEmail())) {
-            showAlert("Invalid email address");
-            throw new IllegalArgumentException("Invalid email address");
+    public void ajouter(Utilisateur utilisateur) throws SQLException, IOException, MessagingException {
+        if (utilisateur.getNom().isEmpty() || utilisateur.getPrenom().isEmpty() || utilisateur.getLocalisation().isEmpty() || utilisateur.getEmail().isEmpty()) {
+            showAlert("Veuillez remplir tous les champs obligatoires.");
+        } else if (isEmailExists(utilisateur.getEmail())) {
+            showAlert("Cette adresse e-mail est déjà utilisée. Veuillez en choisir une autre.");
+        } else if (!isValidEmail(utilisateur.getEmail())) {
+            showAlert("Adresse e-mail invalide");
+            throw new IllegalArgumentException("Adresse e-mail invalide");
         } else if (!isValidPhoneNumber(utilisateur.getNum_tel())) {
-            showAlert("Invalid phone number");
-            throw new IllegalArgumentException("Invalid phone number");
+            showAlert("Numéro de téléphone invalide");
+            throw new IllegalArgumentException("Numéro de téléphone invalide");
         } else if (utilisateur.getPassword().length() < 8) {
             showAlert("Le mot de passe doit comporter au moins 8 caractères.");
             throw new IllegalArgumentException("Le mot de passe doit comporter au moins 8 caractères.");
         } else {
             String hashedPassword = hashPassword(utilisateur.getPassword());
-            System.out.println(hashedPassword);
             LocalDate currentDate = LocalDate.now();
             LocalDate minAllowedDate = currentDate.minusYears(5);
             if (utilisateur.getDateNaissance().isAfter(minAllowedDate)) {
@@ -48,6 +57,40 @@ public class UtilisateurService implements IService <Utilisateur> {
                 throw new IllegalArgumentException("La date de naissance doit être inférieure de 5 ans à la date actuelle.");
             }
 
+
+            String confirmationCode = generateConfirmationCode();
+            // Générer et envoyer le code de confirmation
+            String title ="code de confirmation";
+            String contenu ="Cher utilisateur,\n" +
+                    "\n" +
+                    "Nous vous remercions de votre inscription sur notre application. Veuillez utiliser le code suivant pour confirmer votre compte :\n" +
+                    "\n" +
+                    "Code de confirmation :" + confirmationCode+
+                    "\n" +
+                    "Veuillez saisir ce code dans l'application pour finaliser votre inscription.";
+            sendEmail(utilisateur.getEmail(), confirmationCode, title, contenu);
+
+            // Demander à l'utilisateur de saisir le code de confirmation
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Confirmation");
+            dialog.setHeaderText("Veuillez saisir le code de confirmation envoyé par e-mail :");
+            dialog.setContentText("Code de confirmation :");
+
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                String userInputCode = result.get().trim();
+
+                // Vérifier si le code de confirmation saisi correspond au code généré
+                if (!userInputCode.equals(confirmationCode)) {
+                    showAlert("Code de confirmation incorrect. Veuillez vérifier votre e-mail et saisir le code correctement.");
+                    return;
+                }
+            } else {
+                showAlert("Aucun code de confirmation saisi. L'opération a été annulée.");
+                return;
+            }
+
+            // Insérer l'utilisateur dans la base de données si le code de confirmation est correct
             String utilisateurreq = "INSERT INTO utilisateur (idu, nom, prenom, password, dateNaissance, email, num_tel, localisation, img) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = connection.prepareStatement(utilisateurreq)) {
@@ -64,12 +107,50 @@ public class UtilisateurService implements IService <Utilisateur> {
                 byte[] defaultImageBytes = selectAndConvertDefaultImage();
                 pstmt.setBytes(9, defaultImageBytes);
                 pstmt.executeUpdate();
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Succès");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Utilisateur ajouté avec succès !");
+                successAlert.showAndWait();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
-    
+    private boolean isEmailExists(String email) throws SQLException {
+        String query = "SELECT COUNT(*) FROM utilisateur WHERE email = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, email);
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static final int CODE_LENGTH = 6; // Longueur du code de confirmation
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
+    public static String generateConfirmationCode() {
+        // Générer un code aléatoire sécurisé
+        byte[] randomBytes = new byte[CODE_LENGTH];
+        SECURE_RANDOM.nextBytes(randomBytes);
+
+        // Convertir les bytes en une chaîne hexadécimale
+        BigInteger bigInteger = new BigInteger(1, randomBytes);
+        String confirmationCode = bigInteger.toString(16);
+
+        // Assurer que le code a la longueur spécifiée
+        while (confirmationCode.length() < CODE_LENGTH) {
+            confirmationCode = "0" + confirmationCode;
+        }
+        System.out.println("generated code"+confirmationCode);
+
+        return confirmationCode;
+    }
     private String hashPassword(String password) {
         try{
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -85,6 +166,45 @@ public class UtilisateurService implements IService <Utilisateur> {
             throw new RuntimeException(e);
         }
     }
+    public void sendEmail(String email, String newPassword, String title, String contenu) {
+        String from = "bennacefzeyneb@gmail.com";
+        String pass = "upty vtmf fddr jctq";
+        // Configuration de la session SMTP pour l'envoi d'e-mails
+        Properties props = System.getProperties();
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.user", from);
+        props.put("mail.smtp.password", pass);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+
+        // Création d'une nouvelle session SMTP
+        Session session = Session.getDefaultInstance(props);
+
+        try {
+            // Création du message
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from)); // Adresse e-mail de l'expéditeur
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email)); // Adresse e-mail du destinataire
+            message.setSubject(title); // Objet de l'e-mail
+            message.setText(contenu); // Contenu de l'e-mail
+
+            // Envoi du message
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", "bennacefzeyneb@gmail.com", "upty vtmf fddr jctq");
+            transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+            transport.close();
+
+            System.out.println("E-mail envoyé avec succès à " + email + " avec le nouveau mot de passe.");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            System.err.println("Erreur lors de l'envoi de l'e-mail à " + email + " : " + e.getMessage());
+        }
+    }
+
     private byte[] selectAndConvertDefaultImage() throws IOException {
         String defaultImagePath = "C:\\Users\\benna\\Desktop\\istockphoto-1337144146-612x612.jpg";
         File defaultImageFile = new File(defaultImagePath);

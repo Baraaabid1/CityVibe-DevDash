@@ -21,6 +21,8 @@ import java.util.List;
 
 import utiles.MyDataBase;
 
+import javax.mail.MessagingException;
+
 public class AjouterUserController {
 
     UtilisateurService ps = new UtilisateurService();
@@ -68,8 +70,6 @@ public class AjouterUserController {
                     locationBox.getValue(),
                     dateNaissanceU.getValue())
             );
-
-
             // Récupération de l'ID de l'utilisateur ajouté
             int idUser = ps.getIdUtilisateurByEmail(emailU.getText());
             System.out.println(preference);
@@ -85,24 +85,27 @@ public class AjouterUserController {
                     }
                 }
             }
+            if(idUser!=-1) {
+                // Affichage de la page de profil avec l'ID de l'utilisateur ajouté
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
+                Parent root = loader.load();
+                ProfileController Prof = loader.getController();
+                Prof.initialize(idUser);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
 
-            // Affichage de la page de profil avec l'ID de l'utilisateur ajouté
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
-            Parent root = loader.load();
-            ProfileController Prof = loader.getController();
-            Prof.initialize(idUser);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            // Fermeture de la fenêtre actuelle
-            ((Node) event.getSource()).getScene().getWindow().hide();
+                // Fermeture de la fenêtre actuelle
+                ((Node) event.getSource()).getScene().getWindow().hide();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Une erreur s'est produite lors de l'ajout de l'utilisateur.");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            showAlert("Une erreur s'est produite lors de l'envoi de l'e-mail de confirmation.");
         }
     }
-
 
 
     private void showAlert(String message) {

@@ -312,9 +312,9 @@
          <children>
             <AnchorPane layoutX="66.0" layoutY="6.0" prefHeight="200.0" prefWidth="492.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="66.0">
                <children>
-                  <Button fx:id="modifImage" layoutX="312.0" layoutY="163.0" mnemonicParsing="false" onAction="#modifImage" prefHeight="30.0" prefWidth="27.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="modifImage" layoutX="312.0" layoutY="163.0" mnemonicParsing="false" onAction="#modifImage" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;">
                      <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                          <image>
                              <Image url="@/img/modig_icon.png" />
                          </image>
@@ -331,7 +331,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="66.0" layoutY="235.0" prefHeight="339.0" prefWidth="494.0" style="-fx-background-color: white;">
+            <AnchorPane layoutX="66.0" layoutY="235.0" prefHeight="339.0" prefWidth="493.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="14.0" prefHeight="44.0" prefWidth="466.0" text="Informations Personnelles">
                      <font>
@@ -363,9 +363,9 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="modifProfil" layoutX="428.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modifProfil" prefHeight="40.0" prefWidth="40.0">
+                  <Button fx:id="modifProfil" layoutX="428.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#modifProfil" prefHeight="20.0" prefWidth="20.0">
                      <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                          <image>
                              <Image url="@/img/modig_icon.png" />
                          </image>

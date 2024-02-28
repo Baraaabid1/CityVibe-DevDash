@@ -124,9 +124,17 @@ public class LoginController {
 
                     // Mettre à jour le mot de passe de l'utilisateur dans la base de données
                     updatePassword(email, newPassword);
+                    String title ="Réinitialisation de votre mot de passe";
+                    String contenu ="Cher utilisateur " +
+                            "Votre mot de passe a été réinitialisé avec succès. Voici votre nouveau mot de passe : "
+                            + newPassword+
+                            "\n" +
+                            "Nous vous recommandons de vous connecter à votre compte et de modifier ce mot de passe dès que possible pour des raisons de sécurité.\n" +
+                            "\n" +
+                            "Cordialement,";
 
                     // Envoyer le nouveau mot de passe à l'utilisateur par e-mail
-                    sendPasswordByEmail(email, newPassword);
+                    us.sendEmail(email, newPassword, title, contenu);
 
                     // Afficher un message de succès à l'utilisateur
                     showAlert("Un nouveau mot de passe a été envoyé à votre adresse e-mail.");
@@ -191,49 +199,44 @@ public class LoginController {
 
 
     // Méthode pour envoyer le nouveau mot de passe à l'utilisateur par e-mail
-    private void sendPasswordByEmail(String email, String newPassword) {
-        String from = "bennacefzeyneb@gmail.com";
-        String pass = "upty vtmf fddr jctq";
-        // Configuration de la session SMTP pour l'envoi d'e-mails
-        Properties props = System.getProperties();
-        String host = "smtp.gmail.com";
-        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.user", from);
-        props.put("mail.smtp.password", pass);
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
-
-        // Création d'une nouvelle session SMTP
-        Session session = Session.getDefaultInstance(props);
-//            @Override
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//               return new PasswordAuthentication("bennacefzeyneb@gmail.com","upty vtmf fddr jctq");
-//            }
-
-        try {
-            // Création du message
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from)); // Adresse e-mail de l'expéditeur
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email)); // Adresse e-mail du destinataire
-            message.setSubject("Réinitialisation de votre mot de passe"); // Objet de l'e-mail
-            message.setText("Votre nouveau mot de passe est : " + newPassword); // Contenu de l'e-mail
-
-            // Envoi du message
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, "bennacefzeyneb@gmail.com", "upty vtmf fddr jctq");
-            transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-            transport.close();
-
-            System.out.println("E-mail envoyé avec succès à " + email + " avec le nouveau mot de passe.");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            System.err.println("Erreur lors de l'envoi de l'e-mail à " + email + " : " + e.getMessage());
-        }
-    }
+//    private void sendPasswordByEmail(String email, String newPassword) {
+//        String from = "bennacefzeyneb@gmail.com";
+//        String pass = "upty vtmf fddr jctq";
+//        // Configuration de la session SMTP pour l'envoi d'e-mails
+//        Properties props = System.getProperties();
+//        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.smtp.host", "smtp.gmail.com");
+//        props.put("mail.smtp.user", from);
+//        props.put("mail.smtp.password", pass);
+//        props.put("mail.smtp.port", "587");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+//
+//
+//        // Création d'une nouvelle session SMTP
+//        Session session = Session.getDefaultInstance(props);
+//
+//        try {
+//            // Création du message
+//            Message message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress(from)); // Adresse e-mail de l'expéditeur
+//            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email)); // Adresse e-mail du destinataire
+//            message.setSubject("Réinitialisation de votre mot de passe"); // Objet de l'e-mail
+//            message.setText("Votre nouveau mot de passe est : " + newPassword); // Contenu de l'e-mail
+//
+//            // Envoi du message
+//            Transport transport = session.getTransport("smtp");
+//            transport.connect("smtp.gmail.com", "bennacefzeyneb@gmail.com", "upty vtmf fddr jctq");
+//            transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+//            transport.close();
+//
+//            System.out.println("E-mail envoyé avec succès à " + email + " avec le nouveau mot de passe.");
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//            System.err.println("Erreur lors de l'envoi de l'e-mail à " + email + " : " + e.getMessage());
+//        }
+//    }
 
     private boolean isValidEmail(String email) {
         // Simple email validation using regex
