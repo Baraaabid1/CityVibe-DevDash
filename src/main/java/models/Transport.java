@@ -22,7 +22,7 @@ public class Transport {
         transport.setAvis("Votre avis ici");
     }
 
-    // Parameterized constructor with id
+
     public Transport(int idT, models.typeT typeT, String station_depart, String station_arrive, Time temp_depart, Time temp_arrive) {
         this.idT = idT;
         this.typeT = typeT;
@@ -32,7 +32,7 @@ public class Transport {
         this.temp_arrive = temp_arrive;
     }
 
-    // Parameterized constructor without id
+
     public Transport(models.typeT typeT, String station_depart, String station_arrive, Time temp_depart, Time temp_arrive) {
         this.typeT = typeT;
         this.station_depart = station_depart;
@@ -41,7 +41,7 @@ public class Transport {
         this.temp_arrive = temp_arrive;
     }
 
-    // Getters and Setters for avis
+
     public String getAvis() {
         return avis;
     }
@@ -50,7 +50,7 @@ public class Transport {
         this.avis = avis;
     }
 
-    // Getters for other attributes
+
     public int getIdT() {
         return idT;
     }
@@ -110,7 +110,7 @@ public class Transport {
         this.idAvis = idAvis;
     }
 
-    // toString method
+
     @Override
     public String toString() {
         return "Transport{" +

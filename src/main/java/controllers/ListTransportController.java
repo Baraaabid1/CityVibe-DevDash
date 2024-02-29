@@ -83,7 +83,7 @@ public class ListTransportController {
             sarivecol.setCellValueFactory(new PropertyValueFactory<>("station_arrive"));
 
 
-            // Ajout de la possibilité d'éditer les colonnes tempsdcol et tempacol
+                       //modifier les colonnes temps depart et temps arrivé//
             StringConverter<Time> timeConverter = new StringConverter<Time>() {
                 @Override
                 public String toString(Time object) {
@@ -101,7 +101,8 @@ public class ListTransportController {
             tempsdcol.setOnEditCommit(event -> {
                 Transport transport = event.getRowValue();
                 transport.setTemp_depart(event.getNewValue());
-                // Mettez à jour la base de données si nécessaire
+
+
                 try {
                     TS.modifier(transport);
                 } catch (SQLException e) {
@@ -114,7 +115,7 @@ public class ListTransportController {
             tempacol.setOnEditCommit(event -> {
                 Transport transport = event.getRowValue();
                 transport.setTemp_arrive(event.getNewValue());
-                // Mettez à jour la base de données si nécessaire
+
                 try {
                     TS.modifier(transport);
                 } catch (SQLException e) {
@@ -122,7 +123,7 @@ public class ListTransportController {
                 }
             });
 
-            // Activation de l'édition pour la table
+
             table.setEditable(true);
 
         } catch (SQLException e) {
@@ -133,17 +134,6 @@ public class ListTransportController {
         }
     }
 
-
-    @FXML
-    void onRowSelected(MouseEvent event) {
-        if (event.getClickCount() == 1) { // Vérifiez si un clic simple est effectué
-            Transport selectedTransport = table.getSelectionModel().getSelectedItem();
-            if (selectedTransport != null) {
-                // Appel de la méthode pour afficher les détails du transport
-                afficherDetailsTransport(selectedTransport.getIdT());
-            }
-        }
-    }
 
     private void afficherDetailsTransport(int id) {
         try {
@@ -167,10 +157,10 @@ public class ListTransportController {
         Transport selectedTransport = table.getSelectionModel().getSelectedItem();
 
         if (selectedTransport != null) {
-            // Appel de la méthode pour afficher la boîte de dialogue de modification
+
             afficherBoiteDialogueModification(selectedTransport);
         } else {
-            // Afficher un message indiquant à l'utilisateur de sélectionner un transport
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
             alert.setHeaderText(null);
@@ -184,53 +174,20 @@ public class ListTransportController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierTransport.fxml"));
             Parent root = loader.load();
 
-            // Accédez au contrôleur de la boîte de dialogue
-            ModifierTransportController modifierController = loader.getController();
 
-            // Appelez une méthode du contrôleur pour transmettre le transport sélectionné
+            ModifierTransportController modifierController = loader.getController();
             modifierController.initData(selectedTransport);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.showAndWait();
 
-            // Mettez à jour la TableView après les modifications
             List<Transport> transports = TS.afficher();
             ObservableList<Transport> observableList = FXCollections.observableList(transports);
             table.setItems(observableList);
         } catch (IOException | SQLException e) {
             e.printStackTrace();
-            // Gérer les exceptions de manière appropriée
-        }
-    }
-    private void afficherFenetreModification(Transport transport) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierTransport.fxml"));
-            Parent root = loader.load();
-            ModifierTransportController modifierController = loader.getController();
-            modifierController.initData(transport);
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-
-            // Utilisez show() au lieu de showAndWait()
-            stage.show();
-
-            // Attachez un événement onClose à la fenêtre pour mettre à jour la table après la fermeture
-            stage.setOnCloseRequest(event -> {
-                // Mettez à jour la TableView après les modifications
-                try {
-                    List<Transport> transports = TS.afficher();
-                    ObservableList<Transport> observableList = FXCollections.observableList(transports);
-                    table.setItems(observableList);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Gérer les exceptions de manière appropriée
         }
     }
 
@@ -240,17 +197,15 @@ public class ListTransportController {
         Transport selectedTransport = table.getSelectionModel().getSelectedItem();
 
         if (selectedTransport != null) {
-            // Appel de la méthode pour supprimer le transport en utilisant l'identifiant
             try {
-                TS.supprimer(selectedTransport.getIdT()); // Utilisez votre instance de TransportService
-                // Rafraîchissez la TableView après la suppression
+                TS.supprimer(selectedTransport.getIdT());
                 actualiserTableView();
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Gérez les erreurs de suppression de manière appropriée
             }
+
         } else {
-            // Afficher un message indiquant à l'utilisateur de sélectionner un transport
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
             alert.setHeaderText(null);
@@ -260,14 +215,12 @@ public class ListTransportController {
     }
 
     private void actualiserTableView() {
-        // Rafraîchir la TableView après une opération de suppression
         try {
             List<Transport> transports = TS.afficher();
             ObservableList<Transport> observableList = FXCollections.observableList(transports);
             table.setItems(observableList);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérez les erreurs de récupération des transports de manière appropriée
         }
     }
 

@@ -1,5 +1,4 @@
 package controllers;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,13 +12,13 @@ import javafx.stage.Stage;
 import models.Transport;
 import models.typeT;
 import services.TransportService;
-
-import javafx.event.ActionEvent; // Assurez-vous d'importer la classe correcte pour ActionEvent
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 
 public class AjoutTransport {
     private Parent root;
@@ -48,27 +47,24 @@ public class AjoutTransport {
     @FXML
     public void ajouter(javafx.event.ActionEvent event) throws IOException {
         try {
-            // Récupérer les valeurs des champs
-            String typeTransportStr = typeComboBox.getValue();
-            String stationDepart = stationDepartField.getText();
-            String stationArrive = stationArriveField.getText();
-            String tempsDepartStr = tempsDepartField.getText();
-            String tempsArriveStr = tempsArriveField.getText();
 
-            // Effectuer le contrôle de saisie
+            String typeTransportStr = typeComboBox.getValue();
+            String stationDepart    = stationDepartField.getText();
+            String stationArrive    = stationArriveField.getText();
+            String tempsDepartStr   = tempsDepartField.getText();
+            String tempsArriveStr   = tempsArriveField.getText();
+
+                                     //le controle saisie//
             if (typeTransportStr == null || stationDepart.isEmpty() || stationArrive.isEmpty() || tempsDepartStr.isEmpty() || tempsArriveStr.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Attention");
                 alert.setContentText("Veuillez remplir tous les champs.");
                 alert.showAndWait();
-                return; // Arrêter le traitement si les champs ne sont pas correctement remplis
+                return;
             }
-
-            // Convertir les champs nécessitant une conversion
+                                     //convertion//
             typeT transportType = typeT.valueOf(typeTransportStr);
-
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-
             java.util.Date tempsDepartDate;
             java.util.Date tempsArriveDate;
 
@@ -80,23 +76,22 @@ public class AjoutTransport {
                 alert.setTitle("Erreur de format");
                 alert.setContentText("Format d'heure invalide. Utilisez le format HH:mm:ss.");
                 alert.showAndWait();
-                return; // Arrêter le traitement en cas d'erreur de format
+                return;
             }
 
             Time tempsDepart = new Time(tempsDepartDate.getTime());
             Time tempsArrive = new Time(tempsArriveDate.getTime());
 
-            // Créer l'objet Transport et l'ajouter à la base de données
-            Transport transport = new Transport(transportType, stationDepart, stationArrive, tempsDepart, tempsArrive);
+
+            Transport transport = new Transport (transportType, stationDepart, stationArrive, tempsDepart, tempsArrive);
             TS.ajouter(transport);
 
-            // Afficher une notification de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setContentText("Transport ajouté avec succès !");
             alert.showAndWait();
 
-            // Rediriger vers la liste des transports
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListTransport.fxml"));
             root = loader.load();
             ListTransportController trans = loader.getController();
@@ -114,11 +109,10 @@ public class AjoutTransport {
     }
 
 
-
-
-
     @FXML
     public void EcoMode(javafx.event.ActionEvent actionEvent) {
-        // Ajoutez le code pour activer le mode économie d'énergie ici
+
     }
+
+
 }

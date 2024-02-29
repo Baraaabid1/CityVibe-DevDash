@@ -13,19 +13,25 @@ public class TransportService implements IService <Transport> {
     private Connection connection = DataBase.getInstance().getConn();
 
 
-
     public TransportService() {
     }
 
     @Override
     public void ajouter(Transport transport) throws SQLException {
         String transportreq = "INSERT INTO transport (typeT, station_depart, station_arrive, temps_depart, temps_arrive) " +
-                "VALUES('" + transport.getTypeT() + "','" + transport.getStation_depart() + "','" +
-                transport.getStation_arrive() + "','" + transport.getTemp_depart() + "','" + transport.getTemp_arrive() + "')";
+                "VALUES (?, ?, ?, ?, ?)";
 
-        Statement ste = connection.createStatement();
-        ste.executeUpdate(transportreq);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(transportreq)) {
+            preparedStatement.setString(1, transport.getTypeT().toString());
+            preparedStatement.setString(2, transport.getStation_depart());
+            preparedStatement.setString(3, transport.getStation_arrive());
+            preparedStatement.setTime(4, transport.getTemp_depart());
+            preparedStatement.setTime(5, transport.getTemp_arrive());
+
+            preparedStatement.executeUpdate();
+        }
     }
+
 
 
     @Override
@@ -34,7 +40,6 @@ public class TransportService implements IService <Transport> {
         PreparedStatement preparedStatement = this.connection.prepareStatement(req);
         preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
-
     }
 
 
@@ -69,7 +74,7 @@ public class TransportService implements IService <Transport> {
                 ts.setTemp_depart(rs.getTime("temps_depart"));
                 ts.setTemp_arrive(rs.getTime("temps_arrive"));
 
-                transports.add(ts);  // Ajoutez ts, pas transport
+                transports.add(ts);
             }
         }
 
@@ -94,14 +99,14 @@ public class TransportService implements IService <Transport> {
                 }
             }
         }
-        return null; // Retourne null si le transport n'est pas trouvé
+        return null;
     }
 
-
+          //récupérer une liste de transports en fonction des stations de départ et d'arrivée//
     public List<Transport> getTransportsWithAvis(String stationDepart, String stationArrivee) throws SQLException {
         String req = "SELECT transport.*, avistransport.avis " +
                 "FROM transport " +
-                "LEFT JOIN avistransport ON transport.idAvis = avistransport.idAvis " +
+                "LEFT JOIN avistransport ON transport.idT = avistransport.idTransport " +
                 "WHERE transport.station_depart = ? AND transport.station_arrive = ?";
 
         List<Transport> transports = new ArrayList<>();
@@ -120,7 +125,7 @@ public class TransportService implements IService <Transport> {
                     transport.setTemp_depart(rs.getTime("temps_depart"));
                     transport.setTemp_arrive(rs.getTime("temps_arrive"));
 
-                    // Utilisez la méthode setAvis sur l'instance de transport
+
                     transport.setAvis(rs.getString("avis"));
 
                     transports.add(transport);
@@ -130,8 +135,8 @@ public class TransportService implements IService <Transport> {
 
         return transports;
     }
+
     public void ajouterAvisTransport(int idTransport, String avis, int note) throws SQLException {
-        // Requête SQL pour ajouter un avis avec une référence à un transport spécifique
         String insertAvisQuery = "INSERT INTO avistransport (idTransport, avis, note) VALUES (?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertAvisQuery)) {
@@ -139,16 +144,16 @@ public class TransportService implements IService <Transport> {
             preparedStatement.setString(2, avis);
             preparedStatement.setInt(3, note);
 
-            // Exécutez la requête
+
             int rowsAffected = preparedStatement.executeUpdate();
 
-            // Ajoutez des informations de débogage
+
             System.out.println("Rows affected: " + rowsAffected);
             System.out.println("Avis ajouté avec succès !");
         } catch (SQLException e) {
-            // Ajoutez des informations de débogage pour l'exception
+
             e.printStackTrace();
-            throw e; // Réthrow l'exception pour qu'elle soit gérée à un niveau supérieur si nécessaire
+            throw e;
         }
     }
 

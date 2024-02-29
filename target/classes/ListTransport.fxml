@@ -33,7 +33,7 @@
                <children>
                   <ImageView fitHeight="72.0" fitWidth="101.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../../../Desktop/8.PNG" />
+                        <Image url="@photos/logo.PNG" />
                      </image>
                      <VBox.margin>
                         <Insets left="17.0" />
@@ -47,7 +47,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/1.PNG" />
+                              <Image url="@photos/acceuil.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="5.0" />
@@ -71,7 +71,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/2.PNG" />
+                              <Image url="@photos/evenements.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="10.0" />
@@ -95,7 +95,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/55.PNG" />
+                              <Image url="@photos/lieu.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="10.0" />
@@ -118,12 +118,12 @@
                   <HBox prefHeight="28.0" prefWidth="127.0" style="-fx-background-color: #ffffffff; -fx-background-radius: 13;">
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
-                           <image>
-                              <Image url="@../../../../../Desktop/89.PNG" />
-                           </image>
                            <HBox.margin>
                               <Insets left="5.0" top="3.0" />
                            </HBox.margin>
+                           <image>
+                              <Image url="@photos/trans.PNG" />
+                           </image>
                         </ImageView>
                         <Text fill="#f99d26" strokeType="OUTSIDE" strokeWidth="0.0" text="Transport">
                            <HBox.margin>
@@ -146,7 +146,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/1.PNG" />
+                              <Image url="@photos/reservation.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="10.0" />
@@ -170,7 +170,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/a.PNG" />
+                              <Image url="@photos/reclamation.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="10.0" />
@@ -194,7 +194,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/5.PNG" />
+                              <Image url="@photos/parametre.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="10.0" />
@@ -218,7 +218,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/y.PNG" />
+                              <Image url="@photos/profil.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="10.0" />
@@ -242,7 +242,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/yy.PNG" />
+                              <Image url="@photos/dcnx.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="10.0" />
@@ -266,7 +266,7 @@
                      <children>
                         <ImageView fitHeight="20.0" fitWidth="20.0">
                            <image>
-                              <Image url="@../../../../../Desktop/yyy.PNG" />
+                              <Image url="@photos/help.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="12.0" top="10.0" />
