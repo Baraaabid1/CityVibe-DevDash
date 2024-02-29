@@ -20,12 +20,13 @@ import java.util.List;
 
         @Override
         public void ajouter(publication publication) throws SQLException {
-            String req = "INSERT INTO publication (description ,image ,nom) " +
-                    "VALUES (?, ?, ?)";
+            String req = "INSERT INTO publication (description ,image ,nom,IdPP) " +
+                    "VALUES (?, ?, ?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(req);
             preparedStatement.setString(1, publication.getDescription());
             preparedStatement.setString(2, publication.getImage());
             preparedStatement.setString(3, publication.getNom());
+            preparedStatement.setInt(4,publication.getPage().getIdP());
             preparedStatement.executeUpdate();
         }
 
@@ -35,25 +36,26 @@ import java.util.List;
             String sql = "update publication set   description = ? , image  = ? , nom  = ? where idP = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, (publication.getidP()));
-            preparedStatement.setString(2,(publication.getDescription()));
-            preparedStatement.setString(3,(publication.getImage()));
-            preparedStatement.setString(4,(publication.getNom()));
+            preparedStatement.setString(1,(publication.getDescription()));
+            preparedStatement.setString(2,(publication.getImage()));
+            preparedStatement.setString(3,(publication.getNom()));
+            preparedStatement.setInt(4, (publication.getidP()));
+
             preparedStatement.executeUpdate();
         }
 
 
         @Override
         public void supprimer(int idP) throws SQLException {
-            String req = "DELETE FROM `publication` WHERE idP=?";
+            String req = "DELETE FROM `publication` WHERE IdP=?";
             PreparedStatement preparedStatement = connection.prepareStatement(req);
-            preparedStatement.setInt(1,idP);
+            preparedStatement.setInt(1, idP);
             preparedStatement.executeUpdate();
         }
         @Override
 
         public List<publication> afficher() throws SQLException {
-            String req = "select * from publication";
+            String req = "select p.* u.nom,p.IdP  from publication p INNER JOIN page u ON p.IdPP= u.IdP";
             List<publication> publication = new ArrayList<>();
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
@@ -63,6 +65,8 @@ import java.util.List;
                 p.setDescription(rs.getString("description"));
                 p.setImage(rs.getString("image"));
                 p.setNom(rs.getString("nom"));
+                page pa=new page(rs.getInt("IdP"),rs.getString("nom"));
+                p.setPage(pa);
                 publication.add(p);
             }
             return publication;

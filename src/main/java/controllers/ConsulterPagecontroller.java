@@ -2,19 +2,31 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import models.page;
+import models.publication;
 import services.pageService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class ConsulterPagecontroller {
+    @FXML
+    private Parent root;
+    private Scene stage;
+
 
     @FXML
     private Label catP;
@@ -41,47 +53,7 @@ public class ConsulterPagecontroller {
     private Label descP;
 
     private page pA;
-    private pagecontroller ad;
-
-    public void initialize() {
-        try {
-            if (pA == null) {
-                pageService ps = new pageService();
-                pA = ps.afficherP(70); // Default ID, you may need to change this
-            }
-
-            afficherPage();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void afficherPage() {
-        if (pA != null) {
-            nomP.setText(pA.getNom());
-            contP.setText(Integer.toString(pA.getContact()));
-            catP.setText(pA.getCategorie().toString());
-            locP.setText(pA.getLocalisation());
-            descP.setText(pA.getDescription());
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            String formattedTime = pA.getOuverture().format(timeFormatter);
-            ouvP.setText(formattedTime);
-            if (pA.getImage() != null) {
-                Image image = new Image("file:" + pA.getImage());
-                imageP.setImage(image);
-            }
-            if (pA.getLogo() != null) {
-                Image logoImage = new Image("file:" + pA.getLogo());
-                logoP.setImage(logoImage);
-            }
-        }
-    }
-
-    @FXML
-    void setData(page page) {
-        pA = page;
-        afficherPage();
-    }
+    private GeneralDesignConsulterController ad;
 
     @FXML
     void supprimer(ActionEvent event) {
@@ -101,19 +73,15 @@ public class ConsulterPagecontroller {
                     service.supprimer(pA.getIdP()); // Delete the page
 
                     // Show deletion success message
-                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setTitle("Suppression avec succès");
-                    successAlert.setHeaderText(null);
-                    successAlert.setContentText("Page supprimée");
-                    successAlert.showAndWait();
+
 
                     // Refresh view
-                    if (ad != null) {
+
                         ad.refreshView();
-                    }
+
 
                     // Clear displayed page after deletion
-                    clearPage();
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                     // Handle the exception as needed
@@ -123,53 +91,97 @@ public class ConsulterPagecontroller {
     }
 
 
-    private void clearPage() {
-        pA = null;
-        nomP.setText("");
-        contP.setText("");
-        catP.setText("");
-        locP.setText("");
-        descP.setText("");
-        ouvP.setText("");
-        imageP.setImage(null);
-        logoP.setImage(null);
 
+
+
+
+    public void initialize() {
+      /*  try {
+            if (pA == null) {
+                pageService ps = new pageService();
+                pA = ps.afficherP(70); // Default ID, you may need to change this
+            }
+
+            afficherPage();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
     }
-
-    public void setRefresh(pagecontroller ad) {
-        this.ad = ad;
+    @FXML
+    public void setData(page page) {
+        this.pA= page; // Set the publication object
+        // Setting name text
+        nomP.setText(page.getNom());
+        // Setting contact text
+//        contP.setText(Integer.toString(page.getContact()));
+        // Setting category text
+//        catP.setText(page.getCategorie().toString());
+//        locP.setText(page.getDescription());
+//        descP.setText(page.getLocalisation());
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = page.getOuverture().format(timeFormatter);
+//        ouvP.setText(formattedTime);        // Setting image
+        if (page.getImage() != null && !page.getImage().isEmpty()) {
+            Image image = new Image("file:" + page.getImage());
+            imageP.setImage(image);
+        }
+//        // Setting logo
+//        if (page.getLogo() != null && !page.getLogo().isEmpty()) {
+//            Image logoImage = new Image("file:" + page.getLogo());
+//            logoP.setImage(logoImage);
+//        }
     }
 
     public void setE(page page) {
-        // Not sure what this method is intended for
+       this.pA=page;
     }
 
+    public void setRefresh(GeneralDesignConsulterController ad) {
+        this.ad = ad;
+    }
 
     @FXML
-    void consulter(ActionEvent event) {
-        try {
-            // Fetch data from the database when the "Consulter" button is clicked
-            pageService ps = new pageService();
-            // Replace 70 with the appropriate ID or logic to get the desired page
-            pA = ps.afficherP(82);
-            if (pA != null) {
-                afficherPage(); // Display the fetched page data
-            } else {
-                // Page not found, show an alert
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setHeaderText(null);
-                alert.setContentText("Page non trouvée dans la base de données.");
-                alert.showAndWait();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle database access error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(null);
-            alert.setContentText("Erreur lors de l'accès à la base de données.");
-            alert.showAndWait();
-        }
+    void consulter(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/page.fxml"));
+        Parent root = loader.load();
+        pagecontroller PageAdmincontroller = loader.getController();
+        PageAdmincontroller.setData(pA);
+
+        // Create a new stage for the pop-up
+        Stage popUpStage = new Stage();
+        popUpStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+        popUpStage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(root);
+        popUpStage.setScene(scene);
+        popUpStage.showAndWait(); // Show the pop-up and wait for it to be closed
     }
 }
+
+   /* private void afficherPage() {
+        if (pA != null) {
+            nomP.setText(pA.getNom());
+            contP.setText(Integer.toString(pA.getContact()));
+            catP.setText(pA.getCategorie().toString());
+            locP.setText(pA.getLocalisation());
+            descP.setText(pA.getDescription());
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            String formattedTime = pA.getOuverture().format(timeFormatter);
+            ouvP.setText(formattedTime);
+            if (pA.getImage() != null) {
+                Image image = new Image("file:" + pA.getImage());
+                imageP.setImage(image);
+            }
+            if (pA.getLogo() != null) {
+                Image logoImage = new Image("file:" + pA.getLogo());
+                logoP.setImage(logoImage);
+            }
+            }*/
+
+
+
+
+
+
+
+
+

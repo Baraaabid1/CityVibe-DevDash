@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.publication;
 import services.publicationService;
@@ -36,24 +37,14 @@ public class ConsulterLieuxcontroller {
 
     private publication pu;
 
-    private ConsulterLieuxcontroller aff;
-
-    @FXML
-    void consulter(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubVisiteur.fxml"));
-        root = loader.load();
-        PubVisiteurcontroller pubVisiteurcontroller = loader.getController();
-
-        // Pass necessary data to the controller
-        // For example, you can pass the publication object or any other data you need
-        pubVisiteurcontroller.setData(pu);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void setPu(publication pu) {
+        this.pu = pu;
     }
 
+    private GeneralDesignConsultController aff;
+
+    public ConsulterLieuxcontroller() {
+    }
 
 
     @FXML
@@ -73,20 +64,12 @@ public class ConsulterLieuxcontroller {
                     publicationService service = new publicationService();
                     service.supprimer(pu.getidP()); // Delete the page
 
-                    // Show deletion success message
-                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setTitle("Suppression avec succès");
-                    successAlert.setHeaderText(null);
-                    successAlert.setContentText("Page supprimée");
-                    successAlert.showAndWait();
 
-                    // Refresh view
-                    if (aff != null) {
+
                         aff.refreshView();
-                    }
 
-                    // Clear displayed page after deletion
-                    clearPage();
+
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                     // Handle the exception as needed
@@ -95,22 +78,12 @@ public class ConsulterLieuxcontroller {
         }
     }
 
-    private void clearPage() {
-        pu = null;
-        NomC.setText("");
-        DesC.setText("");
-        imageC.setImage(null);
 
-    }
 
-    private void refreshView() {
-        // Implement logic to refresh the view after deletion
-    }
+
 
     // Initialize method
-    public void initialize() {
-        // No need to initialize pu object here, it will be set via setData method
-    }
+
 
     // Method to set data to the UI elements
     @FXML
@@ -128,12 +101,26 @@ public class ConsulterLieuxcontroller {
     }
 
     // Method to set data to the UI elements
-    public void setE(publication publication) {
-        // Not sure what this method is intended for
+
+
+
+    @FXML
+    void consulter(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubVisiteur.fxml"));
+        Parent root = loader.load();
+        PubVisiteurcontroller Pubcontroller = loader.getController();
+        Pubcontroller.setData(pu);
+
+        // Create a new stage for the pop-up
+        Stage popUpStage = new Stage();
+        popUpStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+        popUpStage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(root);
+        popUpStage.setScene(scene);
+        popUpStage.showAndWait(); // Show the pop-up and wait for it to be closed
     }
 
-    public void setRefresh(ConsulterLieuxcontroller aff) {
-        this.aff = aff;
+    public void setRefresh(GeneralDesignConsultController aff) {
+        this.aff=aff;
     }
-
 }

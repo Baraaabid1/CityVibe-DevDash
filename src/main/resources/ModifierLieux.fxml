@@ -9,16 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import jfxtras.scene.control.LocalTimeTextField?>
 
 <AnchorPane prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierLieuxcontroller">
     <children>
-        <Button layoutX="787.0" layoutY="522.0" mnemonicParsing="false" onAction="#modifier" prefHeight="46.0" prefWidth="108.0" style="-fx-background-color: #F99D26; -fx-background-radius: 30;" text="Modifier" textFill="WHITE">
+        <Button fx:id="mod" layoutX="787.0" layoutY="522.0" mnemonicParsing="false" onAction="#modifier" prefHeight="46.0" prefWidth="108.0" style="-fx-background-color: #F99D26; -fx-background-radius: 30;" text="Modifier" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
         </Button>
-        <LocalTimeTextField fx:id="ouverture" layoutX="864.0" layoutY="444.0" prefHeight="26.0" prefWidth="90.0" />
         <Label layoutX="787.0" layoutY="449.0" text="Ouverture" />
         <TextField fx:id="contact" layoutX="631.0" layoutY="445.0" prefHeight="25.0" prefWidth="82.0" style="-fx-background-radius: 30;" />
         <Label layoutX="566.0" layoutY="449.0" text="Contact" />
@@ -48,5 +46,6 @@
                 <Image url="@../../../../../../Downloads/place.png" />
             </image>
         </ImageView>
+      <TextField fx:id="ouverture" layoutX="858.0" layoutY="445.0" prefHeight="26.0" prefWidth="102.0" />
     </children>
 </AnchorPane>

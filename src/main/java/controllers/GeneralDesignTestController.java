@@ -20,7 +20,7 @@ public class GeneralDesignTestController {
     public void initialize() {
         loadContent();
     }
-
+    @FXML
     private void loadContent() {
         try {
             publicationService publicationService = new publicationService();
@@ -40,7 +40,7 @@ public class GeneralDesignTestController {
                 Pubcontroller itemController = loader.getController();
                 itemController.setData(publication);
                 itemController.setE(publication);
-                // itemController.setRefresh(this);
+                 itemController.setRefresh(this);
 
                 // Add the loaded element to GridPane
                 GridPane.add(interfaceRoot, col, row);
@@ -63,40 +63,40 @@ public class GeneralDesignTestController {
     public void refreshView() {
         loadContent();
     }
-
+    @FXML
     public void Button_Acceuil(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Events(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Lieux(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Transport(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Reservation(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Profil(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Reclamation(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Parametres(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Logout(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void Button_Help(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void EcoModeButton(ActionEvent actionEvent) {
     }
 
-    public void refreshview() {
+    public void refreshview() { loadContent();
     }
 }

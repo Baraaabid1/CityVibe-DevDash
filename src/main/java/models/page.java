@@ -36,6 +36,11 @@ public class page {
 
     }
 
+    public page(int idP, String nom) {
+        this.IdP=idP;
+        this.nom=nom;
+    }
+
     public int getIdP() {
         return IdP;
     }

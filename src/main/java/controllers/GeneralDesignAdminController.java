@@ -59,9 +59,10 @@ public class GeneralDesignAdminController {
         }
     }
 
-    public void refreshView() {
+    public void refreshView() throws IOException {
         loadContent();
     }
+
 
     public void Button_Events(ActionEvent actionEvent) {
     }
@@ -95,4 +96,6 @@ public class GeneralDesignAdminController {
 
     public void Button_Acceuil(ActionEvent actionEvent) {
     }
+
+
 }
