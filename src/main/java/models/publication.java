@@ -7,30 +7,11 @@ public class publication {
     private String description;
     private String image;
     private String nom;
-   private  page pa;
 
-    public models.page getPage() {
-        return pa;
-    }
 
-    public void setPage(models.page page) {
-        this.pa = page;
-    }
 
-    public publication(String description, String image, String nom, page pa) {
-        this.description = description;
-        this.image = image;
-        this.nom = nom;
-        this.pa = pa;
-    }
 
-    public publication(int idP, String description, String image, String nom, page pa) {
-        this.idP = idP;
-        this.description = description;
-        this.image = image;
-        this.nom = nom;
-        this.pa = pa;
-    }
+
 
     public publication() {
     }

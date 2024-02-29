@@ -106,8 +106,6 @@ public class AjouterLieuxcontroller {
             showErrorAlert("Please fill in all fields.");
             return;
         }
-
-        // Validate contact field
         // Validate contact field
         int contactValue;
         try {
@@ -124,8 +122,6 @@ public class AjouterLieuxcontroller {
             showErrorAlert("Contact must be a valid 8-digit integer.");
             return;
         }
-
-        // Perform additional validations for other fields as needed
 
         // If all validations pass, proceed with adding the page
         pageService pS = new pageService();

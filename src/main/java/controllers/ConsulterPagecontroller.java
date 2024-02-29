@@ -157,25 +157,6 @@ public class ConsulterPagecontroller {
     }
 }
 
-   /* private void afficherPage() {
-        if (pA != null) {
-            nomP.setText(pA.getNom());
-            contP.setText(Integer.toString(pA.getContact()));
-            catP.setText(pA.getCategorie().toString());
-            locP.setText(pA.getLocalisation());
-            descP.setText(pA.getDescription());
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            String formattedTime = pA.getOuverture().format(timeFormatter);
-            ouvP.setText(formattedTime);
-            if (pA.getImage() != null) {
-                Image image = new Image("file:" + pA.getImage());
-                imageP.setImage(image);
-            }
-            if (pA.getLogo() != null) {
-                Image logoImage = new Image("file:" + pA.getLogo());
-                logoP.setImage(logoImage);
-            }
-            }*/
 
 
 

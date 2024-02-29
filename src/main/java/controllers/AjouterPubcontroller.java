@@ -62,29 +62,37 @@ public class AjouterPubcontroller {
 
     @FXML
     void aj(ActionEvent event) throws SQLException, IOException {
-        if (imagePath.isEmpty()) {
-            showErrorAlert("Please select an image.");
+        // Vérifier si les champs sont vides
+        if (desscc.getText().isEmpty() || nommm.getText().isEmpty()) {
+            showErrorAlert("Veuillez remplir tous les champs.");
             return;
         }
 
+        if (imagePath.isEmpty()) {
+            showErrorAlert("Veuillez sélectionner une image.");
+            return;
+        }
+
+        // Ajouter la publication si les champs sont remplis
         publicationService pSR = new publicationService();
         pSR.ajouter(new publication(desscc.getText(), imagePath, nommm.getText()));
 
-        // Show success alert
-        showSuccessAlert("Ajout est fait avec succès");
+        // Afficher une alerte de succès
+        showSuccessAlert("Ajout effectué avec succès");
 
-        // Clear fields after successful addition
+        // Effacer les champs après l'ajout réussi
         desscc.clear();
         imagess.setImage(null);
         nommm.clear();
 
-        // Navigate to the "PubTest.fxml" when the "aj" button is clicked
+        // Naviguer vers "PubTest.fxml" après avoir cliqué sur le bouton "aj"
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubTest.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
+
 
 
     private void showErrorAlert(String message) {

@@ -8,37 +8,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterPubcontroller">
+<AnchorPane prefHeight="661.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterPubcontroller">
    <children>
-      <Label layoutX="204.0" layoutY="115.0" prefHeight="46.0" prefWidth="94.0" text="Nom">
+      <Label layoutX="43.0" layoutY="115.0" prefHeight="46.0" prefWidth="94.0" text="Nom">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label layoutX="211.0" layoutY="214.0" text="Description">
+      <Label layoutX="43.0" layoutY="214.0" text="Description">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Label layoutX="209.0" layoutY="352.0" text="Image">
+      <Label layoutX="43.0" layoutY="339.0" text="Image">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <ImageView fx:id="imagess" fitHeight="150.0" fitWidth="670.0" layoutX="401.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="ins" layoutX="191.0" layoutY="417.0" mnemonicParsing="false" onAction="#ins" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Insérer" textFill="WHITE">
+      <ImageView fx:id="imagess" fitHeight="150.0" fitWidth="475.0" layoutX="285.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="ins" layoutX="43.0" layoutY="438.0" mnemonicParsing="false" onAction="#ins" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Insérer" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
-      <Button fx:id="aj" layoutX="902.0" layoutY="510.0" mnemonicParsing="false" onAction="#aj" prefHeight="52.0" prefWidth="141.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Ajouter" textFill="WHITE">
+      <Button fx:id="aj" layoutX="583.0" layoutY="540.0" mnemonicParsing="false" onAction="#aj" prefHeight="52.0" prefWidth="141.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Ajouter" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
-      <TextField fx:id="nommm" layoutX="401.0" layoutY="125.0" prefHeight="26.0" prefWidth="682.0" style="-fx-background-radius: 30;" />
-      <TextField fx:id="desscc" layoutX="401.0" layoutY="173.0" prefHeight="128.0" prefWidth="682.0" style="-fx-background-radius: 30;" />
-      <Label layoutX="163.0" layoutY="38.0" prefHeight="46.0" prefWidth="366.0" text="Ajouter une publication :" textFill="#f99d26">
+      <TextField fx:id="nommm" layoutX="279.0" layoutY="125.0" prefHeight="26.0" prefWidth="475.0" style="-fx-background-radius: 30;" />
+      <TextField fx:id="desscc" layoutX="279.0" layoutY="173.0" prefHeight="128.0" prefWidth="475.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="43.0" layoutY="38.0" prefHeight="46.0" prefWidth="366.0" text="Ajouter une publication :" textFill="#f99d26">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>

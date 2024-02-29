@@ -20,13 +20,12 @@ import java.util.List;
 
         @Override
         public void ajouter(publication publication) throws SQLException {
-            String req = "INSERT INTO publication (description ,image ,nom,IdPP) " +
-                    "VALUES (?, ?, ?,?)";
+            String req = "INSERT INTO publication (description ,image ,nom) " +
+                    "VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(req);
             preparedStatement.setString(1, publication.getDescription());
             preparedStatement.setString(2, publication.getImage());
             preparedStatement.setString(3, publication.getNom());
-            preparedStatement.setInt(4,publication.getPage().getIdP());
             preparedStatement.executeUpdate();
         }
 
@@ -55,18 +54,17 @@ import java.util.List;
         @Override
 
         public List<publication> afficher() throws SQLException {
-            String req = "select p.* u.nom,p.IdP  from publication p INNER JOIN page u ON p.IdPP= u.IdP";
+
+            String req = "SELECT * FROM `publication`";
             List<publication> publication = new ArrayList<>();
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(req);
             while (rs.next()){
                 publication p = new publication();
-                p.setidP(rs.getInt("idP"));
+                p.setidP(rs.getInt("id_P"));
                 p.setDescription(rs.getString("description"));
                 p.setImage(rs.getString("image"));
                 p.setNom(rs.getString("nom"));
-                page pa=new page(rs.getInt("IdP"),rs.getString("nom"));
-                p.setPage(pa);
                 publication.add(p);
             }
             return publication;
