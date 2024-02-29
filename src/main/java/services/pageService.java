@@ -39,6 +39,7 @@ public class pageService implements IService<page> {
         return null;
     }
 
+
     @Override
     public void ajouter(page page) throws SQLException {
         String req = "INSERT INTO page (nom,contact ,categorieP,localisation , description,ouverture , image , logo) " +
