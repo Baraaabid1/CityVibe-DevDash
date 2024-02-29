@@ -142,7 +142,8 @@ public class EvenementComment {
 
             // Passer l'événement actuel et l'identifiant de l'utilisateur au contrôleur du formulaire de commentaire
             Comment comment = loader.getController();
-            comment.setEvenementComment(evenement);
+            comment.setEvenement(evenement);
+            comment.setEvenementComment(this);
 
             comment.setUserId(userId); // Remplacer 'userId' par l'identifiant de l'utilisateur
 

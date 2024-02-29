@@ -74,7 +74,7 @@ public class AjouterEvenement {
             String selectedCategorieString = categorieE.getValue(); // Obtenez la chaîne de la ComboBox
             CategorieE selectedCategorie = CategorieE.valueOf(selectedCategorieString); // Convertissez la chaîne en enum CategorieE
             es.ajouter(new Evenement(Integer.parseInt(nbrpE.getText()), nomE.getText(), pageE.getText(), descriptionE.getText(), dateE.getValue(), heueE.getLocalTime(), selectedCategorie, imgPath,page));
-          
+
             Stage stage = (Stage) ajouter.getScene().getWindow();
             stage.close();
             // Rafraîchir la vue dans le contrôleur Afficher

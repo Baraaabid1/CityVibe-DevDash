@@ -26,6 +26,8 @@ public class Comment {
 
     // ID de l'utilisateur
     private int userId;
+    private EvenementComment eventComment;
+
 
     // Service pour gérer les commentaires
     private CommentaireService commentaireService = new CommentaireService();
@@ -70,6 +72,9 @@ public class Comment {
                 // Fermer la fenêtre du formulaire de commentaire
                 Stage stage = (Stage) commentAj.getScene().getWindow();
                 stage.close();
+                if (eventComment!=null){
+                    eventComment.refreshView();
+                }
             } else {
                 // Afficher un message d'erreur si le commentaire est vide
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -87,7 +92,11 @@ public class Comment {
     }
 
     // Méthode pour définir l'instance EvenementComment
-    public void setEvenementComment(Evenement evenementComment) {
+    public void setEvenement(Evenement evenementComment) {
         this.evenementComment = evenementComment;
+    }
+
+    public void setEvenementComment(EvenementComment eventComment) {
+        this.eventComment=eventComment;
     }
 }
