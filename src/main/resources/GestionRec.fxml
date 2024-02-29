@@ -364,6 +364,25 @@
                   </AnchorPane>
                </children>
             </Pane>
+             <Pane fx:id="gestionRepPan" layoutX="826.0" layoutY="-42.0" prefHeight="129.0" prefWidth="352.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);">
+                 <children>
+                     <Text fill="#f99d26" layoutX="22.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Votre Reponse" wrappingWidth="135.47802734375">
+                         <font>
+                             <Font name="Arial Nova Bold" size="18.0" />
+                         </font>
+                     </Text>
+                     <TextField fx:id="gestRep" layoutX="12.0" layoutY="43.0" prefHeight="31.0" prefWidth="332.0" />
+                     <Button layoutX="37.0" layoutY="84.0" mnemonicParsing="false" onAction="#ModifRep" prefHeight="31.0" prefWidth="122.0" text="Modifier" textFill="#f99d26">
+                         <font>
+                             <Font name="Arial Nova Bold" size="15.0" />
+                         </font>
+                     </Button>
+                     <Button layoutX="193.0" layoutY="84.0" mnemonicParsing="false" onAction="#SuppRep" prefHeight="31.0" prefWidth="122.0" text="Supprimer" textFill="#f99d26">
+                         <font>
+                             <Font name="Arial Nova Bold" size="15.0" />
+                         </font></Button>
+                 </children>
+             </Pane>
          </children>
         </AnchorPane>    </center>
 </BorderPane>

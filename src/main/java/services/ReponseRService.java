@@ -100,4 +100,30 @@ public class ReponseRService implements IService<ReponseR>{
         return reponseRs;
     }
 
+    public ReponseR getReponseFromID(int idRR) throws SQLException {
+        String query = "SELECT idRR, idR, idU, textR, date_repR FROM reponser WHERE idRR = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, idRR);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    ReponseR reponseR = new ReponseR();
+                    reponseR.setIdRR(resultSet.getInt("idRR"));
+                    reponseR.setIdR(resultSet.getInt("idR"));
+                    reponseR.setIdU(resultSet.getInt("idU"));
+                    reponseR.setTextR(resultSet.getString("textR"));
+                    reponseR.setDate_repR(resultSet.getTimestamp("date_repR"));
+                    return reponseR;
+                }
+            }
+        }
+        return null;
+    }
+    public void deleteResponsesForReclamation(int idR) throws SQLException {
+        String query = "DELETE FROM reponser WHERE idR = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, idR);
+            preparedStatement.executeUpdate();
+        }
+    }
+
 }

@@ -123,7 +123,6 @@ public class AjoutReclamationController {
                 "Nabeul",
                 "Aryanah",
                 "Djerba",
-                "Gabès",
                 "Mahdia"
         );
         weatherLoc.setItems(weatherLocation);
@@ -133,7 +132,7 @@ public class AjoutReclamationController {
                 "Contenu inapproprié",
                 "Informations incorrectes",
                 "Problèmes de sécurité",
-                "Suggestions d'amélioration",
+                "Suggestions d amélioration",
                 "Problèmes de service client"
         );
         type_rec.setItems(typeReclamation);
@@ -185,7 +184,7 @@ public class AjoutReclamationController {
 
         if ("Autre".equals(apropoValue)) {
             selectedApropo = apropo.getValue();
-        } else if ("Lieux".equals(apropoValue)) {
+        } else if ("Page".equals(apropoValue)) {
             selectedApropo = page.getText();
         } else {
             selectedApropo = evenement.getText();
@@ -314,6 +313,7 @@ public class AjoutReclamationController {
 
     public void modifierRec(int idR) {
         modif_button.setVisible(true);
+        buttonAjout.setVisible(false);
         try {
             Reclamation reclamation = rs.afficherR(idR);
             titre.setText(reclamation.getTitre());
@@ -349,7 +349,6 @@ public class AjoutReclamationController {
             }
 
         } else {
-            // Handle error or inform the user about the data retrieval issue
             temp.setText("N/A");
             cond.setText("N/A");
             hum.setText("N/A");

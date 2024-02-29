@@ -321,7 +321,10 @@
                </cursor></Button>
             <Pane layoutX="99.0" layoutY="41.0" prefHeight="515.0" prefWidth="667.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);">
                <children>
-                  <Button fx:id="modif_button" layoutX="472.0" layoutY="459.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="31.0" prefWidth="151.0" text="Modifier" />
+                  <Button fx:id="modif_button" layoutX="472.0" layoutY="459.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="31.0" prefWidth="151.0" style="-fx-background-color: #F99D26; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0);" text="Modifier" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Nova Bold" size="15.0" />
+                     </font></Button>
                       <TextField fx:id="titre" layoutX="160.0" layoutY="233.0" prefHeight="31.0" prefWidth="435.0" />
                       <TextArea fx:id="text" layoutX="75.0" layoutY="293.0" prefHeight="144.0" prefWidth="525.0" />
                       <Label layoutX="63.0" layoutY="120.0" prefHeight="21.0" prefWidth="188.0" text="Type de reclamation" textFill="#f99d26">
@@ -407,7 +410,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Pane layoutX="858.0" layoutY="203.0" prefHeight="353.0" prefWidth="273.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0); -fx-background-color: white; -fx-background-radius: 10;">
+            <Pane fx:id="meteoPane" layoutX="858.0" layoutY="203.0" prefHeight="353.0" prefWidth="273.0" style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 0); -fx-background-color: white; -fx-background-radius: 10;">
                <children>
                   <Text fill="#f99d26" layoutX="53.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Météo actuelle">
                      <font>
@@ -430,7 +433,7 @@
                         <Font name="Arial Nova Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Text fx:id="wind" layoutX="132.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ll" textAlignment="CENTER" wrappingWidth="81.509765625">
+                   <Text fx:id="wind" layoutX="117.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ll" textAlignment="CENTER" wrappingWidth="109.509765625">
                      <font>
                         <Font name="Arial Nova Bold" size="18.0" />
                      </font>
