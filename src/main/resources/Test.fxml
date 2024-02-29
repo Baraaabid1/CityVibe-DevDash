@@ -263,7 +263,7 @@
                <children>
                   <Pane prefHeight="98.0" prefWidth="1193.0" style="-fx-background-color: transparant;">
                      <children>
-                        <Button layoutX="243.0" layoutY="7.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Lieu" textFill="#f99d26">
+                        <Button layoutX="243.0" layoutY="7.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Lieu" textFill="#f99d26">
                            <font>
                               <Font size="25.0" />
                            </font></Button>

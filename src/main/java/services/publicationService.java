@@ -32,7 +32,7 @@ import java.util.List;
 
         @Override
         public void modifier(publication publication) throws SQLException {
-            String sql = "update publication set   description = ? , image  = ? , nom  = ? where idP = ?";
+            String sql = "update publication set   description = ? , image  = ? , nom  = ? where id_P = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,(publication.getDescription()));
@@ -46,7 +46,7 @@ import java.util.List;
 
         @Override
         public void supprimer(int idP) throws SQLException {
-            String req = "DELETE FROM `publication` WHERE IdP=?";
+            String req = "DELETE FROM `publication` WHERE id_P=?";
             PreparedStatement preparedStatement = connection.prepareStatement(req);
             preparedStatement.setInt(1, idP);
             preparedStatement.executeUpdate();
