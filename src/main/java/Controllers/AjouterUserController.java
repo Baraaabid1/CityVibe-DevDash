@@ -50,10 +50,12 @@ public class AjouterUserController {
     public ObservableList<String> preference = FXCollections.observableArrayList();
 
     public AjouterUserController() {
+
         connection = MyDataBase.getInstance().getConn();
     }
 
     public void initialize() {
+
         locationBox.getItems().addAll(location);
     }
 
@@ -73,7 +75,6 @@ public class AjouterUserController {
             // Récupération de l'ID de l'utilisateur ajouté
             int idUser = ps.getIdUtilisateurByEmail(emailU.getText());
             System.out.println(preference);
-
             // Insertion des préférences dans la table preferences
             if (preference != null) {
                 for (String preference : preference) {
@@ -86,7 +87,6 @@ public class AjouterUserController {
                 }
             }
             if(idUser!=-1) {
-                // Affichage de la page de profil avec l'ID de l'utilisateur ajouté
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Profile.fxml"));
                 Parent root = loader.load();
                 ProfileController Prof = loader.getController();
@@ -94,8 +94,6 @@ public class AjouterUserController {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.show();
-
-                // Fermeture de la fenêtre actuelle
                 ((Node) event.getSource()).getScene().getWindow().hide();
             }
         } catch (SQLException e) {
@@ -123,12 +121,11 @@ public class AjouterUserController {
                     Parent root = loader.load();
 
                     PreferencesController prefController = loader.getController();
-                    ObservableList<String> preferences = prefController.getPreferences(); // Utilisez une variable locale différente
+                    ObservableList<String> preferences = prefController.getPreferences();
 
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.showAndWait();
-                    // Après la fermeture de la fenêtre de préférences, vous pouvez affecter la liste de préférences à la liste de classe
                     if (preferences != null) {
                         preference = preferences;
                         System.out.println("Liste de préférences récupérée avec succès : " + preference);

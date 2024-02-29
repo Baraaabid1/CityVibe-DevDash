@@ -387,8 +387,16 @@
                      </font>
                   </Label>
                   <Button layoutX="81.0" layoutY="506.0" mnemonicParsing="false" onAction="#SupprimeCompte" prefHeight="34.0" prefWidth="361.0" style="-fx-background-radius: 15; -fx-background-color: #D9D9D9;" text="Supprimer mon compte" />
-                  <ListView fx:id="prefList" layoutX="26.0" layoutY="150.0" maxHeight="-Infinity" prefHeight="311.0" prefWidth="450.0" style="-fx-background-color: white;" />
+                  <ListView fx:id="prefList" layoutX="26.0" layoutY="150.0" maxHeight="-Infinity" prefHeight="290.0" prefWidth="450.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="128.0" AnchorPane.topAnchor="150.0" />
                   <Button layoutX="81.0" layoutY="468.0" mnemonicParsing="false" onAction="#changerMDP" prefHeight="34.0" prefWidth="361.0" style="-fx-background-radius: 15;" text="Changer Mot de passe" />
+                  <Button layoutX="197.0" layoutY="68.0" mnemonicParsing="false" onAction="#ajoutPref" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@/img/icons8-add-new-50.png" />
+                         </image>
+                        </ImageView>
+                     </graphic></Button>
                </children></AnchorPane>
          </children></AnchorPane>
    </center>

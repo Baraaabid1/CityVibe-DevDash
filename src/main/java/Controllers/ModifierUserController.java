@@ -32,16 +32,8 @@ public class ModifierUserController {
     @FXML
     private TextField nomField;
 
-
-    @FXML
-    private TextField idField;
-
-
     @FXML
     private TextField prenomField;
-
-    @FXML
-    private TextField passwordField;
 
     @FXML
     private TextField naissanceField;
@@ -54,14 +46,12 @@ public class ModifierUserController {
 
     @FXML
     private TextField locationField;
-
-    @FXML
-    private TextField roleField;
     public Utilisateur utilisateur;
     private Connection connection;
 
     UtilisateurService us = new UtilisateurService();
     public ModifierUserController() {
+
         connection= MyDataBase.getInstance().getConn();
     }
     public void initialize(int idUser){
@@ -127,9 +117,7 @@ public class ModifierUserController {
         root = loader.load();
         ProfileController profileController = loader.getController();
         if (profileController != null) {
-            // Actualiser les données du profil
             profileController.initialize(id);
-            // Fermer la fenêtre de modification0
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
         } else {

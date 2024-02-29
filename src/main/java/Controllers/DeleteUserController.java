@@ -19,7 +19,6 @@ import java.sql.SQLException;
 
 public class DeleteUserController {
     private Stage stage ;
-    private Scene scene ;
     private Parent root ;
 
         @FXML
@@ -28,11 +27,6 @@ public class DeleteUserController {
         @FXML
         private Text afficheText;
 
-        @FXML
-        private Button chercher;
-
-        @FXML
-        private Button deleteButton;
     UtilisateurService us = new UtilisateurService();
     public Utilisateur utilisateur;
 
@@ -60,7 +54,6 @@ public class DeleteUserController {
 
 
     }
-
         @FXML
         void deleteUser(ActionEvent event) throws IOException {
             try {
@@ -90,7 +83,4 @@ public class DeleteUserController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
-
 }

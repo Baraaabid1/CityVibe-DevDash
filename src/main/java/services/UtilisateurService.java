@@ -31,6 +31,7 @@ public class UtilisateurService implements IService <Utilisateur> {
     private Connection connection;
 
     public UtilisateurService(){
+
         connection= MyDataBase.getInstance().getConn();
     }
     @Override
@@ -130,8 +131,7 @@ public class UtilisateurService implements IService <Utilisateur> {
         }
         return false;
     }
-
-    private static final int CODE_LENGTH = 6; // Longueur du code de confirmation
+    private static final int CODE_LENGTH = 6;
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     public static String generateConfirmationCode() {
@@ -179,18 +179,16 @@ public class UtilisateurService implements IService <Utilisateur> {
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
-
         // Création d'une nouvelle session SMTP
         Session session = Session.getDefaultInstance(props);
 
         try {
             // Création du message
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from)); // Adresse e-mail de l'expéditeur
+            message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email)); // Adresse e-mail du destinataire
-            message.setSubject(title); // Objet de l'e-mail
-            message.setText(contenu); // Contenu de l'e-mail
+            message.setSubject(title);
+            message.setText(contenu);
 
             // Envoi du message
             Transport transport = session.getTransport("smtp");
@@ -203,34 +201,6 @@ public class UtilisateurService implements IService <Utilisateur> {
             e.printStackTrace();
             System.err.println("Erreur lors de l'envoi de l'e-mail à " + email + " : " + e.getMessage());
         }
-    }
-
-    private byte[] selectAndConvertDefaultImage() throws IOException {
-        String defaultImagePath = "C:\\Users\\benna\\Desktop\\istockphoto-1337144146-612x612.jpg";
-        File defaultImageFile = new File(defaultImagePath);
-        return convertFileToBytes(defaultImageFile);
-    }
-
-    private byte[] convertFileToBytes(File defaultImageFile) throws IOException {
-        FileInputStream fis = null;
-        byte[] fileBytes = null;
-
-        try {
-            fis = new FileInputStream(defaultImageFile);
-            fileBytes = new byte[(int) defaultImageFile.length()];
-            fis.read(fileBytes); // Lecture du fichier et stockage dans le tableau de bytes
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (fis != null) {
-                fis.close(); // Fermeture du flux d'entrée
-            }
-        }
-
-        return fileBytes;
-
     }
 
     private boolean isValidEmail(String email) {
@@ -280,6 +250,32 @@ public class UtilisateurService implements IService <Utilisateur> {
     private boolean isValidDate(Object date) {
         return date instanceof LocalDate;
     }
+    private byte[] selectAndConvertDefaultImage() throws IOException {
+        String defaultImagePath = "C:\\Users\\benna\\Desktop\\istockphoto-1337144146-612x612.jpg";
+        File defaultImageFile = new File(defaultImagePath);
+        return convertFileToBytes(defaultImageFile);
+    }
+
+    private byte[] convertFileToBytes(File defaultImageFile) throws IOException {
+        FileInputStream fis = null;
+        byte[] fileBytes = null;
+
+        try {
+            fis = new FileInputStream(defaultImageFile);
+            fileBytes = new byte[(int) defaultImageFile.length()];
+            fis.read(fileBytes); // Lecture du fichier et stockage dans le tableau de bytes
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (fis != null) {
+                fis.close(); // Fermeture du flux d'entrée
+            }
+        }
+        return fileBytes;
+    }
+
 
     @Override
     public void supprimer(int id) throws SQLException {
@@ -299,7 +295,6 @@ public class UtilisateurService implements IService <Utilisateur> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérer les erreurs de suppression
         }
     }
 
@@ -346,19 +341,6 @@ public class UtilisateurService implements IService <Utilisateur> {
             }
         }
         return utilisateur;
-    }
-
-    public boolean authentifier(String nomUtilisateur, String motDePasse) {
-        String requete = "SELECT * FROM utilisateur WHERE nom = ? AND password = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(requete)) {
-            pstmt.setString(1, nomUtilisateur);
-            pstmt.setString(2, motDePasse);
-            ResultSet resultSet = pstmt.executeQuery();
-            return resultSet.next(); // Retourne true si un utilisateur correspondant est trouvé, sinon false
-        } catch (SQLException e) {
-            e.printStackTrace(); // Gérez l'erreur de manière appropriée
-            return false; // En cas d'erreur, considérez l'authentification comme échouée
-        }
     }
 
     public int getIdUtilisateurByEmail(String email) throws SQLException {

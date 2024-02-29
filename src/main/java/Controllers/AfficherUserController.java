@@ -24,7 +24,6 @@ import java.util.List;
 
 public class AfficherUserController {
     private Stage stage ;
-    private Scene scene ;
     private Parent root ;
 
     @FXML
@@ -61,23 +60,12 @@ public class AfficherUserController {
     private TableColumn<Utilisateur, String> localisation;
     UtilisateurService ps = new UtilisateurService();
 
-    @FXML
-    private Button ajoutU;
-    @FXML
-    private Button modif;
-
     public void initialize(){
         try {
-            // Récupérer les utilisateurs depuis le service (vous devez remplacer YourUtilisateurType par le vrai type de vos utilisateurs)
             List<Utilisateur> utilisateurs = ps.afficher();
-
-            // Créer une liste observable à partir des utilisateurs
             ObservableList<Utilisateur> observableUtilisateurs = FXCollections.observableArrayList(utilisateurs);
-
-            // Lier la liste observable à la TableView
             tableview.setItems(observableUtilisateurs);
 
-            // Lier les propriétés des utilisateurs aux colonnes (vous devez remplacer les "?" par le vrai type de vos colonnes)
             id.setCellValueFactory(new PropertyValueFactory<>("idu"));
             nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
@@ -128,38 +116,4 @@ public class AfficherUserController {
         stage.show();
 
     }
-
-
-//    @FXML
-//    void AfficherUser(ActionEvent event) {
-//        try {
-//            // Récupérer les utilisateurs depuis le service (vous devez remplacer YourUtilisateurType par le vrai type de vos utilisateurs)
-//            List<Utilisateur> utilisateurs = ps.afficher();
-//
-//            // Créer une liste observable à partir des utilisateurs
-//            ObservableList<Utilisateur> observableUtilisateurs = FXCollections.observableArrayList(utilisateurs);
-//
-//            // Lier la liste observable à la TableView
-//            tableview.setItems(observableUtilisateurs);
-//
-//            // Lier les propriétés des utilisateurs aux colonnes (vous devez remplacer les "?" par le vrai type de vos colonnes)
-//            id.setCellValueFactory(new PropertyValueFactory<>("idu"));
-//            nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-//            prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-//            password.setCellValueFactory(new PropertyValueFactory<>("password"));
-//            dateNaissance.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
-//            role.setCellValueFactory(new PropertyValueFactory<>("role"));
-//            email.setCellValueFactory(new PropertyValueFactory<>("email"));
-//            numTel.setCellValueFactory(new PropertyValueFactory<>("num_tel"));
-//            preference.setCellValueFactory(new PropertyValueFactory<>("preference"));
-//            localisation.setCellValueFactory(new PropertyValueFactory<>("localisation"));
-//        } catch (SQLException e) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error");
-//            alert.setContentText(e.getMessage());
-//            alert.showAndWait();
-//        }
- //   }
-
-
 }

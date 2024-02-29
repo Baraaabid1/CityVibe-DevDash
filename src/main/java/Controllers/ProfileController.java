@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,15 +14,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import models.Preference;
 import models.Utilisateur;
+import services.PreferenceService;
 import services.UtilisateurService;
 import utiles.MyDataBase;
+
+import javax.mail.MessagingException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,8 +47,6 @@ public class ProfileController {
     private Stage stage ;
     private Parent root ;
     @FXML
-    private Button modifImage;
-    @FXML
     private Label nameLabel;
     @FXML
     private Label emailLabel;
@@ -58,16 +62,15 @@ public class ProfileController {
     @FXML
     private ImageView imgUser;
     private int idUser;
+    public ObservableList<String> preference = FXCollections.observableArrayList();
 
     @FXML
     private ListView<String> prefList;
     UtilisateurService us = new UtilisateurService();
-
-    @FXML
-    private Circle circle;
-
-
+    PreferenceService pref = new PreferenceService();
     public Connection connection;
+    public ProfileController() throws SQLException {
+    }
 
     public void initialize(int id) throws SQLException {
         connection= MyDataBase.getInstance().getConn();
@@ -80,29 +83,22 @@ public class ProfileController {
                 statement.setInt(1, idUser);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        // Récupérer les informations de l'utilisateur
                         String nom = resultSet.getString("nom");
                         String prenom = resultSet.getString("prenom");
                         String email = resultSet.getString("email");
                         String adresse = resultSet.getString("localisation");
                         String tel = resultSet.getString("num_tel");
                         LocalDate birth = resultSet.getDate("dateNaissance").toLocalDate();
-
-                        // Afficher les informations dans les labels
                         nameLabel.setText(nom + " " + prenom);
                         emailLabel.setText(email);
                         adresseLabel.setText(adresse);
                         telLabel.setText(tel);
                         birthLabel.setText(birth.toString());
-                        System.out.println("rrrrrrrr"+nom);
-
                         // Récupérer et afficher l'image de l'utilisateur
                         byte[] imageData = resultSet.getBytes("img");
                         if (imageData != null) {
                             // Convertir les données binaires en un objet Image
                             Image image = new Image(new ByteArrayInputStream(imageData));
-
-                            // Afficher l'image dans l'ImageView
                             imgUser.setImage(image);
                         } else {
                             System.err.println("Aucune donnée d'image trouvée pour l'utilisateur ID: " + idUser);
@@ -112,24 +108,10 @@ public class ProfileController {
                     }
                 }
             }
-
             // Récupérer les préférences de l'utilisateur
-            String prefQuery = "SELECT types FROM preferences WHERE idu=?";
-            try (PreparedStatement prefStatement = connection.prepareStatement(prefQuery)) {
-                prefStatement.setInt(1, idUser);
-                try (ResultSet prefResultSet = prefStatement.executeQuery()) {
-                    // Créer une liste pour stocker les préférences
-                    ObservableList<String> preferences = FXCollections.observableArrayList();
-                    // Ajouter les préférences à la liste
-                    while (prefResultSet.next()) {
-                        String preference = prefResultSet.getString("types");
-                        preferences.add(preference);
-                    }
-                    // Afficher les préférences dans la ListView
+            ObservableList<String> preferences = pref.afficheParUser(idUser);
                     prefList.setItems(preferences);
                     prefList.setCellFactory(param -> new ListCell<String>() {
-                        private final ImageView imageView = new ImageView(); // Créer une ImageView pour chaque cellule
-
                         @Override
                         protected void updateItem(String item, boolean empty) {
                             super.updateItem(item, empty);
@@ -138,9 +120,6 @@ public class ProfileController {
                                 setGraphic(null);
                                 setPrefHeight(0);
                             } else {
-                                // Définir le texte de la cellule comme l'élément de la liste
-                                setText(item);
-                                // Ajouter une image à gauche de chaque élément de la liste
                                 ImageView imageView = new ImageView();
                                 switch (item) {
                                     case "Art":
@@ -165,23 +144,89 @@ public class ProfileController {
                                         imageView.setImage(new Image("img/music.png"));
                                         break;
                                     case "Santé":
-                                        imageView.setImage(new Image("img/icons8-home-26.png"));
+                                        imageView.setImage(new Image("img/sante.png"));
                                         break;
                                     default:
-                                        // Définir une image par défaut si nécessaire
                                         imageView.setImage(new Image("img/icons8-home-26.png"));
                                 }
+                                imageView.setFitWidth(40);
+
                                 int numItems = prefList.getItems().size();
-                                double prefHeight =numItems * 65; // 25 est la hauteur approximative de chaque élément
+                                double prefHeight = numItems * 65;
                                 prefList.setPrefHeight(prefHeight);
                                 setFont(Font.font("Arial", FontWeight.NORMAL, 20));
-                                setGraphic(imageView);
+                                // Créer une étiquette pour afficher le texte de la préférence
+                                Label preferenceLabel = new Label(item);
+                                preferenceLabel.setPrefWidth(150);
+                                // Créer une boîte HBox pour contenir l'image, le texte de la préférence et le bouton de suppression
+                                HBox hbox = new HBox();
+                                hbox.getChildren().addAll(imageView, preferenceLabel);
+                                Button deleteButton = new Button("Supprimer");
+                                deleteButton.setAlignment(Pos.CENTER_LEFT);
+                                deleteButton.setPrefWidth(100);
+                                deleteButton.setPrefHeight(30);
+                                deleteButton.setStyle("-fx-background-color:  #F99D26; -fx-text-fill: white;");
+                                deleteButton.setOnAction(event -> {
+                                    String selectedPreference = getItem(); // Récupérer la préférence sélectionnée
+                                    int preferenceId = 0;
+                                    try {
+                                        preferenceId = pref.getPreferenceId(selectedPreference, idUser);
+                                        pref.supprimer(preferenceId);
+                                        prefList.getItems().remove(selectedPreference); // Supprimer la préférence de la liste
+                                    } catch (SQLException e) {
+                                        throw new RuntimeException("Erreur lors de la suppression de la préférence : " + e.getMessage());
+                                    }
+                                });
+                                hbox.getChildren().add(deleteButton);
+                                hbox.setSpacing(50);
+                                hbox.setAlignment(Pos.CENTER_LEFT);
+                                setGraphic(hbox);
+                                setPrefHeight(Control.USE_COMPUTED_SIZE); // Réinitialiser la hauteur préférée
                             }
                         }
                     });
+                } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    @FXML
+    void ajoutPref(ActionEvent event) {
+        connection= MyDataBase.getInstance().getConn();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Preferences.fxml"));
+            Parent root = loader.load();
+
+            PreferencesController prefController = loader.getController();
+            ObservableList<String> preferences = prefController.getPreferences(); // Utilisez une variable locale différente
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            // Après la fermeture de la fenêtre de préférences, vous pouvez affecter la liste de préférences à la liste de classe
+            if (preferences != null) {
+                preference = preferences;
+                for (String pref : preference) {
+                    if (!prefList.getItems().contains(pref)) { // Vérifier si la préférence n'existe pas déjà dans la liste
+                        String insertQuery = "INSERT INTO preferences (idu, types) VALUES (?, ?)";
+                        try (PreparedStatement pstmt = connection.prepareStatement(insertQuery)) {
+                            pstmt.setInt(1, idUser);
+                            pstmt.setString(2, pref);
+                            pstmt.executeUpdate();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        prefList.getItems().add(pref);
+                    }
                 }
+                System.out.println("Liste de préférences récupérée avec succès : " + preference);
+
+            } else {
+                System.out.println("La liste de préférences est null.");
             }
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -193,11 +238,9 @@ public class ProfileController {
         // Créez un FileChooser pour permettre à l'utilisateur de sélectionner une image
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
-
         // Filtre pour ne montrer que les fichiers d'image
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif");
         fileChooser.getExtensionFilters().add(extFilter);
-
         // Affichez la boîte de dialogue pour choisir un fichier
         File selectedFile = fileChooser.showOpenDialog(null);
 
@@ -205,11 +248,7 @@ public class ProfileController {
             try {
                 // Convertir le fichier en tableau de bytes
                 byte[] imageBytes = convertFileToBytes(selectedFile);
-
-                // Mettre à jour l'image de l'utilisateur dans la base de données
                 updateUserImage(idUser, imageBytes);
-
-                // Mettre à jour l'ImageView avec la nouvelle image
                 imgUser.setImage(new Image(new ByteArrayInputStream(imageBytes)));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -217,7 +256,6 @@ public class ProfileController {
         }
     }
 
-    // Méthode pour convertir un fichier en tableau de bytes
     private byte[] convertFileToBytes(File file) throws IOException {
         byte[] bytesArray = new byte[(int) file.length()];
         FileInputStream fis = new FileInputStream(file);
@@ -225,8 +263,6 @@ public class ProfileController {
         fis.close();
         return bytesArray;
     }
-
-    // Méthode pour mettre à jour l'image de l'utilisateur dans la base de données
     private void updateUserImage(int userId, byte[] imageBytes) {
         String query = "UPDATE utilisateur SET img = ? WHERE idu = ?"; // Corrected column name and WHERE condition
 
@@ -238,6 +274,7 @@ public class ProfileController {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     void modifProfil(ActionEvent event) throws IOException {
@@ -252,16 +289,12 @@ public class ProfileController {
     }
     @FXML
     void changerMDP(ActionEvent event) {
-        // Créez une boîte de dialogue modale pour saisir les anciens et nouveaux mots de passe
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Changer de mot de passe");
         dialog.setHeaderText("Entrez votre ancien et nouveau mot de passe");
-
-        // Créez un bouton pour valider les saisies
         ButtonType validerButtonType = new ButtonType("Valider", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(validerButtonType, ButtonType.CANCEL);
 
-        // Créez des champs de texte pour les mots de passe
         PasswordField oldPasswordField = new PasswordField();
         oldPasswordField.setPromptText("Ancien mot de passe");
         PasswordField newPasswordField = new PasswordField();
@@ -295,7 +328,6 @@ public class ProfileController {
             return null;
         });
 
-        // Affichez la boîte de dialogue et attendez les saisies
         Optional<Pair<String, String>> result = dialog.showAndWait();
 
         // Traitez les résultats si présents
@@ -308,7 +340,7 @@ public class ProfileController {
                 // Mettez à jour le mot de passe dans la base de données avec le nouveau mot de passe
                 String hashedNewPassword = hashPassword(newPassword);
                 try {
-                    // Exécuter une requête SQL pour mettre à jour le mot de passe dans la base de données
+                    //mettre à jour le mot de passe dans la base de données
                     String updateQuery = "UPDATE utilisateur SET password = ? WHERE idu = ?";
                     try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
                         statement.setString(1, hashedNewPassword); // Nouveau mot de passe hashé
@@ -316,36 +348,26 @@ public class ProfileController {
                         statement.executeUpdate();
                         System.out.println("Mot de passe mis à jour avec succès.");
                     }
-                    // Afficher un message de succès ou effectuer d'autres actions nécessaires
+
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    // Gérer les exceptions ou afficher un message d'erreur si la mise à jour échoue
                     System.err.println("Erreur lors de la mise à jour du mot de passe : " + e.getMessage());
                 }
             } else {
-                // Affichez un message d'erreur si l'ancien mot de passe est incorrect
                 showAlert("Ancien mot de passe incorrect.");
             }
         });
     }
-
-
-
     private boolean isOldPasswordCorrect(String oldPassword) {
         try {
             // Récupérer le mot de passe actuel de l'utilisateur depuis la base de données
             String query = "SELECT password FROM utilisateur WHERE idu = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, idUser); // Remplacez 'idUser' par l'ID de l'utilisateur actuellement connecté
+                statement.setInt(1, idUser);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
-                        // Récupérer le mot de passe hashé de la base de données
                         String hashedPasswordFromDB = resultSet.getString("password");
-
-                        // Hasher l'ancien mot de passe entré par l'utilisateur
                         String hashedOldPassword = hashPassword(oldPassword);
-
-                        // Comparer les deux hashages des mots de passe
                         return hashedPasswordFromDB.equals(hashedOldPassword);
                     }
                 }
@@ -353,13 +375,9 @@ public class ProfileController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Si une exception se produit ou si aucun résultat n'est trouvé, renvoyer false
         return false;
     }
-
-
     private void showAlert(String message) {
-        // Affichez une boîte de dialogue d'alerte avec le message spécifié
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur");
         alert.setHeaderText(null);
@@ -385,7 +403,6 @@ public class ProfileController {
     @FXML
     void SupprimeCompte(ActionEvent event) throws IOException {
         try {
-
             us.supprimer(idUser);
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

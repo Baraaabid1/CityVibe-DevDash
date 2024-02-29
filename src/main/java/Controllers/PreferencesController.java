@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 
 public class PreferencesController {
     private ObservableList<String> preferences = FXCollections.observableArrayList();
@@ -53,14 +54,16 @@ public class PreferencesController {
         ajouterPreference("Santé");
 
     }
-    private void ajouterPreference(String preference) {
+    public void ajouterPreference(String preference) {
         if (!preferences.contains(preference)) {
             preferences.add(preference);
         }
     }
     public ObservableList<String> getPreferences() {
-        System.out.println(preferences);
         return preferences;
     }
+
+
+
 
 }
