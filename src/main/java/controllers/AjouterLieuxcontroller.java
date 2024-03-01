@@ -131,7 +131,7 @@ public class AjouterLieuxcontroller {
         showSuccessAlert("Ajout est fait avec succès");
 
         // Navigate to the PageTest.fxml when the "ajouter" button is clicked
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PageConsult.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Test.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

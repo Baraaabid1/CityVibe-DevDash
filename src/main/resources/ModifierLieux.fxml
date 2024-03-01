@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="672.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierLieuxcontroller">
+<AnchorPane prefHeight="620.0" prefWidth="671.0" style="-fx-background-color: f99d26;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierLieuxcontroller">
     <children>
-        <Button fx:id="mod" layoutX="454.0" layoutY="538.0" mnemonicParsing="false" onAction="#modifier" prefHeight="46.0" prefWidth="108.0" style="-fx-background-color: #F99D26; -fx-background-radius: 30;" text="Modifier" textFill="WHITE">
+        <Button fx:id="mod" layoutX="454.0" layoutY="538.0" mnemonicParsing="false" onAction="#modifier" prefHeight="46.0" prefWidth="108.0" style="-fx-background-color: white; -fx-background-radius: 30;" text="Modifier" textFill="#f99d26">
             <font>
                 <Font name="System Bold" size="15.0" />
             </font>
@@ -35,9 +35,9 @@
 
         <ImageView fx:id="image" fitHeight="37.0" fitWidth="108.0" layoutX="36.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="logo" fitHeight="31.0" fitWidth="42.0" layoutX="501.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true" />
-        <Text fill="#f99d26" layoutX="43.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter lieu">
+        <Text fill="WHITE" layoutX="43.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter lieu">
             <font>
-                <Font size="20.0" />
+                <Font name="System Bold" size="30.0" />
             </font>
         </Text>
       <TextField fx:id="ouverture" layoutX="529.0" layoutY="460.0" prefHeight="26.0" prefWidth="102.0" />

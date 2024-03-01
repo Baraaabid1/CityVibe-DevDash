@@ -285,7 +285,34 @@
                         </GridPane>
                      </content>
                   </ScrollPane>
-                  <Pane layoutX="864.0" layoutY="49.0" prefHeight="538.0" prefWidth="311.0" style="-fx-background-color: white; -fx-background-radius: 30;" />
+                  <Pane layoutX="864.0" layoutY="49.0" prefHeight="538.0" prefWidth="311.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+                     <children>
+                        <Label layoutX="38.0" layoutY="33.0" text="Recommandation :" textFill="#f99d26">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="96.0" layoutY="456.0" text="Faites défiler pour voir tout" textFill="#f99d26">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane layoutX="42.0" layoutY="91.0" prefHeight="334.0" prefWidth="246.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="248.0">
+                                 <children>
+                                    <Button layoutX="63.0" layoutY="38.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Groupe" textFill="#f99d26" />
+                                    <Button layoutX="70.0" layoutY="93.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Individuel" textFill="#f99d26" />
+                                    <Button layoutX="70.0" layoutY="142.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Aventure" textFill="#f99d26" />
+                                    <Button layoutX="70.0" layoutY="187.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Extèrieur" textFill="#f99d26" />
+                                    <Button layoutX="70.0" layoutY="236.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Alimentaion" textFill="#f99d26" />
+                                    <Button layoutX="70.0" layoutY="285.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Art" textFill="#f99d26" />
+                                    <Button layoutX="70.0" layoutY="327.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Santé" textFill="#f99d26" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                     </children></Pane>
                </children>
             </AnchorPane>
         </items>

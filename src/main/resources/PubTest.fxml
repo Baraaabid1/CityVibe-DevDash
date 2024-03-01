@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -259,7 +260,7 @@
          <children>
             <Pane prefHeight="98.0" prefWidth="1193.0">
                <children>
-                  <Button layoutX="381.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-radius: 30; -fx-border-color: f99d26;" text="Lieu" textFill="#f99d26">
+                  <Button layoutX="381.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-radius: 30;" text="Lieu" textFill="#f99d26">
                      <font>
                         <Font size="25.0" />
                      </font></Button>
@@ -281,7 +282,34 @@
                   </GridPane>
                </content>
             </ScrollPane>
-            <Pane layoutX="872.0" layoutY="99.0" prefHeight="490.0" prefWidth="310.0" style="-fx-background-color: white; -fx-background-radius: 30;" />
+            <Pane layoutX="872.0" layoutY="99.0" prefHeight="490.0" prefWidth="310.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+               <children>
+                  <ScrollPane layoutX="32.0" layoutY="73.0" prefHeight="357.0" prefWidth="250.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="402.0" prefWidth="234.0">
+                           <children>
+                              <Button layoutX="65.0" layoutY="38.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Groupe" textFill="#f99d26" />
+                              <Button layoutX="65.0" layoutY="88.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Individuel" textFill="#f99d26" />
+                              <Button layoutX="65.0" layoutY="138.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Aventure" textFill="#f99d26" />
+                              <Button layoutX="65.0" layoutY="195.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Ecxtèrieur" textFill="#f99d26" />
+                              <Button layoutX="64.0" layoutY="249.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Alimentation" textFill="#f99d26" />
+                              <Button layoutX="65.0" layoutY="305.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Art" textFill="#f99d26" />
+                              <Button layoutX="65.0" layoutY="351.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: f99d26; -fx-border-radius: 30;" text="Santé" textFill="#f99d26" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Label layoutX="41.0" layoutY="24.0" text="Recommandation " textFill="#f99d26">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="82.0" layoutY="446.0" text="Faites défiler pour voir tout" textFill="#f99d26">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
          </children>
       </Pane>
    </center>

@@ -10,33 +10,33 @@
 <?import javafx.scene.text.Text?>
 <?import jfxtras.scene.control.LocalTimeTextField?>
 
-<AnchorPane fx:id="loca" prefHeight="652.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterLieuxcontroller">
+<AnchorPane fx:id="loca" prefHeight="652.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterLieuxcontroller">
    <children>
       <Button layoutX="448.0" layoutY="512.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="46.0" prefWidth="108.0" style="-fx-background-color: #F99D26; -fx-background-radius: 30;" text="Ajouter" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <LocalTimeTextField fx:id="ouverture" layoutX="478.0" layoutY="431.0" prefHeight="26.0" prefWidth="90.0" />
-      <Label layoutX="397.0" layoutY="435.0" text="Ouverture" />
-      <TextField fx:id="contact" layoutX="303.0" layoutY="432.0" prefHeight="25.0" prefWidth="82.0" style="-fx-background-radius: 30;" />
-      <Label layoutX="242.0" layoutY="436.0" text="Contact" />
-      <ChoiceBox fx:id="categorieChoiceBox" accessibleRole="INCREMENT_BUTTON" layoutX="117.0" layoutY="432.0" prefHeight="25.0" prefWidth="108.0" style="-fx-background-radius: 30;" />
-      <Label layoutX="36.0" layoutY="435.0" text="Catégorie" />
-      <Label layoutX="31.0" layoutY="382.0" text="Information" />
-      <TextField fx:id="description" layoutX="117.0" layoutY="315.0" prefHeight="46.0" prefWidth="444.0" promptText="Ajoutez votre description ici" style="-fx-background-radius: 30;" />
-      <Label layoutX="32.0" layoutY="330.0" text="Description" />
-      <Button layoutX="36.0" layoutY="269.0" mnemonicParsing="false" onAction="#addPhoto" text="Choisir" />
-      <TextField fx:id="locali" layoutX="200.0" layoutY="269.0" />
-      <Button layoutX="490.0" layoutY="269.0" mnemonicParsing="false" onAction="#addLogo" text="Choisir" />
-      <Label layoutX="30.0" layoutY="157.0" text="Image" />
-      <Label layoutX="231.0" layoutY="157.0" text="Localisation" />
-      <Label layoutX="488.0" layoutY="157.0" text="Logo" />
-      <TextField fx:id="nom" layoutX="103.0" layoutY="91.0" prefHeight="26.0" prefWidth="444.0" promptText="Saisir le nom ici" style="-fx-background-radius: 30;" />
-      <Label layoutX="32.0" layoutY="95.0" text="Nom " />
+      <LocalTimeTextField fx:id="ouverture" layoutX="501.0" layoutY="431.0" prefHeight="26.0" prefWidth="90.0" />
+      <Label layoutX="434.0" layoutY="435.0" text="Ouverture" />
+      <TextField fx:id="contact" layoutX="335.0" layoutY="431.0" prefHeight="25.0" prefWidth="82.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="272.0" layoutY="435.0" text="Contact" />
+      <ChoiceBox fx:id="categorieChoiceBox" accessibleRole="INCREMENT_BUTTON" layoutX="159.0" layoutY="431.0" prefHeight="25.0" prefWidth="108.0" style="-fx-background-radius: 30;" />
+      <Label layoutX="62.0" layoutY="435.0" text="Catégorie" />
+      <Label layoutX="57.0" layoutY="380.0" text="Information" />
+      <TextField fx:id="description" layoutX="144.0" layoutY="315.0" prefHeight="46.0" prefWidth="444.0" promptText="Ajoutez votre description ici" style="-fx-background-radius: 30;" />
+      <Label layoutX="58.0" layoutY="329.0" text="Description" />
+      <Button layoutX="77.0" layoutY="269.0" mnemonicParsing="false" onAction="#addPhoto" text="Choisir" />
+      <TextField fx:id="locali" layoutX="272.0" layoutY="269.0" />
+      <Button layoutX="529.0" layoutY="269.0" mnemonicParsing="false" onAction="#addLogo" text="Choisir" />
+      <Label layoutX="86.0" layoutY="166.0" text="Image" />
+      <Label layoutX="303.0" layoutY="166.0" text="Localisation" />
+      <Label layoutX="532.0" layoutY="166.0" text="Logo" />
+      <TextField fx:id="nom" layoutX="143.0" layoutY="90.0" prefHeight="26.0" prefWidth="444.0" promptText="Saisir le nom ici" style="-fx-background-radius: 30;" />
+      <Label layoutX="63.0" layoutY="94.0" text="Nom " />
 
-      <ImageView fx:id="image" fitHeight="37.0" fitWidth="82.0" layoutX="29.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="logo" fitHeight="31.0" fitWidth="42.0" layoutX="502.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image" fitHeight="37.0" fitWidth="82.0" layoutX="78.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="logo" fitHeight="31.0" fitWidth="42.0" layoutX="534.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true" />
       <Text fill="#f99d26" layoutX="32.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter lieu">
          <font>
             <Font size="25.0" />

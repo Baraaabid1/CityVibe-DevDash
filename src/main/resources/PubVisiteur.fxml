@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="347.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PubVisiteurcontroller">
+<AnchorPane prefHeight="347.0" prefWidth="700.0" style="-fx-background-color: f99d26;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PubVisiteurcontroller">
    <children>
       <Pane layoutX="70.0" layoutY="88.0" prefHeight="220.0" prefWidth="574.0" style="-fx-background-color: white; -fx-background-radius: 30;">
          <children>
@@ -21,7 +21,7 @@
             <ImageView fx:id="imagV" fitHeight="149.0" fitWidth="192.0" layoutX="28.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <Label layoutX="89.0" layoutY="40.0" text="Bienvenue dans nos publications  :" textFill="#f99d26">
+      <Label layoutX="89.0" layoutY="40.0" text="Bienvenue dans nos publications  :" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
