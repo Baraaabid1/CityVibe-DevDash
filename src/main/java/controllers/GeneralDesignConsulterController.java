@@ -3,6 +3,7 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -111,6 +112,7 @@ public class GeneralDesignConsulterController {
     }
 
     public void publication(ActionEvent actionEvent) {
+<<<<<<< HEAD
         // Add the action you want to perform when the publication button is clicked
         // For example, opening a new page named PageTest
         try {
@@ -119,6 +121,18 @@ public class GeneralDesignConsulterController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+=======
+        try {
+            // Load the FXML file for the new page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LieuxConsult.fxml"));
+            Parent root = loader.load();
+
+            // Get the current scene
+            Scene currentScene = ((Node) actionEvent.getSource()).getScene();
+
+            // Replace the content of the current scene with the content of the new page
+            currentScene.setRoot(root);
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
         } catch (IOException e) {
             e.printStackTrace();
         }

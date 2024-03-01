@@ -3,17 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -272,6 +270,7 @@
             </Pane>
             <ScrollPane layoutY="99.0" prefHeight="497.0" prefWidth="861.0">
                <content>
+<<<<<<< HEAD
                   <GridPane fx:id="GridPane" prefHeight="498.0" prefWidth="858.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -280,6 +279,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
+=======
+                  <ListView fx:id="publist" prefHeight="528.0" prefWidth="1184.0" />
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
                </content>
             </ScrollPane>
             <Pane layoutX="872.0" layoutY="99.0" prefHeight="490.0" prefWidth="310.0" style="-fx-background-color: white; -fx-background-radius: 30;">

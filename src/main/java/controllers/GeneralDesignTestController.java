@@ -1,9 +1,12 @@
 package controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import models.publication;
 import services.publicationService;
@@ -14,24 +17,30 @@ import java.util.List;
 
 public class GeneralDesignTestController {
     @FXML
-    private javafx.scene.layout.GridPane GridPane;
+    private ListView<Parent> publist;
 
     @FXML
     public void initialize() {
         loadContent();
     }
     @FXML
+<<<<<<< HEAD
     private void loadContent() {
+=======
+    public void loadContent() {
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
         try {
-            publicationService publicationService = new publicationService();
-            List<publication> publicationList = publicationService.afficher();
+            try {
+                publicationService publicationService = new publicationService();
 
-            // Clear existing content of GridPane
-            GridPane.getChildren().clear();
+                // Retrieve the list of publications as an ObservableList
+                List<publication> publicationList = publicationService.afficher();
+                ObservableList<publication> observablePublicationList = FXCollections.observableArrayList(publicationList);
 
-            int row = 1;
-            int col = 0;
+                // Clear existing content of ListView
+                publist.getItems().clear();
 
+<<<<<<< HEAD
             // Iterate through the list of publications
             for (publication publication : publicationList) {
                 // Load Pub.fxml for each publication and set its data
@@ -41,22 +50,27 @@ public class GeneralDesignTestController {
                 itemController.setData(publication);
                 itemController.setE(publication);
                  itemController.setRefresh(this);
+=======
+                // Iterate through the ObservableList of publications
+                for (publication publication : observablePublicationList) {
+                    // Load Pub.fxml for each publication and set its data
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Pub.fxml"));
+                    Parent interfaceRoot = loader.load();
+                    Pubcontroller itemController = loader.getController();
+                    itemController.setData(publication);
+                    itemController.setE(publication);
+                    // itemController.setRefresh(this);
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 
-                // Add the loaded element to GridPane
-                GridPane.add(interfaceRoot, col, row);
-                GridPane.setHgap(20); // Set horizontal gap between elements
-                GridPane.setVgap(20); // Set vertical gap between elements
-
-                // Adjust row and column indices
-                col++;
-                if (col == 1) {
-                    col = 0;
-                    row++;
+                    // Add the loaded element to ListView
+                    publist.getItems().add(interfaceRoot);
                 }
+            } catch (SQLException | IOException e) {
+                e.printStackTrace();
+                // Handle exceptions appropriately
             }
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-            // Handle exceptions appropriately
+        } finally {
+
         }
     }
 

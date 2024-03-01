@@ -44,6 +44,30 @@ public class Modifiercontroller {
 
     public GeneralDesignTestController getPub() {
         return pub;
+<<<<<<< HEAD
+=======
+    }
+
+    public void setPub(GeneralDesignTestController pub) {
+        this.pub = pub;
+    }
+    private GeneralDesignTestController pub; // Reference to the Pubcontroller for refreshing
+
+    private publication pu;
+
+    public void setData(publication publication) {
+        // Set data to the UI elements based on the provided publication
+        pu = publication;
+        desscc.setText(publication.getDescription());
+        nommm.setText(publication.getNom());
+
+        // Set the image if available
+        if (publication.getImage() != null) {
+            imagePath = publication.getImage();
+            Image image = new Image("file:" + imagePath);
+            imagess.setImage(image);
+        }
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
     }
 
 
@@ -112,20 +136,50 @@ public class Modifiercontroller {
 
                 Stage stage = (Stage) mod.getScene().getWindow();
                 stage.close();
+<<<<<<< HEAD
                 pub.refreshview();
+=======
+                //pub.refreshView();
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 
             } catch (SQLException | DateTimeParseException ex) {
                 ex.printStackTrace();
             }
         }
 //        }
+<<<<<<< HEAD
+
+
+=======
+private void populatedFields() {
+    nommm.setText(pu.getNom());
+    desscc.setText(pu.getDescription());
+
+    File file = new File(pu.getImage());
+    if (file.exists()) {
+        Image image = new Image(file.toURI().toString());
+        imagess.setImage(image);
+
+
+        }
+
+    }
+
+
+    public void initData(publication pu ,GeneralDesignTestController pub) {
+        this.pu = pu;
+        this.pub = pub;
+        populatedFields();
+    }
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
+
+
+<<<<<<< HEAD
 
 
 
-
-
-
-
+=======
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
     private void showErrorAlert(String message) {
         showAlert(Alert.AlertType.ERROR, "Error", message);
     }

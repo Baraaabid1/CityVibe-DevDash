@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane prefHeight="347.0" prefWidth="700.0" style="-fx-background-color: f99d26;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PubVisiteurcontroller">
    <children>
       <Pane layoutX="70.0" layoutY="88.0" prefHeight="220.0" prefWidth="574.0" style="-fx-background-color: white; -fx-background-radius: 30;">
@@ -22,9 +23,43 @@
          </children>
       </Pane>
       <Label layoutX="89.0" layoutY="40.0" text="Bienvenue dans nos publications  :" textFill="WHITE">
+=======
+<AnchorPane prefHeight="347.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PubVisiteurcontroller">
+   <children>
+      <Pane layoutX="70.0" layoutY="58.0" prefHeight="250.0" prefWidth="232.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <ImageView fx:id="imagV" fitHeight="169.0" fitWidth="192.0" layoutX="20.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="20.0" layoutY="24.0" text="Notre image " textFill="#f99d26" />
+         </children>
+      </Pane>
+      <Label layoutX="78.0" layoutY="14.0" text="A propos :" textFill="#f99d26">
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
+<<<<<<< HEAD
+=======
+      <Pane layoutX="335.0" layoutY="177.0" prefHeight="131.0" prefWidth="345.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <Label fx:id="descV" layoutX="20.0" layoutY="47.0" prefHeight="72.0" prefWidth="275.0" style="-fx-background-color: transparent; -fx-background-radius: 30;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="34.0" layoutY="21.0" text="Déscription" textFill="#f99d26" />
+         </children>
+      </Pane>
+      <Pane layoutX="335.0" layoutY="64.0" prefHeight="88.0" prefWidth="346.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <Label fx:id="nomV" layoutX="23.0" layoutY="44.0" prefHeight="18.0" prefWidth="259.0" style="-fx-background-color: transparent; -fx-background-radius: 30;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="34.0" layoutY="14.0" text="Nom" textFill="#f99d26" />
+         </children>
+      </Pane>
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
    </children>
 </AnchorPane>

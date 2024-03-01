@@ -26,6 +26,4 @@ public class MainFX extends Application {
             throw new RuntimeException(e);
         }
     }
-
-
 }

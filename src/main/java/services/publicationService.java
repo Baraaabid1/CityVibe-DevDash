@@ -46,7 +46,11 @@ import java.util.List;
 
         @Override
         public void supprimer(int idP) throws SQLException {
+<<<<<<< HEAD
             String req = "DELETE FROM `publication` WHERE id_P=?";
+=======
+            String req = "DELETE FROM `publication` WHERE IdP=?";
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
             PreparedStatement preparedStatement = connection.prepareStatement(req);
             preparedStatement.setInt(1, idP);
             preparedStatement.executeUpdate();
@@ -101,6 +105,7 @@ import java.util.List;
             }
             return p;
         }
+
 
 
     }

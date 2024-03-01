@@ -37,9 +37,14 @@ public class ConsulterLieuxcontroller {
 
     private publication pu;
 
+<<<<<<< HEAD
     public void setPu(publication pu) {
         this.pu = pu;
     }
+=======
+    private ConsulterLieuxcontroller aff;
+
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 
     private GeneralDesignConsultController aff;
 
@@ -123,4 +128,23 @@ public class ConsulterLieuxcontroller {
     public void setRefresh(GeneralDesignConsultController aff) {
         this.aff=aff;
     }
+<<<<<<< HEAD
+=======
+
+    @FXML
+    void consulter(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Pub.fxml"));
+        Parent root = loader.load();
+        Pubcontroller Pubcontroller = loader.getController();
+        Pubcontroller.setData(pu);
+
+        // Create a new stage for the pop-up
+        Stage popUpStage = new Stage();
+        popUpStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+        popUpStage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(root);
+        popUpStage.setScene(scene);
+        popUpStage.showAndWait(); // Show the pop-up and wait for it to be closed
+    }
+>>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 }
