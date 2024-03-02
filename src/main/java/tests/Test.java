@@ -1,52 +1,35 @@
 package tests;
 
-import models.Utilisateur;
-import services.UtilisateurService;
-import utiles.MyDataBase;
-
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 public class Test {
-    public static void main(String[] args) throws ParseException, SQLException {
-//        SendEmail test = new SendEmail();
-//        test.envoyer();
-//        String password ="1deb6393fac2d239a6d862fc37acf8ec9395ebae94cbb3c1afe5b8048b9d60b1";
-//        String hashedP = hashPassword(password);
-//        System.out.println(hashedP);
-//        MyDataBase.getInstance();
-//        UtilisateurService us = new UtilisateurService();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//        LocalDate dateNaissance = LocalDate.of(2001, 9, 18);
-//        Utilisateur aa = us.getUtilisateurById(6);
-//        System.out.println(aa.getNom());
-//        String smtpHost = "smtp.gmail.com";
-//        int smtpPort = 587; // Port SMTP habituel
-//        int timeout = 5000; // Temps d'attente en millisecondes
-//
-//        boolean isReachable = isSMTPServerReachable(smtpHost, smtpPort, timeout);
-//        if (isReachable) {
-//            System.out.println("Connexion au serveur SMTP réussie.");
-//        } else {
-//            System.out.println("Impossible de se connecter au serveur SMTP.");
-//        }
-//    }
-//    public static boolean isSMTPServerReachable(String host, int port, int timeout) {
-//        try (Socket socket = new Socket()) {
-//            socket.connect(new InetSocketAddress(host, port), timeout);
-//            return true;
-//        } catch (IOException e) {
-//            return false;
-//        }
-//    }
+    // Remplacez ces valeurs par vos propres identifiants Twilio
+    public static final String ACCOUNT_SID = "AC01038dc9d5e05a8a7b4376d49195b3c1";
+    public static final String AUTH_TOKEN = "d19d742787d2a53ef2c0f2ceebc7de19";
 
+    public static void main(String[] args) {
+        // Initialisez la bibliothèque Twilio avec vos identifiants
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        // Numéro de téléphone Twilio à partir duquel vous envoyez le SMS (il doit être vérifié dans Twilio)
+        String twilioNumber = "+18154280055";
+
+        // Numéro de téléphone du destinataire
+        String recipientNumber = "+21651420180";
+
+        // Contenu du SMS
+        String messageBody = "Ceci est un exemple de SMS envoyé depuis Twilio.";
+
+        // Envoi du SMS
+        Message message = Message.creator(
+                        new PhoneNumber(recipientNumber),
+                        new PhoneNumber(twilioNumber),
+                        messageBody)
+                .create();
+
+        // Affichage de l'identifiant du message si l'envoi réussit
+        System.out.println("Message SID: " + message.getSid());
     }
 }

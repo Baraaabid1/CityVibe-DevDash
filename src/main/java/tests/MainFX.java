@@ -1,10 +1,14 @@
 package tests;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import okhttp3.*;
+
+import java.io.IOException;
 
 public class MainFX extends Application {
 
@@ -16,6 +20,12 @@ public class MainFX extends Application {
         stage.setTitle("CityVibe");
         stage.setScene(scene);
         stage.show();
+
     }
 
-}
+    public static void main(String[] args) {
+        launch(args);
+    }
+    }
+
+

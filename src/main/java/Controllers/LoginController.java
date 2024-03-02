@@ -10,20 +10,13 @@ import javafx.stage.Stage;
 import services.UtilisateurService;
 import utiles.MyDataBase;
 
-import javax.mail.*;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
 
 import java.io.IOException;
-import java.net.Authenticator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import java.util.Properties;
 
 public class LoginController {
     private Stage stage;

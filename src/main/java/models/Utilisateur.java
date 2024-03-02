@@ -65,6 +65,16 @@ public class Utilisateur {
         this.role = role;
         this.img=img;
     }
+    public Utilisateur(int id,int numm,String nom,String prenom, String email,String location,LocalDate dateN,String role) {
+        this.idu = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.num_tel = numm;
+        this.localisation = location;
+        this.dateNaissance = dateN;
+        this.role = role;
+    }
 
     public int getIdu() {
         return idu;

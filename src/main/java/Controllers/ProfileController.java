@@ -12,22 +12,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import models.Preference;
-import models.Utilisateur;
 import services.PreferenceService;
 import services.UtilisateurService;
 import utiles.MyDataBase;
 
-import javax.mail.MessagingException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,7 +34,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 
@@ -420,6 +414,18 @@ public class ProfileController {
 
     }
 
+    @FXML
+    void logout(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Login.fxml"));
+        root = loader.load();
+        LoginController Log = loader.getController();
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
 
     public void Button_Acceuil(ActionEvent actionEvent) {
     }
@@ -443,9 +449,6 @@ public class ProfileController {
     }
 
     public void Button_Parametres(ActionEvent actionEvent) {
-    }
-
-    public void Button_Logout(ActionEvent actionEvent) {
     }
 
     public void Button_Help(ActionEvent actionEvent) {

@@ -1,5 +1,6 @@
 package Controllers;
 
+import com.twilio.Twilio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,16 +13,22 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.Utilisateur;
 import services.UtilisateurService;
+import utiles.MyDataBase;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
-
-import utiles.MyDataBase;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+import static services.UtilisateurService.generateConfirmationCode;
 
 public class AjouterUserController {
 
@@ -48,6 +55,7 @@ public class AjouterUserController {
     private String[] location = {"Ariana Soghra"};
     private Connection connection;
     public ObservableList<String> preference = FXCollections.observableArrayList();
+    UtilisateurService us = new UtilisateurService();
 
     public AjouterUserController() {
 
@@ -104,7 +112,6 @@ public class AjouterUserController {
             showAlert("Une erreur s'est produite lors de l'envoi de l'e-mail de confirmation.");
         }
     }
-
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

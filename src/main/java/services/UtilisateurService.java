@@ -1,12 +1,17 @@
 package services;
 
+import com.twilio.Twilio;
+import com.twilio.exception.ApiException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import models.Utilisateur;
 import utiles.MyDataBase;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 import javax.mail.*;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.*;
@@ -25,15 +30,14 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-import static java.lang.constant.ConstantDescs.NULL;
-
 public class UtilisateurService implements IService <Utilisateur> {
     private Connection connection;
 
-    public UtilisateurService(){
+    public UtilisateurService() {
 
-        connection= MyDataBase.getInstance().getConn();
+        connection = MyDataBase.getInstance().getConn();
     }
+
     @Override
     public void ajouter(Utilisateur utilisateur) throws SQLException, IOException, MessagingException {
         if (utilisateur.getNom().isEmpty() || utilisateur.getPrenom().isEmpty() || utilisateur.getLocalisation().isEmpty() || utilisateur.getEmail().isEmpty()) {
@@ -60,21 +64,14 @@ public class UtilisateurService implements IService <Utilisateur> {
 
 
             String confirmationCode = generateConfirmationCode();
-            // Générer et envoyer le code de confirmation
-            String title ="code de confirmation";
-            String contenu ="Cher utilisateur,\n" +
-                    "\n" +
-                    "Nous vous remercions de votre inscription sur notre application. Veuillez utiliser le code suivant pour confirmer votre compte :\n" +
-                    "\n" +
-                    "Code de confirmation :" + confirmationCode+
-                    "\n" +
-                    "Veuillez saisir ce code dans l'application pour finaliser votre inscription.";
-            sendEmail(utilisateur.getEmail(), confirmationCode, title, contenu);
+            // Envoyer le SMS de confirmation
+            String numeroTelephone = "+216"+String.valueOf(utilisateur.getNum_tel());
+            envoyerSMS(numeroTelephone,confirmationCode);
 
             // Demander à l'utilisateur de saisir le code de confirmation
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Confirmation");
-            dialog.setHeaderText("Veuillez saisir le code de confirmation envoyé par e-mail :");
+            dialog.setHeaderText("Veuillez saisir le code de confirmation envoyé par SMS :");
             dialog.setContentText("Code de confirmation :");
 
             Optional<String> result = dialog.showAndWait();
@@ -83,7 +80,7 @@ public class UtilisateurService implements IService <Utilisateur> {
 
                 // Vérifier si le code de confirmation saisi correspond au code généré
                 if (!userInputCode.equals(confirmationCode)) {
-                    showAlert("Code de confirmation incorrect. Veuillez vérifier votre e-mail et saisir le code correctement.");
+                    showAlert("Code de confirmation incorrect. Veuillez vérifier votre SMS et saisir le code correctement.");
                     return;
                 }
             } else {
@@ -118,7 +115,32 @@ public class UtilisateurService implements IService <Utilisateur> {
             }
         }
     }
-    private boolean isEmailExists(String email) throws SQLException {
+
+    private void envoyerSMS(String numeroTelephone, String messageBody) throws MessagingException {
+        String twilioNumber = "+18154280055"; // Remplacez par votre numéro Twilio
+
+        try {
+            // Initialisez la bibliothèque Twilio avec vos identifiants
+            Twilio.init("AC01038dc9d5e05a8a7b4376d49195b3c1", "d19d742787d2a53ef2c0f2ceebc7de19");
+
+            // Envoi du SMS
+            Message message = Message.creator(
+                            new PhoneNumber(numeroTelephone),
+                            new PhoneNumber(twilioNumber),
+                            "Votre code de confirmation pour la connexion est :  "+messageBody+"Merci de ne pas partager ce code avec quiconque.")
+                    .create();
+
+            // Affichage de l'identifiant du message si l'envoi réussit
+            System.out.println("Message SID: " + message.getSid());
+        } catch (ApiException e) {
+            // Gérer l'exception Twilio
+            System.err.println("Erreur lors de l'envoi du SMS: " + e.getMessage());
+            throw new MessagingException("Erreur lors de l'envoi du SMS", e);
+        }
+    }
+
+
+    public boolean isEmailExists(String email) throws SQLException {
         String query = "SELECT COUNT(*) FROM utilisateur WHERE email = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, email);
@@ -131,6 +153,7 @@ public class UtilisateurService implements IService <Utilisateur> {
         }
         return false;
     }
+
     private static final int CODE_LENGTH = 6;
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
@@ -147,12 +170,13 @@ public class UtilisateurService implements IService <Utilisateur> {
         while (confirmationCode.length() < CODE_LENGTH) {
             confirmationCode = "0" + confirmationCode;
         }
-        System.out.println("generated code"+confirmationCode);
+        System.out.println("generated code" + confirmationCode);
 
         return confirmationCode;
     }
-    private String hashPassword(String password) {
-        try{
+
+    public String hashPassword(String password) {
+        try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(password.getBytes());
             StringBuilder hexString = new StringBuilder();
@@ -166,6 +190,7 @@ public class UtilisateurService implements IService <Utilisateur> {
             throw new RuntimeException(e);
         }
     }
+
     public void sendEmail(String email, String newPassword, String title, String contenu) {
         String from = "bennacefzeyneb@gmail.com";
         String pass = "upty vtmf fddr jctq";
@@ -184,16 +209,16 @@ public class UtilisateurService implements IService <Utilisateur> {
 
         try {
             // Création du message
-            Message message = new MimeMessage(session);
+            MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email)); // Adresse e-mail du destinataire
+            message.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(email)); // Adresse e-mail du destinataire
             message.setSubject(title);
             message.setText(contenu);
 
             // Envoi du message
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", "bennacefzeyneb@gmail.com", "upty vtmf fddr jctq");
-            transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+            transport.sendMessage(message, message.getRecipients(MimeMessage.RecipientType.TO));
             transport.close();
 
             System.out.println("E-mail envoyé avec succès à " + email + " avec le nouveau mot de passe.");
@@ -203,15 +228,17 @@ public class UtilisateurService implements IService <Utilisateur> {
         }
     }
 
-    private boolean isValidEmail(String email) {
+    public boolean isValidEmail(String email) {
         // Simple email validation using regex
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return Pattern.compile(emailRegex).matcher(email).matches();
     }
-    private boolean isValidPhoneNumber(int phoneNumber) {
+
+    public boolean isValidPhoneNumber(int phoneNumber) {
         // Phone number validation: must be exactly 8 digits
         return String.valueOf(phoneNumber).matches("\\d{8}");
     }
+
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -250,7 +277,8 @@ public class UtilisateurService implements IService <Utilisateur> {
     private boolean isValidDate(Object date) {
         return date instanceof LocalDate;
     }
-    private byte[] selectAndConvertDefaultImage() throws IOException {
+
+    public byte[] selectAndConvertDefaultImage() throws IOException {
         String defaultImagePath = "C:\\Users\\benna\\Desktop\\istockphoto-1337144146-612x612.jpg";
         File defaultImageFile = new File(defaultImagePath);
         return convertFileToBytes(defaultImageFile);
@@ -320,6 +348,7 @@ public class UtilisateurService implements IService <Utilisateur> {
         }
         return utilisateurs;
     }
+
     public Utilisateur getUtilisateurById(int id) throws SQLException {
         Utilisateur utilisateur = null;
         String utilisateurreq = "SELECT * FROM utilisateur WHERE idu = ?";
@@ -329,7 +358,7 @@ public class UtilisateurService implements IService <Utilisateur> {
                 if (rs.next()) {
                     utilisateur = new Utilisateur();
                     utilisateur.setIdu(rs.getInt("idu"));
-                      utilisateur.setNom(rs.getString("nom"));
+                    utilisateur.setNom(rs.getString("nom"));
                     utilisateur.setPrenom(rs.getString("prenom"));
                     utilisateur.setPassword(rs.getString("password"));
                     utilisateur.setDateNaissance(rs.getDate("dateNaissance").toLocalDate());
@@ -355,5 +384,45 @@ public class UtilisateurService implements IService <Utilisateur> {
             }
         }
         return idUser;
+    }
+
+
+    public String getNumeroTelephoneUtilisateur(int idUser) throws SQLException {
+        String numeroTelephone = null;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Requête SQL pour récupérer le numéro de téléphone de l'utilisateu
+            String query = "SELECT num_tel FROM utilisateur WHERE id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+                statement.setInt(1, idUser);
+
+                // Exécution de la requête
+                resultSet = preparedStatement.executeQuery();
+
+                // Récupération du numéro de téléphone s'il existe
+                if (resultSet.next()) {
+                    numeroTelephone = resultSet.getString("num_tel");
+                }
+            } finally {
+                // Fermeture des ressources
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+
+            return numeroTelephone;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

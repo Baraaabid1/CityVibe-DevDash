@@ -8,18 +8,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.Utilisateur;
 import services.UtilisateurService;
+import utiles.MyDataBase;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AfficherUserController {
@@ -52,15 +54,24 @@ public class AfficherUserController {
 
     @FXML
     private TableColumn<Utilisateur, Integer> numTel;
-
-    @FXML
-    private TableColumn<Utilisateur, String> preference;
-
     @FXML
     private TableColumn<Utilisateur, String> localisation;
+    @FXML
+    private TextField chercherField;
     UtilisateurService ps = new UtilisateurService();
+    private Connection connection;
 
-    public void initialize(){
+    public AfficherUserController(){
+
+        connection= MyDataBase.getInstance().getConn();
+    }
+
+    public void initialize() {
+        initializeTableView();
+        initializeSearchListener();
+    }
+
+    private void initializeTableView() {
         try {
             List<Utilisateur> utilisateurs = ps.afficher();
             ObservableList<Utilisateur> observableUtilisateurs = FXCollections.observableArrayList(utilisateurs);
@@ -69,12 +80,10 @@ public class AfficherUserController {
             id.setCellValueFactory(new PropertyValueFactory<>("idu"));
             nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-            password.setCellValueFactory(new PropertyValueFactory<>("password"));
             dateNaissance.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
             role.setCellValueFactory(new PropertyValueFactory<>("role"));
             email.setCellValueFactory(new PropertyValueFactory<>("email"));
             numTel.setCellValueFactory(new PropertyValueFactory<>("num_tel"));
-            preference.setCellValueFactory(new PropertyValueFactory<>("preference"));
             localisation.setCellValueFactory(new PropertyValueFactory<>("localisation"));
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -82,38 +91,91 @@ public class AfficherUserController {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+    }
 
+    private void initializeSearchListener() {
+        chercherField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                // Chercher les utilisateurs dont le nom ou le prénom contient la chaîne saisie
+                List<Utilisateur> utilisateurs = chercherParNomOuPrenom(newValue);
+                ObservableList<Utilisateur> observableUtilisateurs = FXCollections.observableArrayList(utilisateurs);
+                tableview.setItems(observableUtilisateurs);
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+        });
+    }
+    public List<Utilisateur> chercherParNomOuPrenom(String recherche) throws SQLException {
+        List<Utilisateur> utilisateursRecherches = new ArrayList<>();
+
+        try {
+            // Préparer la requête SQL
+            String query = "SELECT * FROM utilisateur WHERE nom LIKE ? OR prenom LIKE ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                // Remplacer les ? dans la requête par les valeurs de recherche
+                statement.setString(1, recherche + "%");
+                statement.setString(2, recherche + "%");
+
+                // Exécuter la requête
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    // Itérer sur le ResultSet et ajouter les utilisateurs à la liste
+                    while (resultSet.next()) {
+                        int id = resultSet.getInt("idu");
+                        String nom = resultSet.getString("nom");
+                        String prenom = resultSet.getString("prenom");
+                        String email = resultSet.getString("email");
+                        LocalDate dateN = resultSet.getDate("dateNaissance").toLocalDate();
+                        String role = resultSet.getString("role");
+                        int numm = resultSet.getInt("num_tel");
+                        String location = resultSet.getString("localisation");
+
+
+                        // Créer un nouvel utilisateur avec les données récupérées de la base de données
+                        Utilisateur utilisateur = new Utilisateur( id,numm, nom,prenom, email, location, dateN,role);
+                        // Ajouter l'utilisateur à la liste des utilisateurs recherchés
+                        utilisateursRecherches.add(utilisateur);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // Gérer l'exception SQL
+            e.printStackTrace();
+        }
+
+        return utilisateursRecherches;
     }
 
     @FXML
-    void ajouterUser(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterUser.fxml"));
-        root = loader.load();
-        AjouterUserController Auser = loader.getController();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    @FXML
-    void modifierU(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierUser.fxml"));
-        root = loader.load();
-        ModifierUserController ModifUser = loader.getController();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    @FXML
-    void supp(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/DeleteUser.fxml"));
-        root = loader.load();
-        DeleteUserController DelUser = loader.getController();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    void supp(ActionEvent event) throws IOException, SQLException {
+        // Récupérer l'utilisateur sélectionné dans la tableView
+        Utilisateur utilisateurSelectionne = tableview.getSelectionModel().getSelectedItem();
 
+        // Vérifier si un utilisateur est sélectionné
+        if (utilisateurSelectionne != null) {
+            // Supprimer l'utilisateur
+            ps.supprimer(utilisateurSelectionne.getIdu());
+
+            // Mettre à jour la tableView après la suppression
+            initializeTableView();
+
+            // Afficher un message de confirmation
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Utilisateur supprimé");
+            alert.setHeaderText(null);
+            alert.setContentText("L'utilisateur a été supprimé avec succès.");
+            alert.showAndWait();
+        } else {
+            // Afficher un message d'erreur si aucun utilisateur n'est sélectionné
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucun utilisateur sélectionné");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un utilisateur à supprimer.");
+            alert.showAndWait();
+        }
     }
+
 }
