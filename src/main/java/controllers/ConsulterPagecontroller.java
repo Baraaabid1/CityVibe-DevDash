@@ -53,11 +53,7 @@ public class ConsulterPagecontroller {
     private Label descP;
 
     private page pA;
-<<<<<<< HEAD
     private GeneralDesignConsulterController ad;
-=======
-    private pagecontroller ad;
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 
     @FXML
     void supprimer(ActionEvent event) {
@@ -81,7 +77,7 @@ public class ConsulterPagecontroller {
 
                     // Refresh view
 
-                        ad.refreshView();
+                    ad.refreshView();
 
 
                     // Clear displayed page after deletion
@@ -111,24 +107,6 @@ public class ConsulterPagecontroller {
             e.printStackTrace();
         }*/
     }
-<<<<<<< HEAD
-=======
-
-
-
-    public void initialize() {
-      /*  try {
-            if (pA == null) {
-                pageService ps = new pageService();
-                pA = ps.afficherP(70); // Default ID, you may need to change this
-            }
-
-            afficherPage();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-    }
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
     @FXML
     public void setData(page page) {
         this.pA= page; // Set the publication object
@@ -155,28 +133,18 @@ public class ConsulterPagecontroller {
     }
 
     public void setE(page page) {
-       this.pA=page;
+        this.pA=page;
     }
 
-<<<<<<< HEAD
     public void setRefresh(GeneralDesignConsulterController ad) {
-=======
-    public void setRefresh(pagecontroller ad) {
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
         this.ad = ad;
     }
 
     @FXML
     void consulter(ActionEvent event) throws IOException {
-<<<<<<< HEAD
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/page.fxml"));
         Parent root = loader.load();
         pagecontroller PageAdmincontroller = loader.getController();
-=======
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PageAdmin.fxml"));
-        Parent root = loader.load();
-        PageAdmincontroller PageAdmincontroller = loader.getController();
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
         PageAdmincontroller.setData(pA);
 
         // Create a new stage for the pop-up
@@ -188,30 +156,7 @@ public class ConsulterPagecontroller {
         popUpStage.showAndWait(); // Show the pop-up and wait for it to be closed
     }
 }
-<<<<<<< HEAD
 
-=======
-
-   /* private void afficherPage() {
-        if (pA != null) {
-            nomP.setText(pA.getNom());
-            contP.setText(Integer.toString(pA.getContact()));
-            catP.setText(pA.getCategorie().toString());
-            locP.setText(pA.getLocalisation());
-            descP.setText(pA.getDescription());
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            String formattedTime = pA.getOuverture().format(timeFormatter);
-            ouvP.setText(formattedTime);
-            if (pA.getImage() != null) {
-                Image image = new Image("file:" + pA.getImage());
-                imageP.setImage(image);
-            }
-            if (pA.getLogo() != null) {
-                Image logoImage = new Image("file:" + pA.getLogo());
-                logoP.setImage(logoImage);
-            }
-            }*/
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 
 
 

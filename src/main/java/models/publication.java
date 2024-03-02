@@ -4,7 +4,7 @@ package models;
 
 public class publication {
     //id publication
-    private int idP;
+    private int id_P;
 
     private String description;
     private String image;
@@ -37,8 +37,8 @@ public class publication {
 //    }
 
 
-    public publication(int idP, String description , String image , String nom) {
-        this.idP = idP;
+    public publication(int id_P, String description , String image , String nom) {
+        this.id_P = id_P;
         this.description = description;
         this.image = image;
         this.nom = nom;
@@ -51,10 +51,10 @@ public class publication {
     }
 
     public int getidP() {
-        return idP;
+        return id_P;
     }
-    public void setidP(int idP) {
-        this.idP = idP;
+    public void setidP(int id_P) {
+        this.id_P = id_P;
     }
 
     public String getDescription() {
@@ -82,7 +82,7 @@ public class publication {
     @Override
     public String toString() {
         return "publication{" +
-                "idP=" + idP +
+                "id_P=" + id_P +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
                 ", nom='" + nom + '\'' +

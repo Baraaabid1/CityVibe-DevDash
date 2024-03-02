@@ -62,14 +62,9 @@ public class AjouterPubcontroller {
 
     @FXML
     void aj(ActionEvent event) throws SQLException, IOException {
-<<<<<<< HEAD
         // Vérifier si les champs sont vides
         if (desscc.getText().isEmpty() || nommm.getText().isEmpty()) {
             showErrorAlert("Veuillez remplir tous les champs.");
-=======
-        if (imagePath.isEmpty()) {
-            showErrorAlert("Please select an image.");
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
             return;
         }
 
@@ -90,11 +85,7 @@ public class AjouterPubcontroller {
         imagess.setImage(null);
         nommm.clear();
 
-<<<<<<< HEAD
         // Naviguer vers "PubTest.fxml" après avoir cliqué sur le bouton "aj"
-=======
-        // Navigate to the "PubTest.fxml" when the "aj" button is clicked
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubTest.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -103,10 +94,7 @@ public class AjouterPubcontroller {
     }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
     private void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

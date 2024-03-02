@@ -14,7 +14,7 @@ public class MainFX extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/LieuxAdd.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterLieux.fxml"));
         try {
             //package li fi wostou l package lkol
             Parent root = loader.load();

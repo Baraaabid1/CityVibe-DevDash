@@ -73,7 +73,6 @@ public class Pubcontroller {
         }
     }
 
-<<<<<<< HEAD
     /*@FXML
     void Modifier(ActionEvent event) {
 
@@ -90,8 +89,6 @@ public class Pubcontroller {
         } catch (IOException e) {
             e.printStackTrace();
             }}*/
-=======
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 
     @FXML
     void supp(ActionEvent event) {
@@ -114,18 +111,9 @@ public class Pubcontroller {
                     successAlert.setTitle("Suppression avec succès");
                     successAlert.setContentText("Publication supprimée");
                     successAlert.showAndWait();
-//                    GeneralDesignTestController E = null;
-//                    E.loadContent();
-
 
                     if (pub != null) {
                         pub.refreshView();
-
-<<<<<<< HEAD
-                    if (pub != null) {
-                        pub.refreshView();
-=======
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

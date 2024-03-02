@@ -281,7 +281,6 @@
                   </GridPane>
 =======
                   <ListView fx:id="publist" prefHeight="528.0" prefWidth="1184.0" />
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
                </content>
             </ScrollPane>
             <Pane layoutX="872.0" layoutY="99.0" prefHeight="490.0" prefWidth="310.0" style="-fx-background-color: white; -fx-background-radius: 30;">

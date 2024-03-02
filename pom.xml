@@ -65,7 +65,16 @@
             <artifactId>jfxtras-common</artifactId>
             <version>17-r1</version>
         </dependency>
-
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.0.b2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
     </dependencies>
     <build>
 

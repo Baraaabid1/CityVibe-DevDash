@@ -6,22 +6,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD
-<AnchorPane prefHeight="661.0" prefWidth="740.0" style="-fx-background-color: f99d26;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.pagecontroller">
+<AnchorPane prefHeight="661.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.pagecontroller">
    <children>
-      <Pane layoutX="119.0" layoutY="394.0" prefHeight="90.0" prefWidth="586.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+      <Pane layoutX="62.0" layoutY="390.0" prefHeight="90.0" prefWidth="586.0" style="-fx-background-color: white; -fx-background-radius: 30;">
          <children>
             <Label layoutX="35.0" layoutY="6.0" text="Déscription" textFill="#f99d26" />
             <Label fx:id="descrip" layoutX="25.0" layoutY="26.0" prefHeight="50.0" prefWidth="537.0" />
          </children>
       </Pane>
-      <Pane layoutX="119.0" layoutY="500.0" prefHeight="146.0" prefWidth="282.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+      <Pane layoutX="56.0" layoutY="500.0" prefHeight="146.0" prefWidth="282.0" style="-fx-background-color: white; -fx-background-radius: 30;">
          <children>
             <Label layoutX="32.0" layoutY="41.0" text="Localisation" textFill="#f99d26" />
             <Label fx:id="loc" layoutX="32.0" layoutY="79.0" prefHeight="17.0" prefWidth="215.0" />
          </children>
       </Pane>
-      <Pane layoutX="422.0" layoutY="500.0" prefHeight="146.0" prefWidth="282.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+      <Pane layoutX="380.0" layoutY="500.0" prefHeight="146.0" prefWidth="282.0" style="-fx-background-color: white; -fx-background-radius: 30;">
          <children>
             <Label layoutX="26.0" layoutY="14.0" text="Catégorie" textFill="#f99d26" />
             <Label fx:id="cat" layoutX="26.0" layoutY="31.0" prefHeight="17.0" prefWidth="226.0" />
@@ -31,68 +30,13 @@
             <Label fx:id="ouvr" layoutX="26.0" layoutY="112.0" prefHeight="17.0" prefWidth="226.0" />
          </children>
       </Pane>
-      <Label layoutX="119.0" layoutY="14.0" text="Bienvenue dans notre page :" textFill="WHITE">
+      <Label layoutX="72.0" layoutY="14.0" text="Bienvenue dans notre page :" textFill="#f99d26">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="img" fitHeight="243.0" fitWidth="421.0" layoutX="202.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="202.0" AnchorPane.rightAnchor="202.0" />
-      <Label fx:id="nom" layoutX="340.0" layoutY="354.0" prefHeight="30.0" prefWidth="164.0" textFill="WHITE">
-=======
-<AnchorPane prefHeight="661.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.pagecontroller">
-   <children>
-      <Pane layoutX="126.0" layoutY="374.0" prefHeight="90.0" prefWidth="586.0" style="-fx-background-color: white; -fx-background-radius: 30;">
-         <children>
-            <Label layoutX="35.0" layoutY="6.0" text="Déscription" textFill="#f99d26" />
-            <Label fx:id="descrip" layoutX="38.0" layoutY="26.0" prefHeight="50.0" prefWidth="511.0">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-         </children>
-      </Pane>
-      <Pane layoutX="126.0" layoutY="492.0" prefHeight="154.0" prefWidth="282.0" style="-fx-background-color: white; -fx-background-radius: 30;">
-         <children>
-            <Label layoutX="32.0" layoutY="41.0" text="Localisation" textFill="#f99d26" />
-            <Label fx:id="loc" layoutX="32.0" layoutY="79.0" prefHeight="17.0" prefWidth="215.0">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-         </children>
-      </Pane>
-      <Pane layoutX="429.0" layoutY="493.0" prefHeight="153.0" prefWidth="282.0" style="-fx-background-color: white; -fx-background-radius: 30;">
-         <children>
-            <Label layoutX="27.0" layoutY="5.0" text="Catégorie" textFill="#f99d26" />
-            <Label fx:id="cat" layoutX="31.0" layoutY="27.0" prefHeight="21.0" prefWidth="209.0">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-            <Label layoutX="26.0" layoutY="48.0" text="Contact" textFill="#f99d26" />
-            <Label fx:id="contact" layoutX="31.0" layoutY="66.0" prefHeight="21.0" prefWidth="209.0">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-            <Label layoutX="26.0" layoutY="95.0" text="Ouverture" textFill="#f99d26" />
-            <Label fx:id="ouvr" layoutX="31.0" layoutY="119.0" prefHeight="21.0" prefWidth="209.0">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-         </children>
-      </Pane>
-      <Label layoutX="72.0" layoutY="14.0" text="A propos" textFill="#f99d26">
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
-         <font>
-            <Font name="System Bold Italic" size="20.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="img" fitHeight="207.0" fitWidth="369.0" layoutX="228.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="228.0" AnchorPane.rightAnchor="229.0" />
-      <Label fx:id="nom" layoutX="312.0" layoutY="335.0" prefHeight="18.0" prefWidth="215.0">
-         <font>
-            <Font size="15.0" />
-         </font></Label>
-<<<<<<< HEAD
-      <ImageView fx:id="logo" fitHeight="60.0" fitWidth="77.0" layoutX="363.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true" />
-=======
-      <ImageView fx:id="logo" fitHeight="60.0" fitWidth="77.0" layoutX="374.0" layoutY="271.0" pickOnBounds="true" preserveRatio="true" />
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
+      <ImageView fx:id="img" fitHeight="243.0" fitWidth="421.0" layoutX="126.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="277.20000000000005" />
+      <Label fx:id="nom" layoutX="238.0" layoutY="356.0" prefHeight="18.0" prefWidth="215.0" />
+      <ImageView fx:id="logo" fitHeight="60.0" fitWidth="77.0" layoutX="302.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

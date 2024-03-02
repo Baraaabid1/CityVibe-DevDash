@@ -34,8 +34,7 @@ public class ModifierLieuxcontroller {
 
     @FXML
     private ImageView image;
-    @FXML
-    private Button modifierA;
+
     @FXML
     private Button addPhoto;
 
@@ -57,10 +56,7 @@ public class ModifierLieuxcontroller {
     private TextField ouverture;
     private String imagePath = "";
     private String logoPath = "";
-<<<<<<< HEAD
     private page pa;
-=======
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
     private GeneralDesignAdminController pub;
 
     public GeneralDesignAdminController getPub() {
@@ -71,10 +67,6 @@ public class ModifierLieuxcontroller {
         this.pub = pub;
     }
 
-<<<<<<< HEAD
-=======
-    private page pa;
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 
     public page getPa() {
         return pa;
@@ -118,100 +110,40 @@ public class ModifierLieuxcontroller {
         logoPath= file.getAbsolutePath();
     }
 
-    public void setData(page page) {
-        // Setting nom text
-        nom.setText(page.getNom());
-        // Setting description text
-        description.setText(page.getDescription());
-        // Setting localisation text
-        locali.setText(page.getLocalisation());
-        // Setting categorie text
-        categorieChoiceBox.setValue(categorieP.valueOf(page.getCategorie().toString()));
-        // Setting contact text
-        contact.setText(Integer.toString(page.getContact()));
-        // Setting localisation text
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String formattedTime = page.getOuverture().format(timeFormatter);
-        ouverture.setText(formattedTime);
-        // Setting image
-        Image imagee = new Image("file:" + page.getImage());
-        image.setImage(imagee);
-        // Setting logo
-        Image logoImage = new Image("file:" + page.getLogo());
-        logo.setImage(logoImage);
-    }
-
-
     @FXML
     private void initialize() {
         categorieChoiceBox.setItems(FXCollections.observableArrayList(categorieP.values()));
     }
 
     @FXML
-        void modifier(ActionEvent event) {
-<<<<<<< HEAD
+    void modifier(ActionEvent event) {
 
-                try {
-                    if (!imagePath.isEmpty() && !logoPath.isEmpty() ) {
-                        pa.setImage(imagePath);
-                        pa.setLogo(logoPath);
-                    }
-
-                    pa.setNom(nom.getText());
-                    pa.setDescription(description.getText());
-                    pa.setLocalisation(locali.getText());
-                    pa.setCategorie(categorieChoiceBox.getValue());
-                    pa.setContact(Integer.parseInt(contact.getText()));
-                    pa.setOuverture(LocalTime.parse(ouverture.getText(), DateTimeFormatter.ofPattern("HH:mm:ss")));
-
-                    pageService ES = new pageService();
-                    ES.modifier(pa);
-
-                    Stage stage = (Stage) mod.getScene().getWindow();
-                    stage.close();
-
-                    pub.refreshView();
-
-                } catch (SQLException | DateTimeParseException ex) {
-                    ex.printStackTrace();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
+        try {
+            if (!imagePath.isEmpty() && !logoPath.isEmpty() ) {
+                pa.setImage(imagePath);
+                pa.setLogo(logoPath);
             }
 
+            pa.setNom(nom.getText());
+            pa.setDescription(description.getText());
+            pa.setLocalisation(locali.getText());
+            pa.setCategorie(categorieChoiceBox.getValue());
+            pa.setContact(Integer.parseInt(contact.getText()));
+            pa.setOuverture(LocalTime.parse(ouverture.getText(), DateTimeFormatter.ofPattern("HH:mm:ss")));
 
-    private boolean saisieValide() {
-        return false;
-    }
+            pageService ES = new pageService();
+            ES.modifier(pa);
 
+            Stage stage = (Stage) mod.getScene().getWindow();
+            stage.close();
 
-=======
+            pub.refreshView();
 
-                try {
-                    if (!imagePath.isEmpty() && !logoPath.isEmpty() ) {
-                        pa.setImage(imagePath);
-                        pa.setLogo(logoPath);
-                    }
-
-                    pa.setNom(nom.getText());
-                    pa.setDescription(description.getText());
-                    pa.setLocalisation(locali.getText());
-                    pa.setCategorie(categorieChoiceBox.getValue());
-                    pa.setContact(Integer.parseInt(contact.getText()));
-                    pa.setOuverture(LocalTime.parse(ouverture.getText(), DateTimeFormatter.ofPattern("HH:mm:ss")));
-
-                    pageService ES = new pageService();
-                    ES.modifier(pa);
-
-                    Stage stage = (Stage) modifierA.getScene().getWindow();
-                    stage.close();
-
-                    pub.refreshView();
-
-                } catch (SQLException | DateTimeParseException ex) {
-                    ex.printStackTrace();
-                }
+        } catch (SQLException | DateTimeParseException ex) {
+            ex.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -221,7 +153,6 @@ public class ModifierLieuxcontroller {
     }
 
 
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
 
     private void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -236,16 +167,9 @@ public class ModifierLieuxcontroller {
 
     }
 
-<<<<<<< HEAD
     public void initData(page pa, GeneralDesignAdminController pub) {
         this.pa = pa;
         this.pub=pub;
-=======
-    public void initData(page pa, PageAdmincontroller pageAdmincontroller) {
-        // Your initialization code here
-
-        this.pa = pa;
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
         populatedFields();
 
     }
@@ -259,28 +183,16 @@ public class ModifierLieuxcontroller {
         categorieChoiceBox.setItems(FXCollections.observableArrayList(categorieP.values()));
         categorieChoiceBox.setValue(pa.getCategorie());
 
-             File file = new File(pa.getImage());
-               if (file.exists()) {
-                   Image image1 = new Image(file.toURI().toString());
-                   image.setImage(image1);
-<<<<<<< HEAD
+        File file = new File(pa.getImage());
+        if (file.exists()) {
+            Image image1 = new Image(file.toURI().toString());
+            image.setImage(image1);
             File file1 = new File(pa.getLogo());
-               if (file1.exists()) {
-                   Image logo1= new Image(file.toURI().toString());
-                   logo.setImage(logo1);
-=======
-                   File file1 = new File(pa.getLogo()); // Corrected from pa.getImage() to pa.getLogo()
-                   if (file1.exists()) {
-                       Image logo1= new Image(file1.toURI().toString());
-                       logo.setImage(logo1);
-                   }
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
+            if (file1.exists()) {
+                Image logo1= new Image(file.toURI().toString());
+                logo.setImage(logo1);
 
-               }
+            }
 
         }
-<<<<<<< HEAD
     }     }
-=======
-    }
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96

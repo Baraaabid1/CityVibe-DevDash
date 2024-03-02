@@ -88,52 +88,27 @@ public class PageAdmincontroller {
 
     @FXML
     void modifierA(ActionEvent event) {
-<<<<<<< HEAD
 //        Button btn = (Button) event.getSource();
 //        page pageToModify = (page) btn.getUserData();
 //
 //        if (pageToModify != null) {
-           try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierLieux.fxml"));
-                Parent root = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierLieux.fxml"));
+            Parent root = loader.load();
 
-                ModifierLieuxcontroller modifierController = loader.getController();
-                // Pass pubToModify and a reference to the Pubcontroller to initData
-                modifierController.initData(page, pub);
+            ModifierLieuxcontroller modifierController = loader.getController();
+            // Pass pubToModify and a reference to the Pubcontroller to initData
+            modifierController.initData(page, pub);
 
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
-=======
-        Button btn = (Button) event.getSource();
-        page pageToModify = (page) btn.getUserData();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
 
-        if (pageToModify != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierLieux.fxml"));
-                Parent root = loader.load();
-
-                ModifierLieuxcontroller modifierLieuxController = loader.getController();
-                modifierLieuxController.initData(pageToModify, this); // Pass this controller
-
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.showAndWait(); // Show and wait for it to close
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-<<<<<<< HEAD
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-=======
-        } else {
-            showErrorAlert("Error: Page object to modify is null.");
-        }
+
     }
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
-
 
     @FXML
     void SupprimerA(ActionEvent event) {
@@ -155,11 +130,8 @@ public class PageAdmincontroller {
 
             } catch (SQLException e) {
                 e.printStackTrace();
-<<<<<<< HEAD
             } catch (IOException e) {
                 throw new RuntimeException(e);
-=======
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
             }
 
         }
@@ -174,5 +146,5 @@ public class PageAdmincontroller {
         errorAlert.showAndWait();
     }
 
-    }
+}
 
