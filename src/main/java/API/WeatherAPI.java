@@ -135,7 +135,7 @@ public class WeatherAPI {
     }
     private static String convertWeatherCode(long weathercode){
         String weatherCondition = "";
-        if(weathercode == 0L){
+        if(weathercode >= 0L && weathercode <= 1L){
             weatherCondition = "Clear";
         }else if(weathercode > 0L && weathercode <= 3L){
             weatherCondition = "Cloudy";

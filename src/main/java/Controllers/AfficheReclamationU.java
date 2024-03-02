@@ -101,15 +101,13 @@ public class AfficheReclamationU {
         ObservableList<String> weatherLocation = FXCollections.observableArrayList(
                 "Nabeul",
                 "Aryanah",
-                "Djerba",
                 "Mahdia"
         );
         weatherLoc.setItems(weatherLocation);
         repPan.setVisible(false);
         gestionRepPan.setVisible(false);
-        int userId = 1;
         try {
-            ObservableList<Reclamation> reclamations = FXCollections.observableArrayList(rs.MesReclamations(userId));
+            ObservableList<Reclamation> reclamations = FXCollections.observableArrayList(rs.MesReclamations(idU));
             FXCollections.reverse(reclamations);
             listReclamation.setStyle("-fx-control-inner-background: rgba(244,244,244,255);-fx-border-width: 0;-fx-selection-bar: transparent;");
 

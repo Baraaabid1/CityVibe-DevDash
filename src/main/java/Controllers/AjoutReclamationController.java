@@ -1,5 +1,6 @@
 package Controllers;
 
+import API.EmailService;
 import API.WeatherAPI;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -26,6 +27,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import javax.mail.MessagingException;
 
 
 public class AjoutReclamationController {
@@ -122,7 +125,6 @@ public class AjoutReclamationController {
         ObservableList<String> weatherLocation = FXCollections.observableArrayList(
                 "Nabeul",
                 "Aryanah",
-                "Djerba",
                 "Mahdia"
         );
         weatherLoc.setItems(weatherLocation);
@@ -286,9 +288,29 @@ public class AjoutReclamationController {
 
 
 
+
             } catch (SQLException | IOException e) {
                 e.printStackTrace();
             }
+        if (reclamation.getType().equals("Réclamation Urgente")) {
+
+        String senderEmail = "abidbaraa33@gmail.com";
+        String senderPassword = "xzgr oscn mrei dpxc";
+        String toAddress = "baraaabid33@gmail.com";
+        String subject = "Notification de réclamation urgente déposée ";
+        String content = "Nous vous informons qu'une réclamation urgente a été déposée. Votre attention immédiate est requise.\n" +
+                "\n" +
+                "Merci de prendre les mesures nécessaires pour résoudre ce problème dans les plus brefs délais.\n" +
+                "\n" +
+                "Cordialement,";
+
+        EmailService emailService = new EmailService(senderEmail, senderPassword);
+
+        try {
+            emailService.sendEmail(toAddress, subject, content);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }}
         }
 
     private void shakeButton() {
@@ -314,16 +336,23 @@ public class AjoutReclamationController {
     public void modifierRec(int idR) {
         modif_button.setVisible(true);
         buttonAjout.setVisible(false);
+
+
         try {
             Reclamation reclamation = rs.afficherR(idR);
             titre.setText(reclamation.getTitre());
             text.setText(reclamation.getContenu());
             type_rec.setValue(reclamation.getType());
-            apropo.setValue(reclamation.getApropo());
-            idRModif.setText(String.valueOf(idR));
+            if (reclamation.getApropo().equals("Autre")) {
+                apropo.setValue(reclamation.getApropo());
+            }            idRModif.setText(String.valueOf(idR));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+
+
     }
 
     public void setWeather(){
@@ -357,6 +386,7 @@ public class AjoutReclamationController {
 
     }
 
+    //click boutton modifier
     @FXML
     void Modifier(ActionEvent event) throws IOException {
         try {
@@ -365,6 +395,81 @@ public class AjoutReclamationController {
             String textValue = text.getText();
             String typeRecValue = type_rec.getValue();
             String apropoValue = apropo.getValue();
+            String selectedApropo;
+
+            if ("Autre".equals(apropoValue)) {
+                selectedApropo = apropo.getValue();
+            } else if ("Page".equals(apropoValue)) {
+                selectedApropo = page.getText();
+            } else {
+                selectedApropo = evenement.getText();
+            }
+
+            if (typeRecValue == null|| typeRecValue.isEmpty()) {
+                TypeAlert.setVisible(true);
+                maxTitreAlert.setVisible(false);
+                ContAlert.setVisible(false);
+                apropoAlert1.setVisible(false);
+                noTitreAlert1.setVisible(false);
+                noRecAlert.setVisible(false);
+
+                return;
+            }
+            if (selectedApropo == null || selectedApropo.isEmpty()) {
+                apropoAlert1.setVisible(true);
+                TypeAlert.setVisible(false);
+                maxTitreAlert.setVisible(false);
+                ContAlert.setVisible(false);
+                noTitreAlert1.setVisible(false);
+                noRecAlert.setVisible(false);
+
+                return;
+            }
+            if (titreValue == null|| titreValue.isEmpty() ) {
+                noTitreAlert1.setVisible(true);
+                TypeAlert.setVisible(false);
+                maxTitreAlert.setVisible(false);
+                ContAlert.setVisible(false);
+                apropoAlert1.setVisible(false);
+                noRecAlert.setVisible(false);
+
+                return;
+            }
+
+
+            if ( titreValue.length() > 100) {
+                maxTitreAlert.setVisible(true);
+                TypeAlert.setVisible(false);
+                ContAlert.setVisible(false);
+                apropoAlert1.setVisible(false);
+                noTitreAlert1.setVisible(false);
+                noRecAlert.setVisible(false);
+                return;
+            }
+
+            if (textValue == null|| textValue.isEmpty() ) {
+                noRecAlert.setVisible(true);
+                TypeAlert.setVisible(false);
+                maxTitreAlert.setVisible(false);
+                ContAlert.setVisible(false);
+                apropoAlert1.setVisible(false);
+                noTitreAlert1.setVisible(false);
+                return;
+            }
+
+            if ( textValue.length() > 1000) {
+                ContAlert.setVisible(true);
+                TypeAlert.setVisible(false);
+                maxTitreAlert.setVisible(false);
+                apropoAlert1.setVisible(false);
+                noTitreAlert1.setVisible(false);
+                noRecAlert.setVisible(false);
+
+                return;
+            }
+
+
+
 
             Reclamation reclamation = new Reclamation();
             reclamation.setIdR(idR);
@@ -373,7 +478,7 @@ public class AjoutReclamationController {
             reclamation.setTitre(titreValue);
             reclamation.setContenu(textValue);
             reclamation.setType(typeRecValue);
-            reclamation.setApropo(apropoValue);
+            reclamation.setApropo(selectedApropo);
 
             rs.modifier(reclamation);
         } catch (SQLException e) {
