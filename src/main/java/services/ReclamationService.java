@@ -6,7 +6,9 @@ import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReclamationService implements IService<Reclamation> {
 
@@ -188,6 +190,83 @@ public class ReclamationService implements IService<Reclamation> {
             }
 
         return reclamations;
+    }
+
+    public Map<String, Integer> getTypeFrequency() throws SQLException {
+        String req = "SELECT typeR, COUNT(*) AS count FROM reclamation GROUP BY typeR";
+        Map<String, Integer> typeFrequency = new HashMap<>();
+
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                String type = rs.getString("typeR");
+                int count = rs.getInt("count");
+                typeFrequency.put(type, count);
+            }
+        }
+
+        return typeFrequency;
+    }
+
+    public Map<String, Integer> getApropoFrequency() throws SQLException {
+        String req = "SELECT apropo, COUNT(*) AS count FROM reclamation GROUP BY apropo";
+        Map<String, Integer> apropoFrequency = new HashMap<>();
+
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                String apropo = rs.getString("apropo");
+                String category;
+                if ("Autre".equals(apropo)) {
+                    category = "Autre";
+                } else if (apropo.startsWith("E_")) {
+                    category = "Evenement";
+                } else if (apropo.startsWith("P_")) {
+                    category = "Page";
+                } else {
+                    continue;
+                }
+
+                int count = rs.getInt("count");
+                apropoFrequency.put(category, apropoFrequency.getOrDefault(category, 0) + count);
+            }
+        }
+
+        return apropoFrequency;
+    }
+    public Map<String, Integer> getEvenementFrequency() throws SQLException {
+        String req = "SELECT SUBSTRING(apropo, 3) AS evenement_name, COUNT(*) AS count FROM reclamation WHERE apropo LIKE 'E\\_%' GROUP BY evenement_name";
+        Map<String, Integer> evenementFrequency = new HashMap<>();
+
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                String evenementName = rs.getString("evenement_name");
+                int count = rs.getInt("count");
+                evenementFrequency.put(evenementName, count);
+            }
+        }
+
+        return evenementFrequency;
+    }
+    public Map<String, Integer> getPageFrequency() throws SQLException {
+        String req = "SELECT SUBSTRING(apropo, 3) AS page_name, COUNT(*) AS count FROM reclamation WHERE apropo LIKE 'P\\_%' GROUP BY SUBSTRING(apropo, 3)";
+        Map<String, Integer> pageFrequency = new HashMap<>();
+
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(req)) {
+
+            while (rs.next()) {
+                String pageName = rs.getString("page_name");
+                int count = rs.getInt("count");
+                pageFrequency.put(pageName, count);
+            }
+        }
+
+        return pageFrequency;
     }
 }
 

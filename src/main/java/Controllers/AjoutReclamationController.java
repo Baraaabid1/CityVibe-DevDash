@@ -184,12 +184,13 @@ public class AjoutReclamationController {
 
         String selectedApropo;
 
-        if ("Autre".equals(apropoValue)) {
+        String aprovoValue = apropo.getValue();
+        if ("Autre".equals(aprovoValue)) {
             selectedApropo = apropo.getValue();
-        } else if ("Page".equals(apropoValue)) {
-            selectedApropo = page.getText();
+        } else if ("Page".equals(aprovoValue)) {
+            selectedApropo = "P_" + page.getText();
         } else {
-            selectedApropo = evenement.getText();
+            selectedApropo = "E_" + evenement.getText();
         }
 
         if (typeRecValue == null|| typeRecValue.isEmpty()) {
@@ -345,7 +346,8 @@ public class AjoutReclamationController {
             type_rec.setValue(reclamation.getType());
             if (reclamation.getApropo().equals("Autre")) {
                 apropo.setValue(reclamation.getApropo());
-            }            idRModif.setText(String.valueOf(idR));
+            }
+            idRModif.setText(String.valueOf(idR));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -394,15 +396,15 @@ public class AjoutReclamationController {
             String titreValue = titre.getText();
             String textValue = text.getText();
             String typeRecValue = type_rec.getValue();
-            String apropoValue = apropo.getValue();
             String selectedApropo;
 
-            if ("Autre".equals(apropoValue)) {
+            String aprovoValue = apropo.getValue();
+            if ("Autre".equals(aprovoValue)) {
                 selectedApropo = apropo.getValue();
-            } else if ("Page".equals(apropoValue)) {
-                selectedApropo = page.getText();
+            } else if ("Page".equals(aprovoValue)) {
+                selectedApropo = "P_" + page.getText();
             } else {
-                selectedApropo = evenement.getText();
+                selectedApropo = "E_" + evenement.getText();
             }
 
             if (typeRecValue == null|| typeRecValue.isEmpty()) {
