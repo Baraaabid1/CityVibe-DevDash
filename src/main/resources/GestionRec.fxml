@@ -312,10 +312,17 @@
          <children>
             <Pane layoutX="75.0" prefHeight="79.0" prefWidth="741.0" style="-fx-background-color: white; -fx-background-radius: 15;">
                <children>
-                  <Button fx:id="ASCE" layoutX="152.0" layoutY="23.0" mnemonicParsing="false" onAction="#dateASCE" prefHeight="31.0" prefWidth="31.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="ASCE" layoutX="131.0" layoutY="22.0" mnemonicParsing="false" onAction="#dateASCE" prefHeight="36.0" prefWidth="43.0" style="-fx-background-color: transparent;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                             <image>
+                                 <Image url="icons/AESC.png" />
+                             </image>
+                         </ImageView>
+                     </graphic>
                   </Button>
                   <ComboBox fx:id="trieType" layoutX="462.0" layoutY="24.0" onAction="#parType" prefHeight="31.0" prefWidth="186.0" />
                   <Text fill="#727070" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tirer par date  :" wrappingWidth="129.900390625">
@@ -328,21 +335,18 @@
                         <Font name="Arial Nova Cond Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Button fx:id="DESC" layoutX="204.0" layoutY="23.0" mnemonicParsing="false" onAction="#dateDESC" prefHeight="31.0" prefWidth="31.0" style="-fx-background-color: transparent;">
+                  <Button fx:id="DESC" layoutX="184.0" layoutY="22.0" mnemonicParsing="false" onAction="#dateDESC" prefHeight="37.0" prefWidth="43.0" style="-fx-background-color: transparent;">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="icons/DESC.png" />
+                            </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="144.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-                       <image>
-                           <Image url="icons/AESC.png" />
-                       </image>
-                   </ImageView>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="184.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                          <Image url="icons/DESC.png" />
-                      </image>
-                  </ImageView>
                   <Button layoutX="682.0" layoutY="18.0" mnemonicParsing="false" onAction="#voirStat" prefHeight="40.0" prefWidth="30.0" style="-fx-background-color: #279B48; -fx-background-radius: 10;">
                      <graphic>
                         <ImageView fx:id="stat" fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">

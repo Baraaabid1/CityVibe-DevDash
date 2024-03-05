@@ -12,7 +12,7 @@ public class MainFX extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Statistics.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutReclamation.fxml"));
         Parent root =loader.load();
         Scene scene = new Scene(root);
         stage.setTitle("City vibe");

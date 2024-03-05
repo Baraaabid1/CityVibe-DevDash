@@ -129,6 +129,19 @@ public class AfficheReclamationU {
 
                                 Label typeTimeLabel = new Label(reclamation.getType() + " - " + reclamation.getTemp());
                                 typeTimeLabel.setStyle("-fx-font-size: 10pt; -fx-text-fill: grey;");
+                                String aprovoText;
+                                String apropoValue = reclamation.getApropo();
+                                if ("Autre".equals(apropoValue)) {
+                                    aprovoText = "Autre";
+                                } else if (apropoValue.startsWith("P_")) {
+                                    aprovoText = "Page: " + apropoValue.substring(2);
+                                } else if (apropoValue.startsWith("E_")) {
+                                    aprovoText = "Evenement: " + apropoValue.substring(2);
+                                } else {
+                                    aprovoText = apropoValue;
+                                }
+                                Label aprovoLabel = new Label(aprovoText);
+                                aprovoLabel.setStyle("-fx-font-size: 10pt; -fx-text-fill: grey;-fx-font-weight: bold;");
 
                                 Label contentLabel = new Label(reclamation.getContenu());
                                 contentLabel.setStyle("-fx-font-size: 12pt;");
@@ -190,7 +203,7 @@ public class AfficheReclamationU {
                                 buttonsBox.setSpacing(10);
 
                                 VBox reclamationBox = new VBox();
-                                reclamationBox.getChildren().addAll(titleLabel, typeTimeLabel, contentLabel, buttonsBox);
+                                reclamationBox.getChildren().addAll(titleLabel, typeTimeLabel,aprovoLabel, contentLabel, buttonsBox);
                                 VBox.setVgrow(reclamationBox, Priority.ALWAYS);
 
                                 reclamationBox.setStyle("-fx-padding: 10px; -fx-spacing: 10px;-fx-background-color: rgba(255, 255, 255, 1); -fx-background-radius: 15px;");

@@ -184,14 +184,14 @@ public class AjoutReclamationController {
 
         String selectedApropo;
 
-        String aprovoValue = apropo.getValue();
-        if ("Autre".equals(aprovoValue)) {
+        if ("Autre".equals(apropoValue)) {
             selectedApropo = apropo.getValue();
-        } else if ("Page".equals(aprovoValue)) {
+        } else if ("Page".equals(apropoValue)) {
             selectedApropo = "P_" + page.getText();
-        } else {
+        } else if ("Evenement".equals(apropoValue)) {
             selectedApropo = "E_" + evenement.getText();
-        }
+        }else {
+            selectedApropo = "" ;}
 
         if (typeRecValue == null|| typeRecValue.isEmpty()) {
             TypeAlert.setVisible(true);
@@ -204,7 +204,7 @@ public class AjoutReclamationController {
 
             return;
         }
-        if (selectedApropo == null || selectedApropo.isEmpty()) {
+        if (selectedApropo == null || selectedApropo.isBlank() || selectedApropo.equals("E_") || selectedApropo.equals("P_")) {
             apropoAlert1.setVisible(true);
             TypeAlert.setVisible(false);
             maxTitreAlert.setVisible(false);
@@ -403,9 +403,10 @@ public class AjoutReclamationController {
                 selectedApropo = apropo.getValue();
             } else if ("Page".equals(aprovoValue)) {
                 selectedApropo = "P_" + page.getText();
-            } else {
+            } else if ("Evenement".equals(aprovoValue)) {
                 selectedApropo = "E_" + evenement.getText();
-            }
+            }else {
+                selectedApropo = "" ;}
 
             if (typeRecValue == null|| typeRecValue.isEmpty()) {
                 TypeAlert.setVisible(true);
@@ -417,7 +418,7 @@ public class AjoutReclamationController {
 
                 return;
             }
-            if (selectedApropo == null || selectedApropo.isEmpty()) {
+            if (selectedApropo == null || selectedApropo.isBlank() || selectedApropo.equals("E_") || selectedApropo.equals("P_")) {
                 apropoAlert1.setVisible(true);
                 TypeAlert.setVisible(false);
                 maxTitreAlert.setVisible(false);
