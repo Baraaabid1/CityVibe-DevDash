@@ -20,12 +20,12 @@ public class GeneralDesignConsultController {
     private GridPane GridPaneV;
 
     @FXML
-    private TextField seachbar;
+    private TextField searchbar;
+
     @FXML
     public void initialize() {
         loadContent();
     }
-
 
     private void loadContent() {
         try {
@@ -40,8 +40,8 @@ public class GeneralDesignConsultController {
 
             // Iterate through the list of publications
             for (publication publication : publicationList) {
-                // Load Pub.fxml for each publication and set its data
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ConsulterLieux.fxml"));
+                // Load Pub(lieux).fxml for each publication and set its data
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ConsulterLieux(lieux).fxml"));
                 Parent interfaceRoot = loader.load();
                 ConsulterLieuxcontroller itemController = loader.getController();
                 itemController.setData(publication);
@@ -69,6 +69,7 @@ public class GeneralDesignConsultController {
     public void refreshView() {
         loadContent();
     }
+
     public void Button_Events(ActionEvent actionEvent) {
     }
 
@@ -106,7 +107,19 @@ public class GeneralDesignConsultController {
         // Add the action you want to perform when the publication button is clicked
         // For example, opening a new page named PageTest
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PageConsult.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PageConsult(lieux).fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+@FXML
+    public void publication(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LieuxConsult(lieu).fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -116,7 +129,13 @@ public class GeneralDesignConsultController {
         }
     }
 
-    public void publication(ActionEvent actionEvent) {
+    @FXML
+    public void search(ActionEvent actionEvent) {
+        String searchText = searchbar.getText();
+        // Perform search based on searchText
+        // Reload content or update UI accordingly
+    }
 
+    public void seachbar(ActionEvent actionEvent) {
     }
 }

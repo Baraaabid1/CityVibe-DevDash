@@ -11,18 +11,21 @@
     <children>
         <Pane layoutX="120.0" layoutY="66.0" prefHeight="196.0" prefWidth="545.0" style="-fx-background-color: white; -fx-background-radius: 30;">
             <children>
-                <Button layoutX="285.0" layoutY="120.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Supprimer" textFill="WHITE">
+                <Button layoutX="403.0" layoutY="121.0" mnemonicParsing="false" onAction="#supprimer" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Supprimer" textFill="WHITE">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button layoutX="177.0" layoutY="120.0" mnemonicParsing="false" onAction="#consulter" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Consulter" textFill="WHITE">
+                <Button layoutX="263.0" layoutY="121.0" mnemonicParsing="false" onAction="#consulter" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Consulter" textFill="WHITE">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Button>
-            <ImageView fx:id="imageP" fitHeight="134.0" fitWidth="148.0" layoutX="22.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="nomP" layoutX="187.0" layoutY="45.0" prefHeight="31.0" prefWidth="177.0" />
+            <ImageView fx:id="imageP" fitHeight="144.0" fitWidth="159.0" layoutX="23.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="nomP" layoutX="246.0" layoutY="40.0" prefHeight="31.0" prefWidth="177.0" textFill="#f99d26">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
             </children>
         </Pane>
     </children>

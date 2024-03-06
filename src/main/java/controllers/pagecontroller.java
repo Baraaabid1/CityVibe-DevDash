@@ -10,6 +10,11 @@ import services.pageService;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 
+import java.sql.Time;
+import java.time.LocalTime;
+
+
+
 public class pagecontroller {
 
     @FXML
@@ -56,6 +61,8 @@ public class pagecontroller {
         // Format the time
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String formattedTime = p.getOuverture().format(timeFormatter);
+        //if (p.getOuverture().equals(LocalTime.now()))  condition wa9t
+            //send sms
         ouvr.setText(formattedTime);
             // Load and set the images
             if (p.getImage() != null) {
@@ -101,9 +108,9 @@ public class pagecontroller {
 
     }
 
-    public void setRefresh(GererLieuxController gererLieuxController) {
-
-    }
+//    public void setRefresh(GererLieuxController gererLieuxController) {
+//
+//    }
 
 
     public void refreshView() {

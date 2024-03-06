@@ -62,7 +62,7 @@ public class ConsulterLieuxcontroller {
                 try {
                     // Call the service method to delete the page
                     publicationService service = new publicationService();
-                    service.supprimer(pu.getidP()); // Delete the page
+                    service.supprimer(pu.getIdPub()); // Delete the page
 
 
 
@@ -106,7 +106,7 @@ public class ConsulterLieuxcontroller {
 
     @FXML
     void consulter(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubVisiteur.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubVisiteur(lieux).fxml"));
         Parent root = loader.load();
         PubVisiteurcontroller Pubcontroller = loader.getController();
         Pubcontroller.setData(pu);

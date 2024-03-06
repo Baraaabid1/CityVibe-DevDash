@@ -7,11 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD
-<AnchorPane prefHeight="548.0" prefWidth="613.0" style="-fx-background-color: f99d26;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Modifiercontroller">
-=======
 <AnchorPane prefHeight="548.0" prefWidth="613.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Modifiercontroller">
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
     <children>
         <Label layoutX="38.0" layoutY="91.0" prefHeight="46.0" prefWidth="94.0" text="Nom">
             <font>
@@ -29,31 +25,19 @@
             </font>
         </Label>
         <ImageView fx:id="imagess" fitHeight="139.0" fitWidth="348.0" layoutX="209.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
-<<<<<<< HEAD
-        <Button fx:id="ins" layoutX="29.0" layoutY="429.0" mnemonicParsing="false" onAction="#ins" prefHeight="43.0" prefWidth="112.0" style="-fx-background-color: white; -fx-background-radius: 30;" text="Insérer" textFill="#f99d26">
-=======
         <Button fx:id="ins" layoutX="25.0" layoutY="427.0" mnemonicParsing="false" onAction="#ins" prefHeight="43.0" prefWidth="112.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Insérer" textFill="WHITE">
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
             <font>
                 <Font size="20.0" />
             </font>
         </Button>
-<<<<<<< HEAD
-        <Button fx:id="mod" layoutX="383.0" layoutY="496.0" mnemonicParsing="false" onAction="#mod" prefHeight="39.0" prefWidth="112.0" style="-fx-background-color: white; -fx-background-radius: 30;" text="Modifier" textFill="#f99d26">
-=======
         <Button fx:id="mod" layoutX="383.0" layoutY="496.0" mnemonicParsing="false" onAction="#mod" prefHeight="39.0" prefWidth="112.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Modifier" textFill="WHITE">
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
             <font>
                 <Font size="20.0" />
             </font>
         </Button>
         <TextField fx:id="nommm" layoutX="209.0" layoutY="101.0" prefHeight="26.0" prefWidth="348.0" style="-fx-background-radius: 30; -fx-background-color: transparent;" />
         <TextField fx:id="desscc" layoutX="209.0" layoutY="161.0" prefHeight="128.0" prefWidth="348.0" style="-fx-background-radius: 30; -fx-background-color: transparent;" />
-<<<<<<< HEAD
-        <Label layoutX="38.0" layoutY="32.0" prefHeight="46.0" prefWidth="383.0" text="Modifier une publication :" textFill="WHITE">
-=======
-        <Label layoutX="38.0" layoutY="32.0" prefHeight="46.0" prefWidth="383.0" text="Modifier une publication :" textFill="#f99d26">
->>>>>>> 3c6b76b146eaa79534c1fc586dc86674cb956c96
+        <Label layoutX="38.0" layoutY="32.0" prefHeight="46.0" prefWidth="383.0" textFill="#f99d26">
             <font>
                 <Font name="System Bold" size="30.0" />
             </font>

@@ -1,4 +1,7 @@
 package controllers;
+import com.twilio.Twilio;
+import com.twilio.exception.ApiException;
+import com.twilio.type.PhoneNumber;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.page;
 import models.publication;
 import services.publicationService;
 import java.io.File;
@@ -19,6 +23,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import com.twilio.rest.api.v2010.account.Message;
+
+import javax.mail.MessagingException;
+
 
 public class AjouterPubcontroller {
 
@@ -36,7 +44,7 @@ public class AjouterPubcontroller {
 
     @FXML
     private TextField nommm;
-
+    private int idPP;
     private String imagePath = "";
 
     @FXML
@@ -61,7 +69,7 @@ public class AjouterPubcontroller {
 
 
     @FXML
-    void aj(ActionEvent event) throws SQLException, IOException {
+    void aj(ActionEvent event) throws SQLException, IOException, MessagingException {
         // Vérifier si les champs sont vides
         if (desscc.getText().isEmpty() || nommm.getText().isEmpty()) {
             showErrorAlert("Veuillez remplir tous les champs.");
@@ -75,7 +83,15 @@ public class AjouterPubcontroller {
 
         // Ajouter la publication si les champs sont remplis
         publicationService pSR = new publicationService();
-        pSR.ajouter(new publication(desscc.getText(), imagePath, nommm.getText()));
+        page page= new page(198);
+        pSR.ajouter(new publication(page, desscc.getText(), imagePath, nommm.getText()));
+        if (nommm.getText().equals("offre")){
+            String numeroTelephone="+21652186638";
+
+                String msg = "Nouvelle offre disponible!";
+                envoyerSMS(numeroTelephone, msg);
+
+        }
 
         // Afficher une alerte de succès
         showSuccessAlert("Ajout effectué avec succès");
@@ -85,15 +101,37 @@ public class AjouterPubcontroller {
         imagess.setImage(null);
         nommm.clear();
 
-        // Naviguer vers "PubTest.fxml" après avoir cliqué sur le bouton "aj"
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubTest.fxml"));
+        // Naviguer vers "PubTest(lieux).fxml" après avoir cliqué sur le bouton "aj"
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Test(lieux).fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
 
+        // Méthode pour envoyer un SMS
+        private void envoyerSMS(String numeroTelephone, String messageBody) throws MessagingException {
+            String twilioNumber = "+18432716407"; // Remplacez par votre numéro Twilio
 
+            try {
+                // Initialisez la bibliothèque Twilio avec vos identifiants
+                Twilio.init("ACcdd4affbedc96aa111f440c787a92245", "c395274e821dc9983c67d6d5feae4d5e");
+
+                // Envoi du SMS
+                Message message = Message.creator(
+                                new PhoneNumber(numeroTelephone),
+                                new PhoneNumber(twilioNumber),
+                                "Nous avons lancer une nouvelle offre  :  " + messageBody + " Bienvenue chez nous.")
+                        .create();
+
+                // Affichage de l'identifiant du message si l'envoi réussit
+                System.out.println("Message SID: " + message.getSid());
+            } catch (ApiException e) {
+                // Gérer l'exception Twilio
+                System.err.println("Erreur lors de l'envoi du SMS: " + e.getMessage());
+                throw new MessagingException("Erreur lors de l'envoi du SMS", e);
+            }
+        }
 
     private void showErrorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

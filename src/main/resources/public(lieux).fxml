@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1450.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.publiccontroller">
+    <children>
+      <Pane layoutX="114.0" layoutY="41.0" prefHeight="202.0" prefWidth="628.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+              <ImageView fx:id="imagV" fitHeight="155.0" fitWidth="204.0" layoutX="27.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+              <Label fx:id="nomV" layoutX="266.0" layoutY="23.0" prefHeight="30.0" prefWidth="301.0" style="-fx-background-color: transparent;" textFill="#f99d26">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label fx:id="descV" layoutX="266.0" layoutY="70.0" prefHeight="102.0" prefWidth="301.0">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>

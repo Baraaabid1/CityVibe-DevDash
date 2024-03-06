@@ -33,7 +33,7 @@ public class PubVisiteurcontroller {
 
     private publication pu;
 //    private int id = 44;
-    private AfficherController aff;
+//    private AfficherController aff;
 
     // Initialize method
     public void initialize(int idP) {
@@ -41,7 +41,7 @@ public class PubVisiteurcontroller {
             if (pu == null) {
                 // If the pu object is null, initialize it
                 publicationService pSR = new publicationService();
-                pu = pSR.afficher(idP);
+                pu = (publication) pSR.afficher();
             }
             // Update UI elements with publication data
             if (pu != null) {
@@ -75,8 +75,8 @@ public class PubVisiteurcontroller {
         // Not sure what this method is intended for
     }
 
-    public void setRefresh(AfficherController aff) {
-        this.aff = aff;
-    }
+//    public void setRefresh(AfficherController aff) {
+//        this.aff = aff;
+//    }
 }
 

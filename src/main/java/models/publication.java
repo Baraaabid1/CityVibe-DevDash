@@ -4,41 +4,36 @@ package models;
 
 public class publication {
     //id publication
-    private int id_P;
-
+    private int idPub;
+    private page page;
     private String description;
     private String image;
     private String nom;
 
-
-
-
-
-
     public publication() {
+    }
+
+    public publication(int idPub, models.page page, String description, String image, String nom) {
+        this.idPub = idPub;
+        this.page = page;
+        this.description = description;
+        this.image = image;
+        this.nom = nom;
+
+    }
+
+    public publication(models.page page, String description, String image, String nom) {
+        this.page = page;
+        this.description = description;
+        this.image = image;
+        this.nom = nom;
+
     }
 
 
 
-    // le constructeur el dydy ( ajout)
-//    public publication(int idPP, String description , String image , String nom) {
-//        this.idPP = idPP;
-//        this.description = description;
-//        this.image = image;
-//        this.nom = nom;
-//    }
-//modif /supp
-//    public publication(int idP , int idPP, String description , String image , String nom) {
-//        this.idP = idP;
-//        this.idPP = idPP;
-//        this.description = description;
-//        this.image = image;
-//        this.nom = nom;
-//    }
-
-
-    public publication(int id_P, String description , String image , String nom) {
-        this.id_P = id_P;
+    public publication(int idPub, String description , String image , String nom) {
+        this.idPub = idPub;
         this.description = description;
         this.image = image;
         this.nom = nom;
@@ -50,11 +45,12 @@ public class publication {
         this.nom = nom;
     }
 
-    public int getidP() {
-        return id_P;
+    public int getIdPub() {
+        return idPub;
     }
-    public void setidP(int id_P) {
-        this.id_P = id_P;
+
+    public void setIdPub(int idPub) {
+        this.idPub = idPub;
     }
 
     public String getDescription() {
@@ -63,7 +59,6 @@ public class publication {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public String getImage() {
         return image;
@@ -79,16 +74,40 @@ public class publication {
     }
     public void setNom(String nom) {this.nom=nom;}
 
+
+
+    public models.page getPage() {
+        return page;
+    }
+
+    public void setPage(models.page page) {
+        this.page = page;
+    }
+
+
+
+        // Constructor, getters, setters, and other methods...
+
+
+
+
+
+
     @Override
     public String toString() {
         return "publication{" +
-                "id_P=" + id_P +
+                "idPub=" + idPub +
+                "page=" + page +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
                 ", nom='" + nom + '\'' +
                 '}';
     }
 
+
+    public String getTitle() {
+        return nom;
+    }
 
 
 }

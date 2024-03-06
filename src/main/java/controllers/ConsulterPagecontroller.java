@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.page;
-import models.publication;
 import services.pageService;
 
 import java.io.IOException;
@@ -73,51 +72,32 @@ public class ConsulterPagecontroller {
                     service.supprimer(pA.getIdP()); // Delete the page
 
                     // Show deletion success message
-
-
-                    // Refresh view
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Succès");
+                    successAlert.setHeaderText(null);
+                    successAlert.setContentText("Suppression réussie !");
+                    successAlert.showAndWait();
 
                     ad.refreshView();
-
-
-                    // Clear displayed page after deletion
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                     // Handle the exception as needed
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }
     }
 
-
-
-
-
-
     public void initialize() {
-      /*  try {
-            if (pA == null) {
-                pageService ps = new pageService();
-                pA = ps.afficherP(70); // Default ID, you may need to change this
-            }
 
-            afficherPage();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
     }
     @FXML
     public void setData(page page) {
         this.pA= page; // Set the publication object
         // Setting name text
         nomP.setText(page.getNom());
-        // Setting contact text
-//        contP.setText(Integer.toString(page.getContact()));
-        // Setting category text
-//        catP.setText(page.getCategorie().toString());
-//        locP.setText(page.getDescription());
-//        descP.setText(page.getLocalisation());
+
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String formattedTime = page.getOuverture().format(timeFormatter);
 //        ouvP.setText(formattedTime);        // Setting image
@@ -125,11 +105,7 @@ public class ConsulterPagecontroller {
             Image image = new Image("file:" + page.getImage());
             imageP.setImage(image);
         }
-//        // Setting logo
-//        if (page.getLogo() != null && !page.getLogo().isEmpty()) {
-//            Image logoImage = new Image("file:" + page.getLogo());
-//            logoP.setImage(logoImage);
-//        }
+
     }
 
     public void setE(page page) {
@@ -142,7 +118,7 @@ public class ConsulterPagecontroller {
 
     @FXML
     void consulter(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/page(lieux).fxml"));
         Parent root = loader.load();
         pagecontroller PageAdmincontroller = loader.getController();
         PageAdmincontroller.setData(pA);

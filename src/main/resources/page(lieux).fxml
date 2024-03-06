@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="661.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.pagecontroller">
+   <children>
+      <Pane layoutX="56.0" layoutY="376.0" prefHeight="90.0" prefWidth="587.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="113.0" layoutY="6.0" text="Déscription" textFill="#f99d26">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label fx:id="descrip" layoutX="113.0" layoutY="31.0" prefHeight="50.0" prefWidth="449.0">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <ImageView fx:id="logo" fitHeight="60.0" fitWidth="77.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Pane layoutX="56.0" layoutY="488.0" prefHeight="158.0" prefWidth="282.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="32.0" layoutY="41.0" text="Localisation" textFill="#f99d26">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label fx:id="loc" layoutX="32.0" layoutY="79.0" prefHeight="17.0" prefWidth="215.0">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+         </children>
+      </Pane>
+      <Pane layoutX="380.0" layoutY="489.0" prefHeight="157.0" prefWidth="282.0" style="-fx-background-color: white; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="26.0" layoutY="8.0" text="Catégorie" textFill="#f99d26">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label fx:id="cat" layoutX="26.0" layoutY="32.0" prefHeight="17.0" prefWidth="226.0">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label layoutX="26.0" layoutY="57.0" text="Contact" textFill="#f99d26">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label fx:id="contact" layoutX="26.0" layoutY="80.0" prefHeight="17.0" prefWidth="226.0">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label layoutX="26.0" layoutY="101.0" text="Ouverture" textFill="#f99d26">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label fx:id="ouvr" layoutX="26.0" layoutY="128.0" prefHeight="17.0" prefWidth="226.0">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font></Label>
+         </children>
+      </Pane>
+      <Label layoutX="72.0" layoutY="14.0" text="Bienvenue dans notre page :" textFill="#f99d26">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="nom" layoutX="285.0" layoutY="339.0" prefHeight="18.0" prefWidth="215.0" textFill="#f99d26">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <HBox layoutX="14.0" layoutY="77.0" prefHeight="243.0" prefWidth="740.0">
+         <children>
+            <Pane prefHeight="243.0" prefWidth="250.0" />
+            <ImageView fx:id="img" fitHeight="243.0" fitWidth="385.0" pickOnBounds="true" preserveRatio="true" />
+            <Pane prefHeight="243.0" prefWidth="250.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

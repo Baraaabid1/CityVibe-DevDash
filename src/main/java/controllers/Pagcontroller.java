@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.page;
-import models.publication;
 
 import java.io.IOException;
 
@@ -49,7 +48,7 @@ public class Pagcontroller {
     }
     @FXML
     void consulter(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/page(lieux).fxml"));
         Parent root = loader.load();
          pagecontroller pagecontroller = loader.getController();
         pagecontroller.setData(pA);

@@ -77,7 +77,7 @@ public class pageService implements IService<page> {
 
     @Override
     public void supprimer(int IdP) throws SQLException {
-        String req = "DELETE FROM `page` WHERE IdP=?";
+        String req = "DELETE FROM page WHERE IdP=?";
         PreparedStatement preparedStatement = connection.prepareStatement(req);
         preparedStatement.setInt(1, IdP);
         preparedStatement.executeUpdate();
@@ -147,4 +147,117 @@ public class pageService implements IService<page> {
         }
         return p;
     }
+
+    public List<page> search(String text) throws SQLException {
+        String query = "SELECT * FROM page WHERE nom LIKE ? OR description LIKE ?";
+        List<page> searchResults = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, "%" + text + "%");
+            preparedStatement.setString(2, "%" + text + "%");
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    page page = new page();
+                    page.setIdP(resultSet.getInt("IdP"));
+                    page.setNom(resultSet.getString("nom"));
+                    page.setContact(resultSet.getInt("contact"));
+                    page.setCategorie(categorieP.valueOf(resultSet.getString("categorieP")));
+                    page.setLocalisation(resultSet.getString("localisation"));
+                    page.setDescription(resultSet.getString("description"));
+                    page.setOuverture(resultSet.getTime("ouverture").toLocalTime());
+                    page.setImage(resultSet.getString("image"));
+                    page.setLogo(resultSet.getString("logo"));
+                    searchResults.add(page);
+                }
+            }
+        }
+        return searchResults;
+    }
+
+    public List<page> afficherByCategory(String searchText) throws SQLException {
+        String query = "SELECT * FROM page WHERE categorieP = ?";
+        List<page> searchResults = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, searchText);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    page page = new page();
+                    page.setIdP(resultSet.getInt("IdP"));
+                    page.setNom(resultSet.getString("nom"));
+                    page.setContact(resultSet.getInt("contact"));
+                    page.setCategorie(categorieP.valueOf(resultSet.getString("categorieP")));
+                    page.setLocalisation(resultSet.getString("localisation"));
+                    page.setDescription(resultSet.getString("description"));
+                    page.setOuverture(resultSet.getTime("ouverture").toLocalTime());
+                    page.setImage(resultSet.getString("image"));
+                    page.setLogo(resultSet.getString("logo"));
+                    searchResults.add(page);
+                }
+            }
+        }
+        return searchResults;
+    }
+
+    public page getPage(int id) throws SQLException {
+        String query = "SELECT * FROM page WHERE IdP = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    page page = new page();
+                    page.setIdP(resultSet.getInt("IdP"));
+                    page.setNom(resultSet.getString("nom"));
+                    page.setContact(resultSet.getInt("contact"));
+                    page.setCategorie(categorieP.valueOf(resultSet.getString("categorieP")));
+                    page.setLocalisation(resultSet.getString("localisation"));
+                    page.setDescription(resultSet.getString("description"));
+                    page.setOuverture(resultSet.getTime("ouverture").toLocalTime());
+                    page.setImage(resultSet.getString("image"));
+                    page.setLogo(resultSet.getString("logo"));
+                    return page; // Return the retrieved page object
+                }
+            }
+        }
+        return null; // If no page is found with the given ID, return null
+    }
+    public List<page> filtrerParCategorie(String categorieP) throws SQLException {
+        List<page> page = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Requête SQL pour filtrer les événements par catégorie
+            String query = "SELECT * FROM page WHERE categorieP = ?";
+
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, categorieP);
+            rs = stmt.executeQuery();
+
+            // Parcourir les résultats de la requête et créer des objets Evenement
+            while (rs.next()) {
+                page p = new page();
+                p.setNom(rs.getString("nom"));
+                p.setContact(rs.getInt("contact"));
+                p.setCategorie(models.categorieP.valueOf(String.valueOf(models.categorieP.valueOf(rs.getString("categorieP")))));
+                p.setLocalisation(rs.getString("localisation"));
+                p.setDescription(rs.getString("description"));
+                p.setOuverture(rs.getTime("ouverture").toLocalTime());
+                p.setImage(rs.getString("image"));
+                p.setLogo(rs.getString("logo"));
+                p.setIdP(rs.getInt("IdP"));
+
+
+                page.add(p);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e; // Renvoyer l'exception pour la gérer dans le contrôleur
+        } finally {
+            // Fermer les ressources
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        }
+
+        return page;
+    }
+
 }

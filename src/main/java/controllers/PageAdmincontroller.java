@@ -10,7 +10,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import models.page;
 import models.publication;
@@ -47,11 +46,15 @@ public class PageAdmincontroller {
 
     @FXML
     private Label ouvA;
+    @FXML
+    private Button SupprimerA;
+    private GeneralDesignAdminController ad= new GeneralDesignAdminController();
 
-    private page page;
+    private page pageS;
     private GeneralDesignAdminController pub;
     @FXML
     public void setData(page page) {
+        pageS = page ;
         // Setting nom text
         nomA.setText(page.getNom());
         // Setting description text
@@ -75,30 +78,32 @@ public class PageAdmincontroller {
     }
 
     public void setE(page page) { // Corrected class name to start with an uppercase letter
-        this.page = page;
+        this.pageS = page;
     }
 
     public GeneralDesignAdminController getPub() {
         return pub;
     }
 
-    public void setPub(GeneralDesignAdminController pub) {
-        this.pub = pub;
+    public void setPub(GeneralDesignAdminController pubb) {
+        this.pub = pubb;
     }
 
     @FXML
     void modifierA(ActionEvent event) {
-//        Button btn = (Button) event.getSource();
-//        page pageToModify = (page) btn.getUserData();
+        Button btn = (Button) event.getSource();
+        page pageToModify = pageS;
+//        System.out.println("hellooooo"+pageToModify.getIdP());
+
 //
-//        if (pageToModify != null) {
+        if (pageToModify != null) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierLieux.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierLieux(lieux).fxml"));
             Parent root = loader.load();
 
             ModifierLieuxcontroller modifierController = loader.getController();
             // Pass pubToModify and a reference to the Pubcontroller to initData
-            modifierController.initData(page, pub);
+            modifierController.initData(pageS, pub);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -108,34 +113,99 @@ public class PageAdmincontroller {
             e.printStackTrace();
         }
 
-    }
+    }}
+    public void setRefresh(GeneralDesignAdminController pub) {
+        this.pub = pub;}
 
-    @FXML
-    void SupprimerA(ActionEvent event) {
 
-        if (page != null) {
-            try {
-                // Appeler la méthode de service pour supprimer l'événement
-                pageService service = new pageService();
-                service.supprimer(page.getIdP());
-                if (pub != null) {
-                    pub.refreshView();
-                } else {
-                    // Handle the case where pub is null
-                    System.err.println("Error: pub is null");
+//    @FXML
+//    void SupprimerA(ActionEvent event) {
+//        Button btn = (Button) event.getSource();
+//        page pageToDelete = (page) btn.getUserData();
+//
+//        if (pageToDelete != null) {
+//            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+//            confirmAlert.setTitle("Confirmation de suppression");
+//            confirmAlert.setHeaderText(null);
+//            confirmAlert.setContentText("Êtes-vous sûr de vouloir supprimer cette publication ?");
+//
+//            Optional<ButtonType> result = confirmAlert.showAndWait();
+//            if (result.isPresent() && result.get() == ButtonType.OK) {
+//                try {
+//                    pageService service = new pageService();
+//                    service.supprimer(pageToDelete.getIdP());
+//
+//                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+//                    successAlert.setTitle("Suppression avec succès");
+//                    successAlert.setContentText("Publication supprimée");
+//                    successAlert.showAndWait();
+//
+//
+//                   // pub.refreshView();
+//
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+        @FXML
+        void SupprimerA(ActionEvent event) {
+
+            if (pageS != null) {
+                try {
+                    // Appeler la méthode de service pour supprimer l'événement
+                    pageService service = new pageService();
+                    service.supprimer(pageS.getIdP());
+                    Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmation.setTitle("Confirmation");
+                    confirmation.setContentText("Êtes-vous sûr de vouloir supprimer cet élément ?");
+                    Optional<ButtonType> result = confirmation.showAndWait();
+                    ad.refreshView();
+                    // Afficher une confirmation à l'utilisateur
+
+
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-                // Afficher une confirmation à l'utilisateur
 
-
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
-
         }
-    }
+//        if (pageS != null) {
+//            // Display confirmation dialog
+//            Alert confirmDialog = new Alert(Alert.AlertType.CONFIRMATION);
+//            confirmDialog.setTitle("Confirmation");
+//            confirmDialog.setHeaderText(null);
+//            confirmDialog.setContentText("Voulez-vous vraiment supprimer ?");
+//
+//            // Handling user response
+//            Optional<ButtonType> result = confirmDialog.showAndWait();
+//            if (result.isPresent() && result.get() == ButtonType.OK) {
+//                try {
+//                    // Call the service method to delete the page
+//                    pageService service = new pageService();
+//                    service.supprimer(pageS.getIdP()); // Delete the page
+//
+//                    // Show deletion success message
+//                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+//                    successAlert.setTitle("Succès");
+//                    successAlert.setHeaderText(null);
+//                    successAlert.setContentText("Suppression réussie !");
+//                    successAlert.showAndWait();
+//
+//                    // Refresh view
+//                    pub.initialize();
+//
+//                    // Clear displayed page after deletion
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                    // Handle the exception as needed
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }
+
 
 
     private void showErrorAlert(String message) {

@@ -28,6 +28,7 @@ public class AjouterLieuxcontroller {
     @FXML
     private TextField locali;
 
+
     @FXML
     private TextField nom;
 
@@ -94,6 +95,7 @@ public class AjouterLieuxcontroller {
 
     @FXML
     private void initialize() {
+
         categorieChoiceBox.setItems(FXCollections.observableArrayList(categorieP.values()));
     }
 
@@ -130,8 +132,8 @@ public class AjouterLieuxcontroller {
         // Show confirmation message
         showSuccessAlert("Ajout est fait avec succès");
 
-        // Navigate to the PageTest.fxml when the "ajouter" button is clicked
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PageConsult.fxml"));
+        // Navigate to the PageTest(lieux).fxml when the "ajouter" button is clicked
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PubTest(lieux).fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

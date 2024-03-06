@@ -91,37 +91,69 @@ public class Modifiercontroller {
         }
         imagePath= file.getAbsolutePath();
     }
-    public void setRefresh( GeneralDesignTestController pub) {
-        this.pub = pub;
-    }
 
 
     @FXML
     void mod(ActionEvent event) {
         try {
-            if (!imagePath.isEmpty() ) {
-                pu.setImage(imagePath);
+            // Validate inputs before updating the publication
+            if (!validateInputs()) {
+                return; // Exit method if inputs are not valid
             }
 
+            // Update publication fields
+            if (!imagePath.isEmpty()) {
+                pu.setImage(imagePath);
+            }
             pu.setNom(nommm.getText());
             pu.setDescription(desscc.getText());
 
-
+            // Modify publication in the database
             publicationService ES = new publicationService();
             ES.modifier(pu);
 
+            // Close the window and refresh the view
             Stage stage = (Stage) mod.getScene().getWindow();
             stage.close();
             pub.refreshview();
-
-        } catch (SQLException | DateTimeParseException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
+            showErrorAlert("Error modifying publication: " + ex.getMessage());
         }
     }
-//        }
+    // Validate inputs method
+    private boolean validateInputs() {
+        // Validate the name field
+        String nom = nommm.getText().trim();
+        if (nom.isEmpty()) {
+            showErrorAlert("Please enter a name for the publication.");
+            return false;
+        }
+
+        // Validate the description field
+        String description = desscc.getText().trim();
+        if (description.isEmpty()) {
+            showErrorAlert("Please enter a description for the publication.");
+            return false;
+        }
+
+        // Optional: Validate image file if required
+        if (imagePath.isEmpty()) {
+            showErrorAlert("Please select an image for the publication.");
+            return false;
+        }
+
+        // Additional validation checks can be added here...
+
+        // All inputs are valid
+        return true;
+    }
 
 
 
+    public void setRefresh( GeneralDesignTestController pub) {
+        this.pub = pub;
+    }
 
 
 

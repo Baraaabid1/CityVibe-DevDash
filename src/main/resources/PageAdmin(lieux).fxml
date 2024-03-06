@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="466.0" prefWidth="822.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PageAdmincontroller">
+   <children>
+      <HBox layoutX="96.0" layoutY="24.0" prefHeight="154.0" prefWidth="630.0">
+         <children>
+            <Pane prefHeight="154.0" prefWidth="300.0" />
+            <ImageView fx:id="imgA" fitHeight="153.0" fitWidth="281.0" pickOnBounds="true" preserveRatio="true" />
+            <Pane prefHeight="154.0" prefWidth="300.0" />
+         </children>
+      </HBox>
+      <Label layoutX="297.0" layoutY="196.0" text="Nom :" textFill="#f99d26">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label fx:id="nomA" layoutX="393.0" layoutY="198.0" prefHeight="18.0" prefWidth="180.0" style="-fx-background-color: white; -fx-background-radius: 30;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label layoutX="181.0" layoutY="251.0" text="Déscription" textFill="#f99d26">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label fx:id="desA" layoutX="312.0" layoutY="248.0" prefHeight="30.0" prefWidth="346.0" style="-fx-background-color: white; -fx-background-radius: 30;" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label layoutX="182.0" layoutY="298.0" text="Localisation :" textFill="#f99d26">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label fx:id="locA" layoutX="312.0" layoutY="293.0" prefHeight="30.0" prefWidth="346.0" style="-fx-background-color: white; -fx-background-radius: 30;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label layoutX="182.0" layoutY="343.0" text="Catègorie :" textFill="#f99d26">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label fx:id="catA" layoutX="313.0" layoutY="340.0" prefHeight="22.0" prefWidth="346.0" style="-fx-background-color: white; -fx-background-radius: 30;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label layoutX="183.0" layoutY="386.0" text="Contact :" textFill="#f99d26">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label fx:id="contA" layoutX="312.0" layoutY="382.0" prefHeight="30.0" prefWidth="346.0" style="-fx-background-color: white; -fx-background-radius: 30;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label layoutX="183.0" layoutY="428.0" text="Ouverture :" textFill="#f99d26">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Label fx:id="ouvA" layoutX="309.0" layoutY="423.0" prefHeight="30.0" prefWidth="346.0" style="-fx-background-color: white; -fx-background-radius: 30;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font></Label>
+      <Button layoutX="696.0" layoutY="341.0" mnemonicParsing="false" onAction="#modifierA" prefHeight="42.0" prefWidth="102.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Modifier" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="SupprimerA" layoutX="696.0" layoutY="407.0" mnemonicParsing="false" onAction="#SupprimerA" prefHeight="42.0" prefWidth="102.0" style="-fx-background-color: f99d26; -fx-background-radius: 30;" text="Supprimer" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="logoA" fitHeight="72.0" fitWidth="80.0" layoutX="187.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

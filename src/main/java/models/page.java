@@ -11,7 +11,12 @@ public class page {
     private categorieP categorie;
 
     public page() {}
-    public page (int IdP,String nom ,int contact , categorieP categorie, String localisation ,String description,LocalTime ouverture, String image,String logo ) {
+
+    public page(int idP) {
+        IdP = idP;
+    }
+
+    public page (int IdP, String nom , int contact , categorieP categorie, String localisation , String description, LocalTime ouverture, String image, String logo ) {
         this.IdP = IdP;
         this.nom = nom;
         this.contact = contact;
@@ -123,5 +128,9 @@ public class page {
                 '}';
     }
 
+    public String getCategory() {
+        return categorie.toString();
+
     }
+}
 

@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 public class ModifierLieuxcontroller {
 
@@ -137,20 +138,15 @@ public class ModifierLieuxcontroller {
             Stage stage = (Stage) mod.getScene().getWindow();
             stage.close();
 
-            pub.refreshView();
+       ///     pub.refreshView();
 
         } catch (SQLException | DateTimeParseException ex) {
-            ex.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            ex.printStackTrace();}
 
     }
 
 
-    private boolean saisieValide() {
-        return false;
-    }
+
 
 
 
@@ -195,4 +191,59 @@ public class ModifierLieuxcontroller {
             }
 
         }
-    }     }
+    }
+    private boolean saisieValide() {
+        // Validate name field
+        if (!validateTextField(nom, "Name")) return false;
+
+        // Validate localisation field
+        if (!validateTextField(locali, "Localisation")) return false;
+
+        // Validate description field
+        if (!validateTextField(description, "Description")) return false;
+
+        // Validate contact field
+        if (!validateContactField()) return false;
+
+        // Validate ouverture field
+        if (!validateOuvertureField()) return false;
+
+        return true;
+    }
+
+    private boolean validateTextField(TextField textField, String fieldName) {
+        String text = textField.getText().trim();
+        if (text.isEmpty()) {
+            showErrorAlert(fieldName + " cannot be empty.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateContactField() {
+        String contactText = contact.getText().trim();
+        if (contactText.isEmpty()) {
+            showErrorAlert("Contact cannot be empty.");
+            return false;
+        }
+        if (!Pattern.matches("\\d+", contactText)) {
+            showErrorAlert("Contact must be a valid number.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateOuvertureField() {
+        String ouvertureText = ouverture.getText().trim();
+        if (ouvertureText.isEmpty()) {
+            showErrorAlert("Ouverture cannot be empty.");
+            return false;
+        }
+        try {
+            LocalTime.parse(ouvertureText, DateTimeFormatter.ofPattern("HH:mm:ss"));
+        } catch (DateTimeParseException e) {
+            showErrorAlert("Ouverture must be in the format HH:mm:ss.");
+            return false;
+        }
+        return true;
+    }}

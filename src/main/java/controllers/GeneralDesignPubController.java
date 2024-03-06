@@ -20,11 +20,11 @@ public class GeneralDesignPubController {
 
     @FXML
     private TextField seachbar;
+
     @FXML
     public void initialize() {
         loadContent();
     }
-
 
     private void loadContent() {
         try {
@@ -39,8 +39,8 @@ public class GeneralDesignPubController {
 
             // Iterate through the list of publications
             for (publication publication : publicationList) {
-                // Load Pub.fxml for each publication and set its data
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPub.fxml"));
+                // Load Pub(lieux).fxml for each publication and set its data
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterPub(lieux).fxml"));
                 Parent interfaceRoot = loader.load();
                 AjouterPubcontroller itemController = loader.getController();
                 itemController.setData(publication);
@@ -55,7 +55,6 @@ public class GeneralDesignPubController {
                 col++;
                 if (col == 1) {
                     col = 0;
-
                 }
             }
         } catch (SQLException | IOException e) {
@@ -123,9 +122,11 @@ public class GeneralDesignPubController {
 
     }
 
-    public void ins(ActionEvent actionEvent) {
-    }
-
-    public void aj(ActionEvent actionEvent) {
+    @FXML
+    void seachbar(ActionEvent event) {
+        // This method will be called when the user presses Enter or performs an action in the search bar
+        String searchText = seachbar.getText(); // Get the text entered in the search bar
+        // You can now use the searchText to filter your publicationList or perform any search-related operations
+        System.out.println("Search text entered: " + searchText);
     }
 }

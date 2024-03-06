@@ -20,16 +20,26 @@ public class GeneralDesignLieuxController {
 
     @FXML
     private TextField seachbar;
+
+    private publicationService publicationService;
+
     @FXML
     public void initialize() {
+        publicationService = new publicationService();
+        loadContent();
+    }
+    public void refreshView() throws IOException {
         loadContent();
     }
 
-
     private void loadContent() {
         try {
-            publicationService publicationService = new publicationService();
-            List<publication> publicationList = publicationService.afficher();
+            List<publication> publicationList;
+            if (seachbar.getText().isEmpty()) {
+                publicationList = publicationService.afficher();
+            } else {
+                publicationList = publicationService.search(seachbar.getText());
+            }
 
             // Clear existing content of GridPane
             GridPaneV.getChildren().clear();
@@ -39,13 +49,12 @@ public class GeneralDesignLieuxController {
 
             // Iterate through the list of publications
             for (publication publication : publicationList) {
-                // Load Pub.fxml for each publication and set its data
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterLieux.fxml"));
+                // Load AjouterLieux(lieux).fxml for each publication and set its data
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterLieux(lieux).fxml"));
                 Parent interfaceRoot = loader.load();
                 AjouterLieuxcontroller itemController = loader.getController();
                 itemController.setData(publication);
                 itemController.setE(publication);
-                // itemController.setRefresh(this);
 
                 // Add the loaded element to GridPane
                 GridPaneV.add(interfaceRoot, col, row);
@@ -55,7 +64,6 @@ public class GeneralDesignLieuxController {
                 col++;
                 if (col == 1) {
                     col = 0;
-
                 }
             }
         } catch (SQLException | IOException e) {
@@ -64,9 +72,6 @@ public class GeneralDesignLieuxController {
         }
     }
 
-    public void refreshView() {
-        loadContent();
-    }
 
     @FXML
     void Button_Acceuil(ActionEvent event) {
@@ -123,9 +128,8 @@ public class GeneralDesignLieuxController {
 
     }
 
-    public void ins(ActionEvent actionEvent) {
-    }
 
-    public void aj(ActionEvent actionEvent) {
+
+    public void seachbar(ActionEvent actionEvent) {
     }
 }

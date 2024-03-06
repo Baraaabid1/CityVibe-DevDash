@@ -10,8 +10,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import models.page;
 import models.publication;
 import services.publicationService;
 import java.io.IOException;
@@ -34,8 +34,12 @@ public class Pubcontroller {
 
     @FXML
     private Button supp;
+    @FXML
+    private Label nomP;
+
 
     private publication pu;
+
     public GeneralDesignTestController pub;
     private Scene scene;
 
@@ -46,6 +50,15 @@ public class Pubcontroller {
     public void setPu(publication pu) {
         this.pu = pu;
     }
+    private page page=new page();
+    private publication publication=new publication();
+
+    public void setPublication(models.publication publication) {
+        this.publication = publication;
+    }
+
+    public Pubcontroller() {
+    }
 
     @FXML
     void modif(ActionEvent event) {
@@ -54,7 +67,7 @@ public class Pubcontroller {
 
         if (pubToModify != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modifier.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modifier(lieux).fxml"));
                 Parent root = loader.load();
 
                 Modifiercontroller modifierController = loader.getController();
@@ -77,7 +90,7 @@ public class Pubcontroller {
     void Modifier(ActionEvent event) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modifier.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Modifier(lieux).fxml"));
             Parent root = loader.load();
 
             ModifierEvenement ModifierEvenement = loader.getController();
@@ -105,16 +118,16 @@ public class Pubcontroller {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 try {
                     publicationService service = new publicationService();
-                    service.supprimer(pubToDelete.getidP());
+                    service.supprimer(pubToDelete.getIdPub());
 
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                     successAlert.setTitle("Suppression avec succès");
                     successAlert.setContentText("Publication supprimée");
                     successAlert.showAndWait();
 
-                    if (pub != null) {
+
                         pub.refreshView();
-                    }
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -136,6 +149,9 @@ public class Pubcontroller {
 
     public void setData(publication publication) {
         if (publication != null) {
+            if (publication.getPage() != null) {
+                nomP.setText(publication.getPage().getNom());
+            }
             decc.setText(publication.getDescription());
             nomm.setText(publication.getNom());
             Image image = new Image("file:" + publication.getImage());
@@ -144,6 +160,7 @@ public class Pubcontroller {
             modif.setUserData(publication);
         }
     }
+
 
     public void setE(publication publication) {
         // Not sure what this method is intended for
